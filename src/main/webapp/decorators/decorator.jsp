@@ -6,12 +6,14 @@
 <!DOCTYPE html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, user-scalable=no" />
-<meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
 <meta name="keywords" content="课时笔记 课程管理">
 <title>课时笔记</title>
 
 <link rel="stylesheet" href="/resources/css/base.css">
 <link rel="stylesheet" href="/resources/css/login.css">
+<link rel="stylesheet" href="/resources/css/class.css">
+
 <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <decorator:head/>
 </head>

@@ -18,8 +18,8 @@ import java.util.Date;
 public class SmsSendUtil {
     //正式环境需要设置为:http://gw.api.taobao.com/router/rest
     protected static String url = "http://gw.api.taobao.com/router/rest";
-    protected static String appkey = "23278334";
-    protected static String appSecret = "92178879f20edada9f04cd406805bae0";
+    protected static String appkey = "23400690";
+    protected static String appSecret = "43da16601a85ff17138f1e912b108ec5";
     protected static Logger opLogger = LoggerFactory.getLogger("oplog");
 
     public static String sendLoginCheck(String mobile, String randomcode) {
@@ -28,13 +28,17 @@ public class SmsSendUtil {
             AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
             req.setExtend("");
             req.setSmsType("normal");
-            req.setSmsFreeSignName("登录验证");//签名
+            req.setSmsFreeSignName("课时笔记");//签名
+
             String smsParamString = "{\"code\":\"" + randomcode + "\"}";
             req.setSmsParamString(smsParamString);//短信模版内容
             req.setRecNum(mobile);
             req.setSmsTemplateCode("SMS_11065578");//短信模版编码
             AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
-            opLogger.info(StringTools.toLogString("SMS_11065578|sendSMSSuccess", mobile, rsp.getBody()));
+           // opLogger.info(StringTools.toLogString("SMS_11065578|sendSMSSuccess", mobile, rsp.getBody()));
+
+           // System.out.println(rsp.getResult().getErrCode());
+            //return "0";
             return rsp.getResult().getErrCode();
         } catch (Exception e) {
             opLogger.info(StringTools.toLogString("SMS_11065578|sendSMSError", mobile, e.toString()));

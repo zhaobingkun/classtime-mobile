@@ -76,12 +76,14 @@ public class UserController extends MyBaseController {
             cpsuserManager.update(user);
             opLogger.info(StringTools.toLogString(phone, "update", user));
         }
-        //String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
+       // String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
         String res = SmsSendUtil.sendLoginCheck(phone, randomCode);
 
         if (res != null && res.equals("0")) {
-            result = toJsonResult(1, "", randomCode);
+            result = toJsonResult(1, "", "");
         }
+
+        System.out.print(toJsonResult(1, "", ""));
         return result;
     }
 
@@ -100,19 +102,19 @@ public class UserController extends MyBaseController {
         }
 
         if (cpsuser != null) {//如果用户已经登录  又可以用了。还是配置问题
-            logger.info("getRandomCodeOfLongin psuser != null " + StringTools.isEmpty(cpsuser.getEmail()));
+            /*logger.info("getRandomCodeOfLongin psuser != null " + StringTools.isEmpty(cpsuser.getEmail()));
             if (StringTools.isEmpty(cpsuser.getEmail())) {//如果用户使用手机号码已经登录，更新校验码，还是手机号码不能更改
                 cpsuser.setRandomcode(randomCode);
                 cpsuser.setUpdatetime(new Date());
                 cpsuserManager.update(cpsuser);
                 opLogger.info(StringTools.toLogString(phone, "update", cpsuser));
-            } else {//如果用户使用邮箱已经登录，更新手机号码和校验码
+            } else {*/  //如果用户使用邮箱已经登录，更新手机号码和校验码
                 cpsuser.setRandomcode(randomCode);
                 cpsuser.setUpdatetime(new Date());
                 cpsuser.setContactphone(phone);
                 cpsuserManager.update(cpsuser);
                 opLogger.info(StringTools.toLogString(phone, "update", cpsuser));
-            }
+           // }
 
         } else {
             Cpsuser user = null;
@@ -152,6 +154,8 @@ public class UserController extends MyBaseController {
     public String loginOfPhone(@RequestParam("phone") String phone, @RequestParam("randomcode") String randomcode,
                                HttpServletResponse response) throws IOException {
         Cpsuser user = cpsuserManager.findByPhone(phone);
+
+        System.out.println("userid="+user.getId());
         String result = toJsonResult(0, "", "");
         logger.info("loginForPhone user:" + ((user == null) ? "null" : user.toString()));
         if (user != null) {
@@ -162,8 +166,9 @@ public class UserController extends MyBaseController {
                 result = toJsonResult(22, "", "");
             }
         }
-        logger.info("loginOfPhone json end result {}", result);
+        //logger.info("loginOfPhone json end result {}", result);
         return result;
+        //return "redirect:/classmanager/classlist.html";
     }
 
 

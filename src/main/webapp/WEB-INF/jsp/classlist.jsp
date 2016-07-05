@@ -1,15 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!doctype html>
+<%@ include file="/common/include.jsp" %>
 <html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no" />
-<meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-<title>课程管理</title>
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/class.css">
-<script src="js/jquery.min.js"></script>
-</head>
-
 <body>
 <div class="fix-bottom">
 	<ul class="menu-ul">
