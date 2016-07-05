@@ -1,6 +1,5 @@
 package com.classtime.mobile.util;
 
-import com.classtime.service.utils.DateUtils;
 import com.classtime.service.utils.StringTools;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -8,8 +7,6 @@ import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
 import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Date;
 
 /**
  * Created by zhaobk on 2015-12-07.
@@ -47,6 +44,8 @@ public class SmsSendUtil {
         return "";
     }
 
+
+    /*
     public static String sendWandaSms(String mobile, String randomcode) {
         try {
             TaobaoClient client = new DefaultTaobaoClient(url, appkey, appSecret);
@@ -68,12 +67,12 @@ public class SmsSendUtil {
         return "";
     }
 
-    /**
+    *//**
      * 用户提交订单时发送短信提醒
      *
      * @param product 产品名称
      * @param name    联系人名称
-     */
+     *//*
     public static String sendNewTripSms(String product, String name) {
         String mobile = "13910557793";
         try {
@@ -97,7 +96,7 @@ public class SmsSendUtil {
         }
         return "";
     }
-
+*/
     public static void main(String sr[]) {
         String mobile = "13146485726";
         SmsSendUtil.sendLoginCheck(mobile, "123456");
