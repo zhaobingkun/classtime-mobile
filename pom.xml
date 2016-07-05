@@ -71,6 +71,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         <!--<dependency>-->
         <!--<groupId>org.springframework</groupId>-->
         <!--<artifactId>spring-orm</artifactId>-->
@@ -224,6 +231,16 @@
             <artifactId>memcached</artifactId>
             <version>2.6.6</version>
         </dependency>
+                <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.1.15</version>
+        </dependency>
         <!--page-->
         <dependency>
             <groupId>com.github.miemiedev</groupId>
@@ -241,16 +258,7 @@
             <artifactId>netty</artifactId>
             <version>3.9.0.Final</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>4.0.5.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-            <version>2.5.6</version>
-        </dependency>
+
         <!--taobao sdk end-->
     </dependencies>
     <build>
@@ -394,7 +402,7 @@
 
     </profiles>
 
-    <repositories>
+  <!--  <repositories>
         <repository>
             <id>public</id>
             <name>User Project public</name>
@@ -405,5 +413,5 @@
             <name>User Project thirdparty</name>
             <url>http://101.201.232.250:8081/nexus/content/repositories/thirdparty</url>
         </repository>
-    </repositories>
+    </repositories>-->
 </project>
