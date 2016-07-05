@@ -1,0 +1,23 @@
+::-webkit-input-placeholder { /* WebKit browsers */
+color: #727272;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color: #727272;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+color: #727272;
+} 
+
+.login-wrap{ position:absolute; left:0; right:0; top:0; bottom:0; background:url(../images/login-bg.jpg) no-repeat center 0; background-size:auto 100%; z-index:0 }
+.login-wrap .inner{ width:100%; max-width:414px; margin:0 auto }
+
+.login-wrap h1{ line-height:40px; font-size:30px; text-shadow:2px 2px 4px #000; -moz-text-shadow:2px 2px 4px #000; -webkit-text-shadow:2px 2px 4px #000; padding:71px 0; color:#fff; text-align:center; font-weight:normal }
+
+.inputs-ul-login{ padding:0 36px }
+.inputs-ul-login li{ display:box; display:-moz-box; display: flex;/*firefox 20+*/ display:-webkit-box; width:100%; margin-bottom:25px; height:45px }
+.inputs-ul-login li .i-txt{ box-flex:1; -moz-box-flex:1; -webkit-box-flex:1; flex:1;/*firefox 20+*/ display:block; background:#fff; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; line-height:45px; height:45px; padding-left:35px }
+.inputs-ul-login .phone-li .i-txt{ background:url(../images/icon-phone.png) no-repeat 12px center #fff; background-size:11px auto }
+.inputs-ul-login .check-code-li .i-txt{ background:url(../images/icon-checkcode.png) no-repeat 12px center #fff; background-size:15px auto }
+.inputs-ul-login .check-code-li .btn-checkcode{ margin-left:10px; width:125px }
+
+.inputs-ul-login .btm-btn{ margin-top:65px }

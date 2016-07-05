@@ -1,0 +1,29 @@
+.class-wrap{ padding:15px }
+h2.student-overview{ font-weight:normal; color:#80827c; line-height:16px; padding:4px 0 20px  }
+h2.student-overview b{ font-size:18px }
+h2.student-overview span.id{ font-size:12px }
+h2.student-overview .pad-5{ padding:0 5px }
+h2.student-overview .btn-student{ margin-top:-4px }
+
+.subject-wrap{ background:#fff; border-bottom:1px solid #eaeaea; }
+.subject-wrap .subject{ overflow:hidden; font-size:12px; color:#727272 }
+.subject-wrap .subject .name-settings{ color:#ff5114; padding:0 21px 0 15px; background:url(../images/icon-settings.png) no-repeat right center; background-size:19px 19px; line-height:44px; margin-right:17px; font-size:15px }
+.subject-wrap .subject em{ font-size:15px }
+.subject-wrap .subject .slide-switch{ float:right; width:47px; height:44px; display:block }
+.subject-wrap .subject .slide-up{ background:url(../images/icon-up-select.png) no-repeat right center; background-size:auto 13px }
+.subject-wrap .subject .slide-down{ background:url(../images/icon-down-select.png) no-repeat right center; background-size:auto 13px }
+.subject-detail{ border-top:2px dotted #eee }
+.subject-detail .time-ul{ padding:10px }
+.subject-detail .time-ul li.start-over{ padding-left:20px; background:url(../images/icon-clock.png) no-repeat 0 center; background-size:13px auto; font-size:12px; color:#727272 }
+.subject-detail .time-ul li.start-over em{ font-size:12px }
+.subject-detail .changes{ overflow:hidden; padding-bottom:14px }
+.subject-detail .changes li.little-changes{ line-height:18px; float:left; padding-left:30px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; width:50% }
+.subject-detail .changes li.little-changes i, .subject-detail .changes li.little-changes em, .subject-detail .changes li.little-changes span{ font-size:12px }
+
+
+
+
+
+
+
+

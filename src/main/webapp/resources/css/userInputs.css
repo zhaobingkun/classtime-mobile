@@ -1,0 +1,38 @@
+.form-wrap{ background:#fff; margin:15px; margin-bottom:76px; padding:18px 20px }
+.form-wrap h4.top-id{ font-weight:normal; margin-bottom:16px }
+
+.inputs-ul li.one-item{ margin-bottom:10px; width:100% }
+.inputs-ul li label.tit{ line-height:36px; display:block }
+.inputs-ul li .i-txt, .inputs-ul .select{ line-height:40px; height:40px; border:1px solid #e3e3e3 }
+.inputs-ul li .i-txt-calendar{ background:url(../images/icon-calendar.png) no-repeat right center; background-size:37px auto }
+.inputs-ul li .sex-choice{ border:1px solid #e3e3e3; display:block; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; width:100%; height:40px }
+.sex-choice li{ float:left; width:50%; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; text-align:center; height:40px; line-height:40px; color:#2d9e1b; cursor:pointer }
+.sex-choice li:first-child{ border-right:1px solid #e3e3e3 }
+.sex-choice .current{ background:#abce7c; color:#fff; cursor:default }
+.inputs-ul li.one-item-week{ overflow:hidden; line-height:20px }
+.inputs-ul li.one-item-week .week-selected{ background-position:0 -54px }
+.day-of-week{ width:33%; float:left; font-size:15px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;  background:url(../images/icon-checkbox.png) no-repeat 0 8px; background-size:19px auto; padding:8px 0 8px 25px }
+.day-of-week .checkbox-week{ display:none }
+.inputs-ul .btm-btn{ margin-top:30px }
+
+.inputs-ul .color-select-wrap{ padding:4px; height:50px; line-height:50px }
+.color-select-wrap .select-a-color{ background:url(../images/icon-down-white.png) no-repeat right center #f39a72; background-size:auto 13px; color:#fff; text-align:center; height:40px; line-height:40px; border:none }
+.color-select-wrap .select-a-color option{ color:#fff; text-align:center }
+/*.color-select-wrap .select-a-color option{ background-color:#f62831 }*/
+.color-select-wrap .orange{ background-color:#f39a72 }
+.color-select-wrap .yellow{ background-color:#d4d174 }
+.color-select-wrap .yellow-green{ background-color:#a5d664 }
+.color-select-wrap .turquoise{ background-color:#89d7aa }
+.color-select-wrap .blue{ background-color:#7ea9e3 }
+.color-select-wrap .rose-red{ background-color:#ec76cf }
+.color-select-wrap .purple{ background-color:#a68fe9 }
+
+.class-amount{ text-align:center; font-size:15px; line-height:18px; padding-bottom:9px }
+.class-amount b{ font-size:18px; color:#2d9e1b }
+.btm-btn .btn-grey{ margin-top:10px }
+
+
+
+
+
+

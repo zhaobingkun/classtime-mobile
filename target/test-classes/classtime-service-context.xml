@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:tx="http://www.springframework.org/schema/tx"
+             xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <beans:bean id="constant" class="com.classtime.mobile.util.ConstantUtil"/>
+    <beans:bean id="ServiceLocator" class="com.classtime.mobile.util.ServiceLocator"/>
+    <beans:bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <beans:property name="locations">
+            <beans:list>
+                <beans:value>classpath:constant.properties</beans:value>
+                <beans:value>classpath:jdbc.properties</beans:value>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+    <context:component-scan base-package="com.classtime"/>
+    <context:annotation-config/>
+
+   <!-- <beans:bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <beans:property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <beans:property name="jdbcUrl" value="${jdbcUrl}"/>
+        <beans:property name="username" value="${username}"/>
+        <beans:property name="password" value="${password}"/>
+
+
+        &lt;!&ndash; 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0 &ndash;&gt;
+       &lt;!&ndash;<beans:property name="idleConnectionTestPeriod" value="60"/>&ndash;&gt;
+
+
+        &lt;!&ndash;  连接池中未使用的链接最大存活时间，单位是分，默认值：60，如果要永远存活设置为0 &ndash;&gt;
+        &lt;!&ndash;<beans:property name="idleMaxAge" value="240"/>&ndash;&gt;
+
+        &lt;!&ndash; 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0 &ndash;&gt;
+        <beans:property name="idleConnectionTestPeriod" value="240"/>
+
+
+        &lt;!&ndash;  连接池中未使用的链接最大存活时间，单位是分，默认值：60，如果要永远存活设置为0 &ndash;&gt;
+        <beans:property name="idleMaxAge" value="60"/>
+
+        &lt;!&ndash; 空闲连接检测间隔 &ndash;&gt;
+        <beans:property name="idleConnectionTestPeriodInMinutes" value="${bonecp.idleConnectionTestPeriodInMinutes}"/>
+
+        &lt;!&ndash; 空闲连接保持时间&ndash;&gt;
+        <beans:property name="idleMaxAgeInMinutes" value="${bonecp.idleMaxAgeInMinutes}"/>
+
+        &lt;!&ndash; 每个分区最大的连接数 &ndash;&gt;
+        <beans:property name="maxConnectionsPerPartition" value="${bonecp.maxConnectionsPerPartition}"/>
+
+        &lt;!&ndash; 每个分区最小的连接数 &ndash;&gt;
+        <beans:property name="minConnectionsPerPartition" value="${bonecp.minConnectionsPerPartition}"/>
+
+        &lt;!&ndash; 分区数 ，默认值2，最小1，推荐3-4，视应用而定&ndash;&gt;
+        <beans:property name="partitionCount" value="${bonecp.partitionCount}"/>
+
+        &lt;!&ndash; 每次去拿数据库连接的时候一次性要拿几个,默认值：2 &ndash;&gt;
+        <beans:property name="acquireIncrement" value="${bonecp.acquireIncrement}"/>
+        &lt;!&ndash; 缓存prepared statements的大小，默认值：0 &ndash;&gt;
+        <beans:property name="statementsCacheSize" value="${bonecp.statementsCacheSize}"/>
+        &lt;!&ndash; 每个分区释放链接助理进程的数量，默认值：3，除非你的一个数据库连接的时间内做了很多工作，不然过多的助理进程会影响你的性能 &ndash;&gt;
+        <beans:property name="releaseHelperThreads" value="${bonecp.releaseHelperThreads}"/>
+        <beans:property name="defaultAutoCommit" value="${bonecp.defaultAutoCommit}"/>
+
+
+    </beans:bean>-->
+
+    <beans:bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+        <beans:property name="driver" value="com.mysql.jdbc.Driver"/>
+        <beans:property name="driverUrl" value="${jdbcUrl}" />
+                                                <!--jdbc:mysql://localhost:3306/dbname?user=yourname&amp;password=yourpass-->
+        <beans:property name="user" value="${username}" />
+        <beans:property name="password" value="${password}" />
+        <beans:property name="alias" value="Pool_dbname" />
+        <beans:property name="houseKeepingSleepTime" value="90000" />
+        <beans:property name="prototypeCount" value="0" />
+        <beans:property name="maximumConnectionCount" value="50" />
+        <beans:property name="minimumConnectionCount" value="2" />
+        <beans:property name="simultaneousBuildThrottle" value="50" />
+        <beans:property name="maximumConnectionLifetime" value="14400000" />
+        <beans:property name="houseKeepingTestSql" value="select CURRENT_DATE" />
+    </beans:bean>
+
+    <beans:bean id="sqlSessionFactory"
+                class="org.mybatis.spring.SqlSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <beans:property name="mapperLocations" value="classpath:com/classtime/service/mapping/*.xml"/>
+        <beans:property name="typeAliasesPackage" value="com.classtime.service.model"/>
+        <beans:property name="typeAliases" value="org.springframework.util.LinkedCaseInsensitiveMap"/>
+    </beans:bean>
+
+    <beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <beans:property name="basePackage" value="com.classtime.service.dao"/>
+        <beans:property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </beans:bean>
+
+<!--
+   <beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <beans:property name="dataSource" ref="dataSource" />
+    </beans:bean>
+    <tx:annotation-driven/>
+-->
+
+    <beans:bean id="sockIOPool" class="com.danga.MemCached.SockIOPool" factory-method="getInstance"
+                init-method="initialize">
+        <beans:property name="servers" value="182.92.214.72:11211"/>
+        <beans:property name="weights" value="3"/>
+        <beans:property name="initConn" value="5"/>
+        <beans:property name="minConn" value="5"/>
+        <beans:property name="maxConn" value="250"/>
+        <beans:property name="maxIdle" value="21600000"/>
+        <beans:property name="maintSleep" value="30"/>
+        <beans:property name="nagle" value="false"/>
+        <beans:property name="socketTO" value="3000"/>
+        <beans:property name="socketConnectTO" value="0"/>
+    </beans:bean>
+    <beans:bean id="memCacheClient" class="com.danga.MemCached.MemCachedClient">
+        <beans:property name="sanitizeKeys" value="false"/>
+    </beans:bean>
+    <beans:bean id="cacheClient" class="com.classtime.service.manager.impl.MemCacheClientImpl">
+        <beans:property name="cache" ref="memCacheClient"/>
+        <beans:property name="expire" value="1000000"/>
+        <beans:property name="openCache" value="true"/>
+    </beans:bean>
+</beans:beans>

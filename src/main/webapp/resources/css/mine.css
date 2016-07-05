@@ -1,0 +1,14 @@
+.student-wrap{ padding-bottom:61px }
+.student-info{ background:url(../images/mine-bgpic.jpg) repeat-x center 0; background-size:auto 100%; padding:10px 4%; height:80px }
+.student-info .student-pic{ width:80px; height:80px; border-radius:200px; -webkit-border-radius:200px; -moz-border-radius:200px; overflow:hidden; box-shadow:0 0 5px #8c8c8c; -webkit-box-shadow:0 0 5px #8c8c8c; -moz-box-shadow:0 0 5px #8c8c8c; float:left; text-align:center }
+.student-info .student-txts{ float:left; padding:8px 0 0 13px }
+.student-info .student-txts h3{ color:#fff; line-height:30px; padding-bottom:3px; text-shadow:0 0 5px #333333; -webkit-text-shadow:0 0 5px #333333; -moz-text-shadow:0 0 5px #333333 }
+.student-info .student-txts h3 span.id{ font-weight:normal; color:#fff; font-size:12px; padding-left:11px }
+
+.student-menu{ background:#fff; margin-bottom:14px }
+.student-menu li{ border-bottom:1px solid #eaeaea }
+.student-menu li a{ padding:10px 15px 10px 40px; color:#4f4f4fl; line-height:24px; font-size:15px; display:block }
+.student-menu li.personal a{ background:url(../images/icon-personal.png) no-repeat 15px center; background-size:auto 21px }
+.student-menu li.import a{ background:url(../images/icon-import.png) no-repeat 15px center; background-size:auto 21px }
+.student-menu li a i.enter{ float:right; width:15px; height:24px; display:block; background:url(../images/icon-right.png) no-repeat center center; background-size:100% auto }
+
