@@ -393,4 +393,17 @@
 
 
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>public</id>
+            <name>User Project public</name>
+            <url>http://101.201.232.250:8081/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>thirdparty</id>
+            <name>User Project thirdparty</name>
+            <url>http://101.201.232.250:8081/nexus/content/repositories/thirdparty</url>
+        </repository>
+    </repositories>
 </project>
