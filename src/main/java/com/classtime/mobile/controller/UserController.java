@@ -76,14 +76,14 @@ public class UserController extends MyBaseController {
             cpsuserManager.update(user);
             opLogger.info(StringTools.toLogString(phone, "update", user));
         }
-       // String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
+        //String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
         String res = SmsSendUtil.sendLoginCheck(phone, randomCode);
 
         if (res != null && res.equals("0")) {
             result = toJsonResult(1, "", "");
         }
 
-        System.out.print(toJsonResult(1, "", ""));
+       // System.out.print(toJsonResult(1, "", ""));
         return result;
     }
 

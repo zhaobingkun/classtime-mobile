@@ -36,14 +36,14 @@ function getRandomCode() {
                     if (seconds > 0) {
                         seconds = seconds - 1;
                         $("#randomcodegetbutton").removeAttr('onclick');
-                        $("#randomcodegetbutton").html(seconds+"秒后过期");
+                        $("#randomcodegetbutton").html(seconds+"秒后重试");
                     } else {
-                        $('#randomcodegetbutton').html('重新获取验证码');
+                        $('#randomcodegetbutton').html('获取验证码');
                     }
                 }, interval);
             } else {
                 alert('验证码发送失败，请重新获取');
-                $('#randomcodegetbutton').html('重新获取验证码');
+                $('#randomcodegetbutton').html('获取验证码');
                 $('#randomcodegetbutton').removeAttr("onclick");
             }
         },
@@ -52,7 +52,7 @@ function getRandomCode() {
             //console.log('error:' + msg.toString());
            // alert(msg.toString());
             alert('验证码发送失败，请重新操作！');
-            $('#randomcodegetbutton').html('重新获取验证码');
+            $('#randomcodegetbutton').html('获取验证码');
             $('#randomcodegetbutton').removeAttr("onclick");
         }
     });
@@ -86,25 +86,25 @@ function loginForPhone() {
             randomcode: randomcode
         },
         beforeSend: function () {
-            $('.login').removeAttr("onclick");
-            $('.login').html('登录中，请稍后......');
+            $('.btn-submit').removeAttr("onclick");
+            $('.btn-submit').html('登录中，请稍后......');
         },
         success: function (data) {
             console.log(data);
             if (data.rf == '1') {
-                window.location.href = "http://localhost:8080/classmanager/classlist.html";
+                window.location.href = "/classmanager/classlist.html";
             } else if (data.rf == '22') {
                 alert('验证码输入有误，请重新输入');
-                $('.login').html('登录');
+                $('.btn-submit').html('登录');
             } else {
                 alert('用户登录失败,请重新操作');
-                $('.login').html('登录');
+                $('.btn-submit').html('登录');
             }
         },
         error: function (msg) {
             console.log('error:' + msg.toString());
             alert('用户登录失败，请重新操作！');
-            $('.login').html('登录');
+            $('.btn-submit').html('登录');
         }
     });
 }

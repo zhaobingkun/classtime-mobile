@@ -35,9 +35,9 @@ public class SmsSendUtil {
             req.setRecNum(mobile);
             req.setSmsTemplateCode("SMS_11065578");//短信模版编码
             AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
-           // opLogger.info(StringTools.toLogString("SMS_11065578|sendSMSSuccess", mobile, rsp.getBody()));
+            opLogger.info(StringTools.toLogString("SMS_11065578|sendSMSSuccess", mobile, rsp.getBody()));
 
-           // System.out.println(rsp.getResult().getErrCode());
+            System.out.println(rsp.getResult().getErrCode());
             //return "0";
             return rsp.getResult().getErrCode();
         } catch (Exception e) {
