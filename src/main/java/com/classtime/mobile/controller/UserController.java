@@ -99,20 +99,20 @@ public class UserController extends MyBaseController {
             randomCode += random.nextInt(10);
         }
 
-        if (cpsuser != null) {//如果用户已经登录
+        if (cpsuser != null) {//如果用户已经登录  又可以用了。还是配置问题
             logger.info("getRandomCodeOfLongin psuser != null " + StringTools.isEmpty(cpsuser.getEmail()));
-            /*if (StringTools.isEmpty(cpsuser.getEmail())) {//如果用户使用手机号码已经登录，更新校验码，还是手机号码不能更改
+            if (StringTools.isEmpty(cpsuser.getEmail())) {//如果用户使用手机号码已经登录，更新校验码，还是手机号码不能更改
                 cpsuser.setRandomcode(randomCode);
                 cpsuser.setUpdatetime(new Date());
                 cpsuserManager.update(cpsuser);
                 opLogger.info(StringTools.toLogString(phone, "update", cpsuser));
-            } else {*///如果用户使用邮箱已经登录，更新手机号码和校验码
+            } else {//如果用户使用邮箱已经登录，更新手机号码和校验码
                 cpsuser.setRandomcode(randomCode);
                 cpsuser.setUpdatetime(new Date());
                 cpsuser.setContactphone(phone);
                 cpsuserManager.update(cpsuser);
                 opLogger.info(StringTools.toLogString(phone, "update", cpsuser));
-            //}
+            }
 
         } else {
             Cpsuser user = null;

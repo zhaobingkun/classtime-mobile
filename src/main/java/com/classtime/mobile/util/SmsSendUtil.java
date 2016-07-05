@@ -32,12 +32,12 @@ public class SmsSendUtil {
             String smsParamString = "{\"code\":\"" + randomcode + "\"}";
             req.setSmsParamString(smsParamString);//短信模版内容
             req.setRecNum(mobile);
-            req.setSmsTemplateCode("SMS_5430714");//短信模版编码
+            req.setSmsTemplateCode("SMS_11065578");//短信模版编码
             AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
-            opLogger.info(StringTools.toLogString("SMS_5430714|sendSMSSuccess", mobile, rsp.getBody()));
+            opLogger.info(StringTools.toLogString("SMS_11065578|sendSMSSuccess", mobile, rsp.getBody()));
             return rsp.getResult().getErrCode();
         } catch (Exception e) {
-            opLogger.info(StringTools.toLogString("SMS_2855253|sendSMSError", mobile, e.toString()));
+            opLogger.info(StringTools.toLogString("SMS_11065578|sendSMSError", mobile, e.toString()));
             e.printStackTrace();
         }
         return "";

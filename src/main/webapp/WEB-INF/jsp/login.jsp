@@ -22,7 +22,7 @@
                 <a href="" class="btn-checkcode btn-grey">剩余50秒</a>
             </li>
             <li class="btm-btn">
-            	<a href="class.html" class="btn-submit">登录</a>
+            	<a href="classlist.jsp" class="btn-submit">登录</a>
             </li>
         </ul>
         
