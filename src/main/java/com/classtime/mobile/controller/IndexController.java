@@ -1,7 +1,9 @@
 package com.classtime.mobile.controller;
 
 
+import com.classtime.mobile.util.CookieUtil;
 import com.classtime.service.manager.PictemplateManager;
+import com.classtime.service.model.Cpsuser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +21,27 @@ public class IndexController extends MyBaseController {
 
     @RequestMapping(value = "/")
     public String homeLogin(HttpServletRequest request, Model model) {
-        return "/login";
+
+        Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+        if(cpsuser!=null){
+            return "/class/classlist";
+        }
+        else {
+            return "/login";
+        }
     }
 
 
 
     @RequestMapping(value = "/index.html")
     public String home(HttpServletRequest request, Model model) {
-        return "/login";
+        Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+        if(cpsuser!=null){
+            return "/class/classlist";
+        }
+        else {
+            return "/login";
+        }
     }
 
     @RequestMapping(value = "/oth/{page}.html")

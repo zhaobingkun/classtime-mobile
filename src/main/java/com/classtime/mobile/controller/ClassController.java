@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by Administrator on 2016/7/5.
  */
 @Controller
-@RequestMapping("/classmanager")
-public class classmanager {
+@RequestMapping("/class")
+public class ClassController {
+
     @RequestMapping("classlist.html")
     public String classlist() {
-
         return "classlist";
     }
 
