@@ -63,6 +63,7 @@ public class UserController extends MyBaseController {
         for (int i = 0; i < 6; i++) {
             randomCode += random.nextInt(10);
         }
+        System.out.println(randomCode);
         if (user == null) {
             user = new Cpsuser();
             user.setRegistertime(new Date());

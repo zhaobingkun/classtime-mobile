@@ -26,13 +26,14 @@ public class IndexController extends MyBaseController {
     public String homeLogin(HttpServletRequest request, Model model) {
 
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+
         if(cpsuser!=null){
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
             if(studentList.size()>0) {
-                return "/class/classlist";
+                return "classlist";
             }
             else{
-                return "/student/addStudent";
+                return "addStudent";
             }
         }
         else {
@@ -48,10 +49,10 @@ public class IndexController extends MyBaseController {
         if(cpsuser!=null){
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
             if(studentList.size()>0) {
-                return "/class/classlist";
+                return "classlist.html";
             }
             else{
-                return "/student/addStudent";
+                return "/student/addStudentBefore.html";
             }
         }
         else {

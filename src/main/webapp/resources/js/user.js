@@ -31,7 +31,7 @@ function getRandomCode() {
             console.log(data);
             if (data.rf == '1') {
                 var interval = 1000;
-                var seconds = 50;//1分钟倒计时显示
+                var seconds = 60;//1分钟倒计时显示
                 window.setInterval(function () {
                     if (seconds > 0) {
                         seconds = seconds - 1;
