@@ -1,17 +1,18 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!doctype html>
+<%@ include file="/common/include.jsp" %>
 <html>
 <body>
 <div class="fix-bottom">
 	<ul class="menu-ul">
-		<li><a href="class.html" class="class">课程</a></li>
+		<li class="current"><a href="classlist.jsp" class="class">课程</a></li>
 		<li><a href="addClass.html" class="add">添加课程</a></li>
-		<li class="current"><a href="mine.html" class="mine current">我的</a></li>
+		<li><a href="mine.html" class="mine current">我的</a></li>
 	</ul>
 </div>
 
 <header class="top-bar">
-	<a href="addStudent.html" class="add-student">新学员</a>
-	我的
+	课程管理
 </header>
 
 <div class="class-wrap">
@@ -84,25 +85,7 @@
 		</li>
 	</ul>
 </div>
-<script>
-	!function(){
-		
-		var picWrap = $('.student-pic');
-		var showWidth = picWrap.width();
-		var showHeight = picWrap.height();
-		
-		$('.student-pic img').each(function(index, element) {
-			if( $(element).width() > $(element).height()){
-				$(element).height(showHeight)
-			}else{
-				$(element).width(showWidth)
-			}
-		});
-		
-	}();
-	
-	
-</script>
+
 <script>
 !function(){
 	$('.slide-switch').click(function(){

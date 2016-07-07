@@ -2,8 +2,9 @@ package com.classtime.mobile.controller;
 
 
 import com.classtime.mobile.util.CookieUtil;
-import com.classtime.service.manager.PictemplateManager;
+import com.classtime.service.manager.StudentManager;
 import com.classtime.service.model.Cpsuser;
+import com.classtime.service.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,20 +12,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class IndexController extends MyBaseController {
 
+
     @Autowired
-    private PictemplateManager picManager;
+    private StudentManager studentManager;
 
     @RequestMapping(value = "/")
     public String homeLogin(HttpServletRequest request, Model model) {
 
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
         if(cpsuser!=null){
-            return "/class/classlist";
+            List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
+            if(studentList.size()>0) {
+                return "/class/classlist";
+            }
+            else{
+                return "/student/addStudent";
+            }
         }
         else {
             return "/login";
@@ -37,7 +46,13 @@ public class IndexController extends MyBaseController {
     public String home(HttpServletRequest request, Model model) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
         if(cpsuser!=null){
-            return "/class/classlist";
+            List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
+            if(studentList.size()>0) {
+                return "/class/classlist";
+            }
+            else{
+                return "/student/addStudent";
+            }
         }
         else {
             return "/login";

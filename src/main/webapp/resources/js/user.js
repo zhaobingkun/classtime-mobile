@@ -92,7 +92,7 @@ function loginForPhone() {
         success: function (data) {
             console.log(data);
             if (data.rf == '1') {
-                window.location.href = "/classmanager/classlist.html";
+                window.location.href = "/class/classlist.html";
             } else if (data.rf == '22') {
                 alert('验证码输入有误，请重新输入');
                 $('.btn-submit').html('登录');

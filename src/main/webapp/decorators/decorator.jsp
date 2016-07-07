@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/resources/css/base.css">
 <link rel="stylesheet" href="/resources/css/login.css">
 <link rel="stylesheet" href="/resources/css/class.css">
+<link rel="stylesheet" href="/resources/css/userInputs.css">
 
 <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <decorator:head/>
