@@ -1,6 +1,7 @@
 package com.classtime.mobile.controller;
 
 import com.classtime.mobile.util.CookieUtil;
+import com.classtime.mobile.util.SessionUtil;
 import com.classtime.mobile.util.SmsSendUtil;
 import com.classtime.service.beans.UserModel;
 import com.classtime.service.manager.CpsuserManager;
@@ -49,7 +50,26 @@ public class UserController extends MyBaseController {
      */
     @ResponseBody
     @RequestMapping("/getRandomCode.json")
-    public String isGetRandomCode(@RequestParam("phone") String phone) throws IOException {
+    public String isGetRandomCode(@RequestParam("phone") String phone, HttpServletRequest request) throws IOException {
+
+
+        Random random = new Random();
+        String randomCode = "";
+        for (int i = 0; i < 6; i++) {
+            randomCode += random.nextInt(10);
+        }
+
+        /**面这段操作数据库的代码，可以优化
+         * 1、将验证码和手机号写入session
+         * 2、去掉 查库，insert，update操作，尤其是update，不需要写到库里，应该写到session
+         * 3、用户输入验证码登录的时候，验证 验证码是否和session中保留的一致即可。查库，insert，update可以在这步实现
+         */
+
+
+        SessionUtil.setSession(request,randomCode);
+        String result = toJsonResult(0, "", "");
+/*
+
         Cpsuser user = null;
         try {
             user = cpsuserManager.findByPhone(phone);
@@ -58,11 +78,10 @@ public class UserController extends MyBaseController {
         }
         String result = toJsonResult(0, "", "");
         logger.info("getRandomCode user:" + ((user == null) ? "null" : user.toString()));
-        Random random = new Random();
-        String randomCode = "";
-        for (int i = 0; i < 6; i++) {
-            randomCode += random.nextInt(10);
-        }
+
+
+
+
         System.out.println(randomCode);
         if (user == null) {
             user = new Cpsuser();
@@ -77,8 +96,12 @@ public class UserController extends MyBaseController {
             cpsuserManager.update(user);
             opLogger.info(StringTools.toLogString(phone, "update", user));
         }
+*/
+
+
+
         //String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
-        String res = SmsSendUtil.sendLoginCheck(phone, randomCode);
+        String res = SmsSendUtil.sendLoginCheck(phone, randomCode);//发送验证码
 
         if (res != null && res.equals("0")) {
             result = toJsonResult(1, "", "");
@@ -87,6 +110,44 @@ public class UserController extends MyBaseController {
        // System.out.print(toJsonResult(1, "", ""));
         return result;
     }
+
+
+
+    /**
+     * 用户输入验证码，和上面保存在数据库中的验证码比对
+     */
+    @ResponseBody
+    @RequestMapping("/loginForPhone.json")
+    public String loginOfPhone(@RequestParam("phone") String phone, @RequestParam("randomcode") String randomcode,
+                               HttpServletResponse response, HttpServletRequest request) throws IOException {
+
+        String sessionRandomCode = SessionUtil.getRandomCodeFromSession(request);
+
+
+
+       String result = toJsonResult(0, "", "");
+
+       // logger.info("loginForPhone user:" + ((user == null) ? "null" : user.toString()));
+        if (sessionRandomCode.equals(randomcode)) {//校验码输入正确
+            Cpsuser user = cpsuserManager.findByPhone(phone);
+            if (user == null) {  //新用户，直接入库
+                user = new Cpsuser();
+                user.setRegistertime(new Date());
+                user.setContactphone(phone);
+                cpsuserManager.insert(user);
+                opLogger.info(StringTools.toLogString(phone, "insert", user));
+            }
+            CookieUtil.setUserCookie(response, user, CookieUtil.COOKIE_LIVE_EXPIRY);
+            result = toJsonResult(1, "", "");
+        }
+        else{
+            result = toJsonResult(22, "", "");
+        }
+        //logger.info("loginOfPhone json end result {}", result);
+        return result;
+        //return "redirect:/classmanager/classlist.html";
+    }
+
 
     /**
      * 已用邮箱登录用户点击登录页面的获取验证码
@@ -147,30 +208,6 @@ public class UserController extends MyBaseController {
         return result;
     }
 
-    /**
-     * 用户输入验证码，和上面保存在数据库中的验证码比对
-     */
-    @ResponseBody
-    @RequestMapping("/loginForPhone.json")
-    public String loginOfPhone(@RequestParam("phone") String phone, @RequestParam("randomcode") String randomcode,
-                               HttpServletResponse response) throws IOException {
-        Cpsuser user = cpsuserManager.findByPhone(phone);
-
-        System.out.println("userid="+user.getId());
-        String result = toJsonResult(0, "", "");
-        logger.info("loginForPhone user:" + ((user == null) ? "null" : user.toString()));
-        if (user != null) {
-            if (user.getRandomcode().equals(randomcode)) {//校验码输入正确
-                CookieUtil.setUserCookie(response, user, CookieUtil.COOKIE_LIVE_EXPIRY);
-                result = toJsonResult(1, "", "");
-            } else {
-                result = toJsonResult(22, "", "");
-            }
-        }
-        //logger.info("loginOfPhone json end result {}", result);
-        return result;
-        //return "redirect:/classmanager/classlist.html";
-    }
 
 
     /**

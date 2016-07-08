@@ -25,9 +25,20 @@ public class SessionUtil {
         WebUtils.setSessionAttribute(request, SessionNames.LOGIN_USER, user);
     }
 
+
+
     public static Cpsuser getUserFromSession(HttpServletRequest request) {
         Object o = WebUtils.getSessionAttribute(request, SessionNames.LOGIN_USER);
         return (o == null) ? null : (Cpsuser) o;
+    }
+
+    public static void setSession(HttpServletRequest request, String randomCode) {
+        WebUtils.setSessionAttribute(request, SessionNames.RANDOMCODE, randomCode);
+    }
+
+    public static String getRandomCodeFromSession(HttpServletRequest request) {
+        Object o = WebUtils.getSessionAttribute(request, SessionNames.RANDOMCODE);
+        return (o == null) ? null : (String) o;
     }
 
     public static void removeSession(HttpServletRequest request) {
