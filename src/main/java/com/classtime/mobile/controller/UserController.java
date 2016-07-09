@@ -59,6 +59,8 @@ public class UserController extends MyBaseController {
             randomCode += random.nextInt(10);
         }
 
+        System.out.println(randomCode);
+
         /**面这段操作数据库的代码，可以优化
          * 1、将验证码和手机号写入session
          * 2、去掉 查库，insert，update操作，尤其是update，不需要写到库里，应该写到session
@@ -68,46 +70,17 @@ public class UserController extends MyBaseController {
 
         SessionUtil.setSession(request,randomCode);
         String result = toJsonResult(0, "", "");
-/*
-
-        Cpsuser user = null;
-        try {
-            user = cpsuserManager.findByPhone(phone);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String result = toJsonResult(0, "", "");
-        logger.info("getRandomCode user:" + ((user == null) ? "null" : user.toString()));
 
 
 
-
-        System.out.println(randomCode);
-        if (user == null) {
-            user = new Cpsuser();
-            user.setRegistertime(new Date());
-            user.setRandomcode(randomCode);
-            user.setContactphone(phone);
-            cpsuserManager.insert(user);
-            opLogger.info(StringTools.toLogString(phone, "insert", user));
-        } else {
-            user.setRandomcode(randomCode);
-            user.setUpdatetime(new Date());
-            cpsuserManager.update(user);
-            opLogger.info(StringTools.toLogString(phone, "update", user));
-        }
-*/
-
-
-
-        //String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
-        String res = SmsSendUtil.sendLoginCheck(phone, randomCode);//发送验证码
+        String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
+        //String res = SmsSendUtil.sendLoginCheck(phone, randomCode);//发送验证码
 
         if (res != null && res.equals("0")) {
             result = toJsonResult(1, "", "");
         }
 
-       // System.out.print(toJsonResult(1, "", ""));
+
         return result;
     }
 

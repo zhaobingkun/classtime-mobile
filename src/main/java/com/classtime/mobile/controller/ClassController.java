@@ -37,7 +37,22 @@ public class ClassController {
     @RequestMapping("classlist.html")
     public String classlist(HttpServletRequest request, Model model) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+
+        System.out.println(cpsuser.getId());
+
         List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
+
+
+
+        for(int i=0;i<studentList.size();i++){
+            for(int j=0;j<studentList.get(i).getClassTimeMainList().size();j++){
+                ClassTimeMain cmain = studentList.get(i).getClassTimeMainList().get(j);
+                System.out.println(cmain.getId());
+
+            }
+        }
+
+
         model.addAttribute("studentList",studentList);
         return "classlist";
     }

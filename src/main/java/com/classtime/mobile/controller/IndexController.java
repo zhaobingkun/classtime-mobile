@@ -3,6 +3,7 @@ package com.classtime.mobile.controller;
 
 import com.classtime.mobile.util.CookieUtil;
 import com.classtime.service.manager.StudentManager;
+import com.classtime.service.model.ClassTimeMain;
 import com.classtime.service.model.Cpsuser;
 import com.classtime.service.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,23 @@ public class IndexController extends MyBaseController {
 
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
 
+
+
         if(cpsuser!=null){
+            System.out.println(cpsuser.getId());
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
+
+            for(int i=0;i<studentList.size();i++){
+                for(int j=0;j<studentList.get(i).getClassTimeMainList().size();j++){
+                    ClassTimeMain cmain = studentList.get(i).getClassTimeMainList().get(j);
+                    System.out.println(cmain.getId());
+
+                }
+            }
+
+
             if(studentList.size()>0) {
+                model.addAttribute("studentList",studentList);
                 return "classlist";
             }
             else{
@@ -49,10 +64,11 @@ public class IndexController extends MyBaseController {
         if(cpsuser!=null){
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
             if(studentList.size()>0) {
-                return "classlist.html";
+                model.addAttribute("studentList",studentList);
+                return "classlist";
             }
             else{
-                return "/student/addStudentBefore.html";
+                return "addStudent";
             }
         }
         else {
@@ -64,13 +80,5 @@ public class IndexController extends MyBaseController {
     public String othHtml(@PathVariable("page") String page) {
         return "/oth/" + page;
     }
-    @RequestMapping(value = "/partner/wd.html")
-    public String othHtml() {
-        return "/partner/wanda";
-    }
 
-    @RequestMapping(value = "/partner/yidian.html")
-    public String othHtmlAward() {
-        return "/partner/yidian";
-    }
 }
