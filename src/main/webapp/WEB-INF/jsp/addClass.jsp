@@ -25,7 +25,8 @@ $(document).ready(function() {
 </header>
 
 <div class="form-wrap">
-	<ul class="inputs-ul">
+    <form  action="classadd.html" method="post">
+	    <ul class="inputs-ul">
 		<li class="one-item">
 			<label class="tit">课程名称：</label>
 			<input type="text" class="i-txt">
@@ -40,42 +41,42 @@ $(document).ready(function() {
 		</li>
 		<li class="one-item one-item-week">
 			<label class="day-of-week" for="Monday">
-				<input type="checkbox" id="Monday" class="checkbox-week">
+				<input type="checkbox" value="1" id="Monday" name="weeekdy" class="checkbox-week">
 				星期一
 			</label>
 			<label class="day-of-week" for="Tuesday">
-				<input type="checkbox" id="Tuesday" class="checkbox-week">
+				<input type="checkbox"  value="2"  id="Tuesday" name="weeekdy"  class="checkbox-week">
 				星期二
 			</label>
 			<label class="day-of-week" for="Wednesday">
-				<input type="checkbox" id="Wednesday" class="checkbox-week">
+				<input type="checkbox"  value="3" id="Wednesday" name="weeekdy"  class="checkbox-week">
 				星期三
 			</label>
 			<label class="day-of-week" for="Thursday">
-				<input type="checkbox" id="Thursday" class="checkbox-week">
+				<input type="checkbox"  value="4" id="Thursday" name="weeekdy"  class="checkbox-week">
 				星期四
 			</label>
 			<label class="day-of-week" for="Friday">
-				<input type="checkbox" id="Friday" class="checkbox-week">
+				<input type="checkbox"  value="5" id="Friday" name="weeekdy"  class="checkbox-week">
 				星期五
 			</label>
 			<label class="day-of-week" for="Saturday">
-				<input type="checkbox" id="Saturday" class="checkbox-week">
+				<input type="checkbox"  value="6" id="Saturday" name="weeekdy"  class="checkbox-week">
 				星期六
 			</label>
 			<label class="day-of-week" for="Sunday">
-				<input type="checkbox" id="Sunday" class="checkbox-week">
+				<input type="checkbox"  value="0" id="Sunday"  name="weeekdy"  class="checkbox-week">
 				星期日
 			</label>
 		</li>
 		<li class="one-item">
 			<label class="tit">上课地点：</label>
-			<input type="text" class="i-txt">
+			<input type="text" name="classaddress" class="i-txt">
 		</li>
 		<li class="one-item">
 			<label class="tit">课程代表色：</label>
 			<div class="color-select-wrap select">
-				<select class="select-a-color select">
+				<select class="select-a-color select" id="color" name="color">
 					<option class="orange" value="orange">橘色</option>
 					<option class="yellow" value="yellow">黄色</option>
 					<option class="yellow-green" value="yellow-green">黄绿色</option>
@@ -87,11 +88,13 @@ $(document).ready(function() {
 			</div>
 		</li>
 		<li class="btm-btn">
-			<div class="class-amount">共 <b>48</b> 次课</div>
-			<a href="classlist.jsp" class="btn-submit">保存</a>
-			<a href="classlist.jsp" class="btn-submit btn-grey">取消</a>
+            <input type="text" name="num" class="i-txt">次课
+        <%--<div class="class-amount">共 <b>48</b> 次课</div>--%>
+			<input type="submit" class="btn-submit" value="保存">
+			<input type="cancle" class="btn-submit btn-grey" value="取消">
 		</li>
 	</ul>
+    </form>
 </div>
 
 <script>

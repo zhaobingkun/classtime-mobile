@@ -48,7 +48,7 @@ public class StudentController {
      * @return
      */
 
-    @RequestMapping("add")
+    @RequestMapping("add.html")
     public String addAction(HttpServletRequest request, @ModelAttribute Student pageModel) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
 

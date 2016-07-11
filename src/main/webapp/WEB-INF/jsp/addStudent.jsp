@@ -18,7 +18,8 @@
 
 <div class="form-wrap">
 	<%--<h4 class="top-id">学号：<em class="green">200704141752180001</em></h4>--%>
-	<ul class="inputs-ul">
+	<form action="add.html" method="post">
+        <ul class="inputs-ul">
 		<li class="one-item">
 			<label class="tit">姓名：</label>
 			<input type="text" id="name" name="name" class="i-txt">
@@ -40,6 +41,7 @@
 			<a href="classlist.jsp" class="btn-submit">添加</a>
 		</li>
 	</ul>
+    </form>
 </div>
 
 
