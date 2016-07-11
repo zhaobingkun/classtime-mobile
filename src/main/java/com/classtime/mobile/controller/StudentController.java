@@ -4,6 +4,7 @@ import com.classtime.mobile.util.CookieUtil;
 import com.classtime.service.manager.StudentManager;
 import com.classtime.service.model.Cpsuser;
 import com.classtime.service.model.Student;
+import com.classtime.service.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by Administrator on 2016/7/6.
@@ -32,7 +35,7 @@ public class StudentController {
 
     @RequestMapping("addStudentBefore.html")
     public String addBefore(HttpServletRequest request, Model model) {
-        Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+        //Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
 
         return "addStudent";
     }
@@ -48,7 +51,22 @@ public class StudentController {
     @RequestMapping("add")
     public String addAction(HttpServletRequest request, @ModelAttribute Student pageModel) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
-        studentManager.insert(pageModel);
+
+        if(cpsuser==null){
+            return "/login";
+        }
+        Random ran=new Random();
+        String tmpRan = ran.nextInt(9999)+"";
+        if(tmpRan.length()<4){
+            for(int i=0;i<4-tmpRan.length();i++){
+                tmpRan = "0"+tmpRan;
+            }
+        }
+
+        String sno = DateUtils.formatDate(new Date(), "yyyyMMddHHmmss")+tmpRan;
+        pageModel.setSno(sno);
+        pageModel.setUid(Integer.parseInt(cpsuser.getId()+""));
+        studentManager.insertSelective(pageModel);
 
         return "/class/classaddbefore.html";
     }

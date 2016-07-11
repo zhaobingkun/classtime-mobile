@@ -17,7 +17,7 @@
 </header>
 
 <div class="form-wrap">
-	<h4 class="top-id">学号：<em class="green">200704141752180001</em></h4>
+	<%--<h4 class="top-id">学号：<em class="green">200704141752180001</em></h4>--%>
 	<ul class="inputs-ul">
 		<li class="one-item">
 			<label class="tit">姓名：</label>
