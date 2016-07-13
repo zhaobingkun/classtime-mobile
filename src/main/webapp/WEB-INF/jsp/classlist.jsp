@@ -25,30 +25,32 @@
 		<span class="id">学号：${student.sno}</span>
 	</h2>
 
-    <c:forEach items="${student.classTimeMainList}" var="classInfo"  varStatus="status">
-	<ul class="subject-wrap">
-		<li class="subject">
-			<a href="javascript:void(0)" class="name-settings">
-                ${classInfo.classname}
-			</a>
-			<a href="javascript:void(0)" class="slide-up slide-switch"></a>
-			共<em class="green"> ${classInfo.sumnum}</em>次课  剩余<em class="green"> ${classInfo.num}</em>次课
-		</li>
-		<li class="subject-detail">
-			<ul class="time-ul">
-				<li class="start-over">开始时间：${classInfo.begintime}<%--<em class="green">2016</em>年<em class="green">4</em>月<em class="green">10</em>日--%></li>
-				<li class="start-over">结束时间：${classInfo.endtime}<%--<em class="green">2017</em>年<em class="green">1</em>月<em class="green">1</em>日--%></li>
-			</ul>
-			<ul class="changes">
-				<li class="little-changes"><i>请假：</i><em><span class="green">${classInfo.leavenum}</span>次</em></li>
-				<li class="little-changes"><i class="bigger">调课：</i><em><span class="green">${classInfo.changenum}</span>次</em></li>
-				<li class="little-changes"><i>补课：</i><em><span class="green">${classInfo.makeupnum}</span>次</em></li>
-				<li class="little-changes"><i class="bigger">假期顺延：</i><em><span class="green">${classInfo.extendednum}</span>次</em></li>
-			</ul>
-		</li>
-	</ul>
-    </c:forEach>
+    <c:if test="${empty student.classTimeMainList}">
 
+        <c:forEach items="${student.classTimeMainList}" var="classInfo"  varStatus="status">
+        <ul class="subject-wrap">
+            <li class="subject">
+                <a href="javascript:void(0)" class="name-settings">
+                    ${classInfo.classname}
+                </a>
+                <a href="javascript:void(0)" class="slide-up slide-switch"></a>
+                共<em class="green"> ${classInfo.sumnum}</em>次课  剩余<em class="green"> ${classInfo.num}</em>次课
+            </li>
+            <li class="subject-detail">
+                <ul class="time-ul">
+                    <li class="start-over">开始时间：${classInfo.begintime}<%--<em class="green">2016</em>年<em class="green">4</em>月<em class="green">10</em>日--%></li>
+                    <li class="start-over">结束时间：${classInfo.endtime}<%--<em class="green">2017</em>年<em class="green">1</em>月<em class="green">1</em>日--%></li>
+                </ul>
+                <ul class="changes">
+                    <li class="little-changes"><i>请假：</i><em><span class="green">${classInfo.leavenum}</span>次</em></li>
+                    <li class="little-changes"><i class="bigger">调课：</i><em><span class="green">${classInfo.changenum}</span>次</em></li>
+                    <li class="little-changes"><i>补课：</i><em><span class="green">${classInfo.makeupnum}</span>次</em></li>
+                    <li class="little-changes"><i class="bigger">假期顺延：</i><em><span class="green">${classInfo.extendednum}</span>次</em></li>
+                </ul>
+            </li>
+        </ul>
+        </c:forEach>
+    </c:if>
 </div>
 </c:forEach>
 <script>

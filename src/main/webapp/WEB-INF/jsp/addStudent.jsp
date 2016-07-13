@@ -18,7 +18,7 @@
 
 <div class="form-wrap">
 	<%--<h4 class="top-id">学号：<em class="green">200704141752180001</em></h4>--%>
-	<form action="add.html" method="post">
+	<form action="/student/add.html" method="post">
         <ul class="inputs-ul">
 		<li class="one-item">
 			<label class="tit">姓名：</label>
@@ -38,7 +38,9 @@
 			<input type="text" id="old"  name = "old"  class="i-txt">
 		</li>
 		<li class="btm-btn">
-			<a href="classlist.jsp" class="btn-submit">添加</a>
+            <input type="submit" class="btn-submit" value="保存">
+            <input type="cancle" class="btn-submit btn-grey" value="取消">
+			<%--<a href="classlist.jsp" class="btn-submit">添加</a>--%>
 		</li>
 	</ul>
     </form>

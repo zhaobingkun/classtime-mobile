@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -20,7 +21,7 @@ import java.util.Random;
  */
 @Controller
 @RequestMapping("/student")
-public class StudentController {
+public class StudentController extends MyBaseController{
 
     @Autowired
     private StudentManager studentManager;
@@ -33,9 +34,11 @@ public class StudentController {
      * @return
      */
 
-    @RequestMapping("addStudentBefore.html")
+    @RequestMapping(value = "addStudentBefore.html")
     public String addBefore(HttpServletRequest request, Model model) {
         //Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+
+        System.out.println("11111111111111");
 
         return "addStudent";
     }
@@ -48,9 +51,14 @@ public class StudentController {
      * @return
      */
 
-    @RequestMapping("add.html")
+    @RequestMapping(value = "add.html", method = RequestMethod.POST)
     public String addAction(HttpServletRequest request, @ModelAttribute Student pageModel) {
+
+        System.out.print("22222222222222222");
+
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+
+        System.out.print("cpsuser.getId()="+cpsuser.getId());
 
         if(cpsuser==null){
             return "/login";
@@ -68,7 +76,7 @@ public class StudentController {
         pageModel.setUid(Integer.parseInt(cpsuser.getId()+""));
         studentManager.insertSelective(pageModel);
 
-        return "/class/classaddbefore.html";
+        return "/addClass";
     }
 
 }

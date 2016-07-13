@@ -25,50 +25,54 @@ $(document).ready(function() {
 </header>
 
 <div class="form-wrap">
-    <form  action="classadd.html" method="post">
+    <form  action="/class/classadd.html" method="post">
 	    <ul class="inputs-ul">
 		<li class="one-item">
 			<label class="tit">课程名称：</label>
 			<input type="text" class="i-txt">
 		</li>
 		<li class="one-item">
-			<label class="tit">课程开始时间：</label>
-			<input type="text" class="i-txt i-txt-calendar">
+			<label class="tit">课程开始日期：</label>
+            <input type="text" class="i-txt i-txt-calendar">
 		</li>
 		<li class="one-item">
-			<label class="tit">课程结束时间：</label>
+			<label class="tit">课程结束日期：</label>
 			<input type="text" class="i-txt i-txt-calendar">
 		</li>
 		<li class="one-item one-item-week">
 			<label class="day-of-week" for="Monday">
-				<input type="checkbox" value="1" id="Monday" name="weeekdy" class="checkbox-week">
+				<input type="checkbox" value="1" id="Monday" name="weekday" class="checkbox-week">
 				星期一
 			</label>
 			<label class="day-of-week" for="Tuesday">
-				<input type="checkbox"  value="2"  id="Tuesday" name="weeekdy"  class="checkbox-week">
+				<input type="checkbox"  value="2"  id="Tuesday" name="weekday"  class="checkbox-week">
 				星期二
 			</label>
 			<label class="day-of-week" for="Wednesday">
-				<input type="checkbox"  value="3" id="Wednesday" name="weeekdy"  class="checkbox-week">
+				<input type="checkbox"  value="3" id="Wednesday" name="weekday"  class="checkbox-week">
 				星期三
 			</label>
 			<label class="day-of-week" for="Thursday">
-				<input type="checkbox"  value="4" id="Thursday" name="weeekdy"  class="checkbox-week">
+				<input type="checkbox"  value="4" id="Thursday" name="weekday"  class="checkbox-week">
 				星期四
 			</label>
 			<label class="day-of-week" for="Friday">
-				<input type="checkbox"  value="5" id="Friday" name="weeekdy"  class="checkbox-week">
+				<input type="checkbox"  value="5" id="Friday" name="weekday"  class="checkbox-week">
 				星期五
 			</label>
 			<label class="day-of-week" for="Saturday">
-				<input type="checkbox"  value="6" id="Saturday" name="weeekdy"  class="checkbox-week">
+				<input type="checkbox"  value="6" id="Saturday" name="weekday"  class="checkbox-week">
 				星期六
 			</label>
 			<label class="day-of-week" for="Sunday">
-				<input type="checkbox"  value="0" id="Sunday"  name="weeekdy"  class="checkbox-week">
+				<input type="checkbox"  value="0" id="Sunday"  name="weekday"  class="checkbox-week">
 				星期日
 			</label>
 		</li>
+            <li class="one-item">
+                <label class="tit">上课时间：</label>
+                <input type="text" name="classtime" class="i-txt">
+            </li>
 		<li class="one-item">
 			<label class="tit">上课地点：</label>
 			<input type="text" name="classaddress" class="i-txt">
@@ -88,7 +92,7 @@ $(document).ready(function() {
 			</div>
 		</li>
 		<li class="btm-btn">
-            <input type="text" name="num" class="i-txt">次课
+            共<input type="text" name="num" class="i-txt">次课
         <%--<div class="class-amount">共 <b>48</b> 次课</div>--%>
 			<input type="submit" class="btn-submit" value="保存">
 			<input type="cancle" class="btn-submit btn-grey" value="取消">

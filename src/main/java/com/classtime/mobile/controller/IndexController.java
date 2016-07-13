@@ -2,6 +2,7 @@ package com.classtime.mobile.controller;
 
 
 import com.classtime.mobile.util.CookieUtil;
+import com.classtime.service.manager.ClassTimeMainManager;
 import com.classtime.service.manager.StudentManager;
 import com.classtime.service.model.ClassTimeMain;
 import com.classtime.service.model.Cpsuser;
@@ -23,6 +24,11 @@ public class IndexController extends MyBaseController {
     @Autowired
     private StudentManager studentManager;
 
+
+
+    @Autowired
+    private ClassTimeMainManager classTimeMainManager;
+
     @RequestMapping(value = "/")
     public String homeLogin(HttpServletRequest request, Model model) {
 
@@ -35,11 +41,8 @@ public class IndexController extends MyBaseController {
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
 
             for(int i=0;i<studentList.size();i++){
-                for(int j=0;j<studentList.get(i).getClassTimeMainList().size();j++){
-                    ClassTimeMain cmain = studentList.get(i).getClassTimeMainList().get(j);
-                    System.out.println(cmain.getId());
-
-                }
+                List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
+                studentList.get(i).setClassTimeMainList(classTimeMains);
             }
 
 
@@ -62,7 +65,13 @@ public class IndexController extends MyBaseController {
     public String home(HttpServletRequest request, Model model) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
         if(cpsuser!=null){
+            System.out.println(cpsuser.getId());
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
+
+            for(int i=0;i<studentList.size();i++){
+                List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
+                studentList.get(i).setClassTimeMainList(classTimeMains);
+            }
             if(studentList.size()>0) {
                 model.addAttribute("studentList",studentList);
                 return "classlist";
