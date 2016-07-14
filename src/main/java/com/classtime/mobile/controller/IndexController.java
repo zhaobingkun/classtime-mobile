@@ -40,13 +40,11 @@ public class IndexController extends MyBaseController {
             System.out.println(cpsuser.getId());
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
 
-            for(int i=0;i<studentList.size();i++){
-                List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
-                studentList.get(i).setClassTimeMainList(classTimeMains);
-            }
-
-
             if(studentList.size()>0) {
+                for(int i=0;i<studentList.size();i++){
+                    List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
+                    studentList.get(i).setClassTimeMainList(classTimeMains);
+                }
                 model.addAttribute("studentList",studentList);
                 return "classlist";
             }
@@ -68,11 +66,12 @@ public class IndexController extends MyBaseController {
             System.out.println(cpsuser.getId());
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
 
-            for(int i=0;i<studentList.size();i++){
-                List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
-                studentList.get(i).setClassTimeMainList(classTimeMains);
-            }
+
             if(studentList.size()>0) {
+                for(int i=0;i<studentList.size();i++){
+                    List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
+                    studentList.get(i).setClassTimeMainList(classTimeMains);
+                }
                 model.addAttribute("studentList",studentList);
                 return "classlist";
             }

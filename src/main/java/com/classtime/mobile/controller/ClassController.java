@@ -50,10 +50,7 @@ public class ClassController {
 
         List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
 
-        for(int i=0;i<studentList.size();i++){
-            List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
-            studentList.get(i).setClassTimeMainList(classTimeMains);
-        }
+
 
         //如果没有课程则转到课程添加页面
        // List<Student> studentList = studentManager.(Integer.parseInt(cpsuser.getId()+""));
@@ -61,6 +58,10 @@ public class ClassController {
             return "/addStudent";
         }
 
+        for(int i=0;i<studentList.size();i++){
+            List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
+            studentList.get(i).setClassTimeMainList(classTimeMains);
+        }
 
 
         for(int i=0;i<studentList.size();i++){
@@ -101,9 +102,12 @@ public class ClassController {
     @RequestMapping(value = "classadd.html")
     public String classadd(HttpServletRequest request, @ModelAttribute ClassTimeMain pageModel) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
-        //List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
+
         ClassTimeMain classTimeMain = new ClassTimeMain();
-        classTimeMainManager.insertSelective(classTimeMain);
+
+        //pageModel.setSid();
+        classTimeMainManager.insertSelective(pageModel);
+        System.out.println("pageModel.getWeekday()="+pageModel.getWeekday());
 
         WeekDayUtil weekDayUtil = new WeekDayUtil();
         String[] weekDayArr = pageModel.getWeekday().split(",");
@@ -112,11 +116,8 @@ public class ClassController {
         for(int i=0;i<weekDayArr.length;i++) {
             daysOfOneWeek.add(weekDayArr[i]);  //周六
         }
-
-        List daysNeedBookList = weekDayUtil.getDates(DateUtils.formatDate(pageModel.getBegintime(), "yyyy-MM-dd"),DateUtils.formatDate(pageModel.getEndtime(), "yyyy-MM-dd"), daysOfOneWeek, 48);
-
-
-
+//DateUtils.formatDate(pageModel.getEndtime(), "yyyy-MM-dd")
+        List daysNeedBookList = weekDayUtil.getDates(DateUtils.formatDate(pageModel.getBegintime(), "yyyy-MM-dd"),"", daysOfOneWeek, 48);
         List<ClassTimeChild> childList = new ArrayList();
 
         for(int i=0;i<daysNeedBookList.size();i++){

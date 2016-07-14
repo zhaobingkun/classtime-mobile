@@ -29,15 +29,15 @@ $(document).ready(function() {
 	    <ul class="inputs-ul">
 		<li class="one-item">
 			<label class="tit">课程名称：</label>
-			<input type="text" class="i-txt">
+			<input type="text" name="classname" class="i-txt">
 		</li>
 		<li class="one-item">
 			<label class="tit">课程开始日期：</label>
-            <input type="text" class="i-txt i-txt-calendar">
+            <input type="text" name="begintime" class="i-txt i-txt-calendar">
 		</li>
 		<li class="one-item">
 			<label class="tit">课程结束日期：</label>
-			<input type="text" class="i-txt i-txt-calendar">
+			<input type="text" name="endtime"  class="i-txt i-txt-calendar">
 		</li>
 		<li class="one-item one-item-week">
 			<label class="day-of-week" for="Monday">
