@@ -54,11 +54,11 @@ public class StudentController extends MyBaseController{
     @RequestMapping(value = "add.html", method = RequestMethod.POST)
     public String addAction(HttpServletRequest request, @ModelAttribute Student pageModel) {
 
-        System.out.print("22222222222222222");
+        //System.out.print("22222222222222222");
 
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
 
-        System.out.print("cpsuser.getId()="+cpsuser.getId());
+        //System.out.print("cpsuser.getId()="+cpsuser.getId());
 
         if(cpsuser==null){
             return "/login";
@@ -76,7 +76,7 @@ public class StudentController extends MyBaseController{
         pageModel.setUid(Integer.parseInt(cpsuser.getId()+""));
         studentManager.insertSelective(pageModel);
 
-        return "/addClass";
+        return "/class/classaddbefore/"+pageModel.getId();
     }
 
 }

@@ -27,6 +27,14 @@ $(document).ready(function() {
 <div class="form-wrap">
     <form  action="/class/classadd.html" method="post">
 	    <ul class="inputs-ul">
+
+            <div class="color-select-wrap select">
+                <select class="select-a-color select"  name="student">
+                    <option class="orange" value="1"  selected>赵嘉诺</option>
+                    <option class="yellow" value="2">赵嘉言</option>
+                </select>
+            </div>
+
 		<li class="one-item">
 			<label class="tit">课程名称：</label>
 			<input type="text" name="classname" class="i-txt">

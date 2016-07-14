@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,10 +85,12 @@ public class ClassController {
      * @return
      */
 
-    @RequestMapping(value = "classaddbefore.html")
-    public String classaddbefore(HttpServletRequest request, Model model) {
+    @RequestMapping(value = "classaddbefore/{sid}")
+    public String classaddbefore(HttpServletRequest request, Model model, @PathVariable(value = "sid") int sid) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
-
+        List<Student> studentList =  studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
+        model.addAttribute("sid",sid);
+        model.addAttribute("studentList",studentList);
         return "addClass";
     }
 
