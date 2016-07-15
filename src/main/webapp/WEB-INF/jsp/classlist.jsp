@@ -5,7 +5,7 @@
 <body>
 <div class="fix-bottom">
 	<ul class="menu-ul">
-		<li><a href="class.html" class="class">课程</a></li>
+		<li><a href="/class/classlist.html" class="class">课程</a></li>
 		<li><a href="/class/classaddbefore.html" class="add">添加课程</a></li>
 		<li class="current"><a href="mine.html" class="mine current">我的</a></li>
 	</ul>

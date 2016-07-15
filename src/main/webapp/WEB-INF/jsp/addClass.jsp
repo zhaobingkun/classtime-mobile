@@ -15,7 +15,7 @@ $(document).ready(function() {
 <div class="fix-bottom">
 	<ul class="menu-ul">
 		<li><a href="/class/classlist.html" class="class">课程</a></li>
-		<li class="current"><a href="addClass.html" class="add">添加课程</a></li>
+		<li class="current"><a href="/class/classaddbefore.html" class="add">添加课程</a></li>
 		<li><a href="mine.html" class="mine current">我的</a></li>
 	</ul>
 </div>
@@ -29,9 +29,11 @@ $(document).ready(function() {
 	    <ul class="inputs-ul">
 
             <div class="color-select-wrap select">
-                <select class="select-a-color select"  name="student">
-                    <option class="orange" value="1"  selected>赵嘉诺</option>
-                    <option class="yellow" value="2">赵嘉言</option>
+                <select class="select-a-color select"  name="sid">
+
+                    <c:forEach items="${studentList}" var="studen"  varStatus="status">
+                        <option class="orange" value="${studen.id}"  selected>${studen.name}</option>
+                    </c:forEach>
                 </select>
             </div>
 
@@ -41,11 +43,11 @@ $(document).ready(function() {
 		</li>
 		<li class="one-item">
 			<label class="tit">课程开始日期：</label>
-            <input type="text" name="begintime" class="i-txt i-txt-calendar">
+            <input type="text" name="begintimeStr" class="i-txt i-txt-calendar">
 		</li>
 		<li class="one-item">
 			<label class="tit">课程结束日期：</label>
-			<input type="text" name="endtime"  class="i-txt i-txt-calendar">
+			<input type="text" name="endtimeStr"  class="i-txt i-txt-calendar">
 		</li>
 		<li class="one-item one-item-week">
 			<label class="day-of-week" for="Monday">

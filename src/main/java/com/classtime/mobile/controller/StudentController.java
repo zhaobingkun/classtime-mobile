@@ -76,7 +76,8 @@ public class StudentController extends MyBaseController{
         pageModel.setUid(Integer.parseInt(cpsuser.getId()+""));
         studentManager.insertSelective(pageModel);
 
-        return "/class/classaddbefore/"+pageModel.getId();
+        //return "/class/classaddbefore/"+pageModel.getId();
+        return "redirect:/class/classaddbefore.html";
     }
 
 }

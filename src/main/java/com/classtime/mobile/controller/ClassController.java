@@ -13,11 +13,10 @@ import com.classtime.service.utils.WeekDayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/class")
-public class ClassController {
+public class ClassController  extends  MyBaseController  implements Serializable {
 
     @Autowired
     private StudentManager studentManager;
@@ -85,11 +84,11 @@ public class ClassController {
      * @return
      */
 
-    @RequestMapping(value = "classaddbefore/{sid}")
-    public String classaddbefore(HttpServletRequest request, Model model, @PathVariable(value = "sid") int sid) {
+    @RequestMapping(value = "classaddbefore.html")
+    public String classaddbefore(HttpServletRequest request, Model model) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
         List<Student> studentList =  studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
-        model.addAttribute("sid",sid);
+       // model.addAttribute("sid",sid);
         model.addAttribute("studentList",studentList);
         return "addClass";
     }
@@ -102,7 +101,7 @@ public class ClassController {
      * @return
      */
 
-    @RequestMapping(value = "classadd.html")
+    @RequestMapping(value = "classadd.html", method = RequestMethod.POST)
     public String classadd(HttpServletRequest request, @ModelAttribute ClassTimeMain pageModel) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
 
@@ -120,7 +119,7 @@ public class ClassController {
             daysOfOneWeek.add(weekDayArr[i]);  //周六
         }
 //DateUtils.formatDate(pageModel.getEndtime(), "yyyy-MM-dd")
-        List daysNeedBookList = weekDayUtil.getDates(DateUtils.formatDate(pageModel.getBegintime(), "yyyy-MM-dd"),"", daysOfOneWeek, 48);
+        List daysNeedBookList = weekDayUtil.getDates(pageModel.getBegintimeStr(),"", daysOfOneWeek, 48);
         List<ClassTimeChild> childList = new ArrayList();
 
         for(int i=0;i<daysNeedBookList.size();i++){
