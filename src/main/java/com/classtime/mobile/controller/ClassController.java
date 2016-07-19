@@ -47,34 +47,40 @@ public class ClassController  extends  MyBaseController  implements Serializable
     public String classlist(HttpServletRequest request, Model model) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
 
+        System.out.println(cpsuser.getId());
 
-        List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
-
-
-
-        //如果没有课程则转到课程添加页面
-       // List<Student> studentList = studentManager.(Integer.parseInt(cpsuser.getId()+""));
-        if(studentList.size()<=0) {
-            return "/addStudent";
-        }
-
-        for(int i=0;i<studentList.size();i++){
-            List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
-            studentList.get(i).setClassTimeMainList(classTimeMains);
-        }
+        if(cpsuser!=null) {
+            List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId() + ""));
 
 
-        for(int i=0;i<studentList.size();i++){
-            for(int j=0;j<studentList.get(i).getClassTimeMainList().size();j++){
-                ClassTimeMain cmain = studentList.get(i).getClassTimeMainList().get(j);
-                System.out.println(cmain.getId());
+            //如果没有课程则转到课程添加页面
 
+            if (studentList.size() <= 0) {
+                return "/addStudent";
             }
+
+            for (int i = 0; i < studentList.size(); i++) {
+                List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
+                studentList.get(i).setClassTimeMainList(classTimeMains);
+            }
+
+
+            for (int i = 0; i < studentList.size(); i++) {
+                for (int j = 0; j < studentList.get(i).getClassTimeMainList().size(); j++) {
+                    ClassTimeMain cmain = studentList.get(i).getClassTimeMainList().get(j);
+                    System.out.println(cmain.getId());
+
+                }
+            }
+
+
+            model.addAttribute("studentList", studentList);
+            return "classlist";
+        }
+        else{
+            return "/login";
         }
 
-
-        model.addAttribute("studentList",studentList);
-        return "classlist";
     }
 
     /**

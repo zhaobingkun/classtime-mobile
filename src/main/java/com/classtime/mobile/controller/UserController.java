@@ -73,8 +73,8 @@ public class UserController extends MyBaseController {
 
 
 
-       // String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
-        String res = SmsSendUtil.sendLoginCheck(phone, randomCode);//发送验证码
+        String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
+        //String res = SmsSendUtil.sendLoginCheck(phone, randomCode);//发送验证码
 
         if (res != null && res.equals("0")) {
             result = toJsonResult(1, "", "");
