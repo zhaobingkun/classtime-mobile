@@ -9,7 +9,8 @@ $(document).ready(function() {
 	})
 });
 </script>
-</head>
+
+
 
 <body>
 <div class="fix-bottom">
@@ -43,11 +44,11 @@ $(document).ready(function() {
 		</li>
 		<li class="one-item">
 			<label class="tit">课程开始日期：</label>
-            <input type="text" name="begintimeStr" class="i-txt i-txt-calendar">
+            <input type="text" name="begintimeStr" id="begintimeStr" class="i-txt i-txt-calendar">
 		</li>
 		<li class="one-item">
 			<label class="tit">课程结束日期：</label>
-			<input type="text" name="endtimeStr"  class="i-txt i-txt-calendar">
+			<input type="text" name="endtimeStr" id="endtimeStr" class="i-txt i-txt-calendar">
 		</li>
 		<li class="one-item one-item-week">
 			<label class="day-of-week" for="Monday">
@@ -81,11 +82,11 @@ $(document).ready(function() {
 		</li>
             <li class="one-item">
                 <label class="tit">上课时间：</label>
-                <input type="text" name="classtime" class="i-txt">
+                <input type="text" name="classtime"  id="classtime" class="i-txt">
             </li>
 		<li class="one-item">
 			<label class="tit">上课地点：</label>
-			<input type="text" name="classaddress" class="i-txt">
+			<input type="text" name="classaddress"class="i-txt">
 		</li>
 		<li class="one-item">
 			<label class="tit">课程代表色：</label>
@@ -121,6 +122,20 @@ $(document).ready(function() {
 	})
 	console.log('go');
 }();
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        var curr = new Date().getFullYear();
+        var opt = {
+
+        }
+        opt.date = {preset : 'date'};
+        opt.time = {preset : 'time'};
+        $('#begintimeStr').val('').scroller('destroy').scroller($.extend(opt['date'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
+        $('#classtime').val('').scroller('destroy').scroller($.extend(opt['time'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
+
+    });
 </script>
 </body>
 </html>

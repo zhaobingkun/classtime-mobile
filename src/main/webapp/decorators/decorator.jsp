@@ -14,8 +14,10 @@
 <link rel="stylesheet" href="/resources/css/login.css">
 <link rel="stylesheet" href="/resources/css/class.css">
 <link rel="stylesheet" href="/resources/css/userInputs.css">
+<link href="/resources/css/mobiscroll.custom-2.6.2.min.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/mobiscroll.custom-2.6.2.min.js" type="text/javascript"></script>
 <decorator:head/>
 </head>
 
