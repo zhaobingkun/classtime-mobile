@@ -103,7 +103,7 @@ $(document).ready(function() {
 			</div>
 		</li>
 		<li class="btm-btn">
-            共<input type="text" name="num" class="i-txt">次课
+            共<input type="text" name="num" class="class-amount">次课
         <%--<div class="class-amount">共 <b>48</b> 次课</div>--%>
 			<input type="submit" class="btn-submit" value="保存">
 			<input type="cancle" class="btn-submit btn-grey" value="取消">

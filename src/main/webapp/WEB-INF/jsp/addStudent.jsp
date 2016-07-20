@@ -35,7 +35,7 @@
 
 		<li class="one-item">
 			<label class="tit">出生日期：</label>
-			<input type="text" id="old"  name = "old"  class="i-txt">
+			<input type="text" id="old"   name = "old"  class="i-txt">
 		</li>
 		<li class="btm-btn">
             <input type="submit" class="btn-submit" value="保存">
@@ -48,6 +48,19 @@
 
 
 
+<script type="text/javascript">
+    $(function () {
+        var curr = new Date().getFullYear();
+        var opt = {
+
+        }
+        opt.date = {preset : 'date'};
+
+        $('#old').val('').scroller('destroy').scroller($.extend(opt['date'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
+
+
+    });
+</script>
 <script>
 !function(){
 	$('.sex-choice li').click(function(){
