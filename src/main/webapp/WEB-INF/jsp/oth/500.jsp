@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>500页面自动跳转</title>
-  <link rel="stylesheet" type="text/css" href="../../../resources/style/main.css">
+  <link rel="stylesheet" type="text/css" href="../../../resources/css/base.css">
   <script type="text/javascript">
     var num = 6;
     function redirect() {
@@ -31,7 +31,7 @@
 --%>
 
   <p>
-    抱歉! 您的页面出现内部错误，请联系壹点旅行客服.......<br>
+    抱歉! 您的页面出现内部错误，请联系课时笔记客服。微信公众号：课时笔记.......<br>
     <span id="num-error"></span>秒后自动跳转到主页
   </p>
 </div>

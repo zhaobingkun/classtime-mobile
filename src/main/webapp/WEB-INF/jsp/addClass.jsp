@@ -86,7 +86,7 @@ $(document).ready(function() {
             </li>
 		<li class="one-item">
 			<label class="tit">上课地点：</label>
-			<input type="text" name="classaddress"class="i-txt">
+			<input type="text" name="classaddress" class="i-txt">
 		</li>
 		<li class="one-item">
 			<label class="tit">课程代表色：</label>
@@ -103,7 +103,7 @@ $(document).ready(function() {
 			</div>
 		</li>
 		<li class="btm-btn">
-            共<input type="text" name="num" class="class-amount">次课
+            课时：（几次课）<input type="text" name="num" class="i-txt">
         <%--<div class="class-amount">共 <b>48</b> 次课</div>--%>
 			<input type="submit" class="btn-submit" value="保存">
 			<input type="cancle" class="btn-submit btn-grey" value="取消">

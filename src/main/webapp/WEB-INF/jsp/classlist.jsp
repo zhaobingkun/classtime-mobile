@@ -12,7 +12,7 @@
 </div>
 
 <header class="top-bar">
-	<a href="addStudent.html" class="add-student">新学员</a>
+	<a href="student/addStudentBefore.html" class="add-student">新学员</a>
 	我的
 </header>
 
@@ -22,10 +22,10 @@
 	<h2 class="student-overview">
 		<%--<a href="" class="btn-student fr pad-5">管理所有课程</a>--%>
 		<b>${student.name}</b>
-		<span class="id">学号：${student.sno}</span>
+            <b><span class="id">学号：${student.sno}</span></b>
 	</h2>
 
-    <c:if test="${empty student.classTimeMainList}">
+    <c:if test="${not empty student.classTimeMainList}">
 
         <c:forEach items="${student.classTimeMainList}" var="classInfo"  varStatus="status">
         <ul class="subject-wrap">

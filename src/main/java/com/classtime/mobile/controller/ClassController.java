@@ -111,33 +111,43 @@ public class ClassController  extends  MyBaseController  implements Serializable
     public String classadd(HttpServletRequest request, @ModelAttribute ClassTimeMain pageModel) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
 
-        ClassTimeMain classTimeMain = new ClassTimeMain();
+       // ClassTimeMain classTimeMain = new ClassTimeMain();
 
         //pageModel.setSid();
-        classTimeMainManager.insertSelective(pageModel);
-        System.out.println("pageModel.getWeekday()="+pageModel.getWeekday());
+        pageModel.setBegintime(DateUtils.parseDate(pageModel.getBegintimeStr(),"yyyy-MM-dd"));
+        pageModel.setSumnum(pageModel.getNum());
+
+
 
         WeekDayUtil weekDayUtil = new WeekDayUtil();
         String[] weekDayArr = pageModel.getWeekday().split(",");
 
-        List daysOfOneWeek = new ArrayList();
+        List<Integer> daysOfOneWeek = new ArrayList();
         for(int i=0;i<weekDayArr.length;i++) {
-            daysOfOneWeek.add(weekDayArr[i]);  //周六
+            daysOfOneWeek.add(Integer.parseInt(weekDayArr[i]));  //周六
         }
 //DateUtils.formatDate(pageModel.getEndtime(), "yyyy-MM-dd")
-        List daysNeedBookList = weekDayUtil.getDates(pageModel.getBegintimeStr(),"", daysOfOneWeek, 48);
-        List<ClassTimeChild> childList = new ArrayList();
+        List daysNeedBookList = weekDayUtil.getDates(pageModel.getBegintimeStr(),"", daysOfOneWeek, pageModel.getNum());
 
+        String endDateStr = "";
+        if(daysNeedBookList.size()>0){
+            endDateStr =  (String)daysNeedBookList.get(daysNeedBookList.size()-1);
+        }
+        pageModel.setEndtime(DateUtils.parseDate(endDateStr,"yyyy-MM-dd"));
+        classTimeMainManager.insertSelective(pageModel);
+
+        List<ClassTimeChild> childList = new ArrayList();
         for(int i=0;i<daysNeedBookList.size();i++){
             ClassTimeChild classTimeChild = new ClassTimeChild();
-            classTimeChild.setMid(classTimeMain.getId());
+            classTimeChild.setMid(pageModel.getId());
             classTimeChild.setClassdatetime(DateUtils.parseDate(daysNeedBookList.get(i).toString(),"yyyy-MM-dd"));
             childList.add(classTimeChild);
         }
 
         classTimeChildManager.addClassTimeChildBatch(childList);
         //model.addAttribute("studentList",studentList);
-        return "classlist.html";
+        //return "classlist";
+        return "redirect:/class/classlist.html";
     }
 
 }

@@ -66,6 +66,7 @@ public class IndexController extends MyBaseController {
             System.out.println(cpsuser.getId());
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId()+""));
 
+            System.out.println("studentList.size()"+studentList.size());
 
             if(studentList.size()>0) {
                 for(int i=0;i<studentList.size();i++){
