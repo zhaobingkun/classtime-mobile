@@ -150,4 +150,31 @@ public class ClassController  extends  MyBaseController  implements Serializable
         return "redirect:/class/classlist.html";
     }
 
+
+
+
+
+    /**
+     * 学生及课程列表，多个学生
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "classinfolist.html")
+    public String classInfoList(HttpServletRequest request, Model model,@RequestParam("mid") int mid) {
+        Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+
+        System.out.println(cpsuser.getId());
+
+        if(cpsuser!=null) {
+                List<ClassTimeChild> classTimeChilds = classTimeChildManager.selectByMainId(mid);
+                model.addAttribute("classinfolist", classTimeChilds);
+            return "classinfolist";
+        }
+        else{
+            return "/login";
+        }
+
+    }
+
 }

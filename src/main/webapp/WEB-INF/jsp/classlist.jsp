@@ -31,7 +31,7 @@
         <ul class="subject-wrap">
             <li class="subject">
                 <a href="javascript:void(0)" class="name-settings">
-                    ${classInfo.classname}
+                    ${classInfo.classname}   详情
                 </a>
                 <a href="javascript:void(0)" class="slide-up slide-switch"></a>
                 共<em class="green"> ${classInfo.sumnum}</em>次课  剩余<em class="green"> ${classInfo.num}</em>次课
