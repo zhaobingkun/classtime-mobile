@@ -177,4 +177,31 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
     }
 
+
+    /**
+     * 某一门课程列表信息（今后要改成行程日历页面，目前暂时用列表代替）,跳转到页面
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "classchildlist.html")
+    public String classChildList(HttpServletRequest request, Model model,@RequestParam("mid") int mid) {
+            model.addAttribute("mid",mid);
+            return "classchildlist";
+    }
+
+
+    /**
+     * 某一门课程列表信息（今后要改成行程日历页面，目前暂时用列表代替），获取json
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "classchildlist.json")
+    public String classChildListJson(HttpServletRequest request, Model model,@RequestParam("mid") int mid) {
+            List<ClassTimeMain> classTimeMainList = classTimeMainManager.selectClassMainById(mid);
+            return toJsonResult(classTimeMainList);
+
+    }
+
 }
