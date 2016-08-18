@@ -33,7 +33,7 @@
                 <a href="javascript:void(0)" class="name-settings">
                     ${classInfo.classname}   展开
                 </a>
-                <a href="/class/classchildlist.html">详情</a>
+                <a href="/class/classchildlist/${classInfo.id}">详情</a>
 
                 <a href="javascript:void(0)" class="slide-up slide-switch"></a>
                 共<em class="green"> ${classInfo.sumnum}</em>次课  剩余<em class="green"> ${classInfo.num}</em>次课

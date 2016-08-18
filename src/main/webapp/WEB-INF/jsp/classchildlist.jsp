@@ -34,12 +34,10 @@
 
             </li>--%>
             <li class="subject-detail">
-               <%-- <ul class="time-ul">
-                    <li class="start-over">开始时间：${classInfo.begintime}&lt;%&ndash;<em class="green">2016</em>年<em class="green">4</em>月<em class="green">10</em>日&ndash;%&gt;</li>
-                    <li class="start-over">结束时间：${classInfo.endtime}&lt;%&ndash;<em class="green">2017</em>年<em class="green">1</em>月<em class="green">1</em>日&ndash;%&gt;</li>
-                </ul>--%>
-                <ul class="changes">
-                    <li class="little-changes"><i>请假：</i><em><span class="green"><%--${classInfo.leavenum}--%></span>次</em></li>
+
+                <ul class="changes" id="ttt">
+                    <li   class="little-changes"><i></i><em><span class="green"></span></em></li>
+
                 </ul>
             </li>
         </ul>
@@ -80,6 +78,41 @@
 		}
 	})
 }();
+</script>
+
+
+
+<script>
+
+    $(function () {
+        $.ajax({
+            type: "get",
+            url: "/class/classchildlist.json",
+            dataType: "json",
+            data: {
+                mid : 13
+            },
+            success: function (data) {
+                $('#ttt').html('');
+                var list = data[0].classTimeChildList;
+                //alert(list[0].classTimeChildList);
+                if (null != list && list != '{}') {
+                    $.each(list, function (i, obj) {
+                        if (obj.id != 0) {
+                            $('#ttt').append('<li   class="little-changes"><i>' + obj.id + '</i><em><span class="green">'+obj.classdatetime +'</span></em></li>');
+                        }
+                    });
+                }
+            },
+            error: function () {
+                alert("获取酒店替换列表失败!");
+            }
+
+        })
+    });
+
+
+
 </script>
 </body>
 </html>

@@ -184,8 +184,8 @@ public class ClassController  extends  MyBaseController  implements Serializable
      * @param model
      * @return
      */
-    @RequestMapping(value = "classchildlist.html")
-    public String classChildList(HttpServletRequest request, Model model,@RequestParam("mid") int mid) {
+    @RequestMapping(value = "classchildlist/{mid}")
+    public String classChildList(HttpServletRequest request, Model model,@PathVariable("mid") String mid) {
             model.addAttribute("mid",mid);
             return "classchildlist";
     }
@@ -197,9 +197,14 @@ public class ClassController  extends  MyBaseController  implements Serializable
      * @param model
      * @return
      */
+    @ResponseBody
+
     @RequestMapping(value = "classchildlist.json")
-    public String classChildListJson(HttpServletRequest request, Model model,@RequestParam("mid") int mid) {
-            List<ClassTimeMain> classTimeMainList = classTimeMainManager.selectClassMainById(mid);
+    public String classChildListJson(HttpServletRequest request, Model model,@RequestParam("mid") String mid) {
+            List<ClassTimeMain> classTimeMainList = classTimeMainManager.selectClassMainById(Integer.parseInt(mid));
+            System.out.println("22222222222222222");
+            System.out.println(toJsonResult(classTimeMainList));
+
             return toJsonResult(classTimeMainList);
 
     }
