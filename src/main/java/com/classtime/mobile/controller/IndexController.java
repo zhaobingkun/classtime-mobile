@@ -85,6 +85,11 @@ public class IndexController extends MyBaseController {
         }
     }
 
+    @RequestMapping(value = "/calendar.html")
+    public String calendar() {  //@PathVariable("userid") int userid
+        return "calendar";
+    }
+
     @RequestMapping(value = "/oth/{page}.html")
     public String othHtml(@PathVariable("page") String page) {
         return "/oth/" + page;
