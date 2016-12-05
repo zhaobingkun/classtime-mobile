@@ -22,7 +22,8 @@
 	<h2 class="student-overview">
 		<%--<a href="" class="btn-student fr pad-5">管理所有课程</a>--%>
 		<b><%--${student.name}--%></b>
-            <b><span class="id">学号：<%--${student.sno}--%></span></b>
+            <b><span class="uname">姓名：<%--${student.sno}--%></span></b>
+            <b><span class="uclass">课程：<%--${student.sno}--%></span></b>
 	</h2>
 
         <ul class="subject-wrap">
@@ -36,7 +37,7 @@
             <li class="subject-detail">
 
                 <ul class="changes" id="ttt">
-                    <li   class="little-changes"><i></i><em><span class="green"></span></em></li>
+                    <li  class="little-changes"><i>上课时间</i><em><span class="green">状态</span></em><em><span class="green">操作</span></em></li>
 
                 </ul>
             </li>
@@ -90,22 +91,24 @@
             url: "/class/classchildlist.json",
             dataType: "json",
             data: {
-                mid : 13
+                mid : ${mid}
             },
             success: function (data) {
                 $('#ttt').html('');
                 var list = data[0].classTimeChildList;
                 //alert(list[0].classTimeChildList);
+                $('#ttt').append('<li class="little-changes"><i>上课时间</i><em><span class="green">状态</span></em><em><span class="green"><a href="">操作</a></span></em></li>');
                 if (null != list && list != '{}') {
+
                     $.each(list, function (i, obj) {
                         if (obj.id != 0) {
-                            $('#ttt').append('<li   class="little-changes"><i>' + obj.id + '</i><em><span class="green">'+obj.classdatetime +'</span></em></li>');
+                            $('#ttt').append('<li class="little-changes"><i>'+obj.classdatetime+ '</i><em><span class="green">未上</span></em><em><span class="green"><a href="">请假</a></span></em></li>');
                         }
                     });
                 }
             },
             error: function () {
-                alert("获取酒店替换列表失败!");
+                alert("获取列表失败!");
             }
 
         })
