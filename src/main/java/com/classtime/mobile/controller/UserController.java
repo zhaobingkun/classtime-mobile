@@ -2,7 +2,6 @@ package com.classtime.mobile.controller;
 
 import com.classtime.mobile.util.CookieUtil;
 import com.classtime.mobile.util.SessionUtil;
-import com.classtime.mobile.util.SmsSendUtil;
 import com.classtime.service.beans.UserModel;
 import com.classtime.service.manager.CpsuserManager;
 import com.classtime.service.model.Cpsuser;
@@ -116,6 +115,8 @@ public class UserController extends MyBaseController {
         else{
             result = toJsonResult(22, "", "");
         }
+
+        System.out.println(result);
         //logger.info("loginOfPhone json end result {}", result);
         return result;
         //return "redirect:/classmanager/classlist.html";
@@ -173,8 +174,8 @@ public class UserController extends MyBaseController {
                 opLogger.info(StringTools.toLogString(phone, "update", user));
             }
         }
-        //String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
-        String res = SmsSendUtil.sendLoginCheck(phone, randomCode);
+        String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
+        //String res = SmsSendUtil.sendLoginCheck(phone, randomCode);
         if (res != null && res.equals("0")) {
             result = toJsonResult(1, "", randomCode);
         }

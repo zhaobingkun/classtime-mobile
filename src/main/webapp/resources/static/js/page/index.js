@@ -21,10 +21,11 @@ define(function(require, exports, module) { //参数名字不能改
         onBeforeRequestData: cal_beforerequest,
         onAfterRequestData: cal_afterrequest,
         onRequestDataError: cal_onerror, 
-        url: "calendar.php?mode=get" ,  
-        quickAddUrl: "calendar.php?mode=quickadd" ,  
-        quickUpdateUrl: "calendar.php?mode=quickupdate" ,  
-        quickDeleteUrl:  "calendar.php?mode=quickdelete" //快速删除日程的
+       //url: "calendar.php?mode=get" ,
+         url: "/class/listClassByMonth.json" ,
+        quickAddUrl: "/class/addClass.json" ,
+        quickUpdateUrl: "/class/addClass.json" ,
+        quickDeleteUrl:  "/class/delClass.json" //快速删除日程的
         /* timeFormat:" hh:mm t", //t表示上午下午标识,h 表示12小时制的小时，H表示24小时制的小时,m表示分钟
         tgtimeFormat:"ht" //同上 */ 
     };

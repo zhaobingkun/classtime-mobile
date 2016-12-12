@@ -51,13 +51,13 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
         if(cpsuser!=null) {
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId() + ""));
-
+            System.out.println("studentList="+studentList.size());
 
             //如果没有课程则转到课程添加页面
 
             if (studentList.size() <= 0) {
                 return "/addStudent";
-            }
+            }/*
 
             for (int i = 0; i < studentList.size(); i++) {
                 List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
@@ -66,15 +66,19 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
 
             for (int i = 0; i < studentList.size(); i++) {
+
+               Student student =  studentList.get(i);
+                System.out.println("student.getId()="+student.getSno());
                 for (int j = 0; j < studentList.get(i).getClassTimeMainList().size(); j++) {
                     ClassTimeMain cmain = studentList.get(i).getClassTimeMainList().get(j);
-                    System.out.println(cmain.getId());
+                    System.out.println("cmain.getId()="+cmain.getId());
 
                 }
-            }
+            }*/
 
 
             model.addAttribute("studentList", studentList);
+            System.out.println("studentList.size()="+studentList.size());
             return "classlist";
         }
         else{
@@ -140,13 +144,18 @@ public class ClassController  extends  MyBaseController  implements Serializable
         for(int i=0;i<daysNeedBookList.size();i++){
             ClassTimeChild classTimeChild = new ClassTimeChild();
             classTimeChild.setMid(pageModel.getId());
-            classTimeChild.setClassdatetime(DateUtils.parseDate(daysNeedBookList.get(i).toString(),"yyyy-MM-dd"));
+
+
+            System.out.println("str="+daysNeedBookList.get(i).toString() +" "+pageModel.getClasstime()+":00");
+
+            System.out.println("datetime = " + DateUtils.parseDate(daysNeedBookList.get(i).toString() +" "+pageModel.getClasstime()+":00","yyyy-MM-dd HH:mm:ss"));
+
+            classTimeChild.setClassdatetime(DateUtils.parseDate(daysNeedBookList.get(i).toString() +" "+pageModel.getClasstime()+":00","yyyy-MM-dd HH:mm:ss"));
             childList.add(classTimeChild);
         }
 
         classTimeChildManager.addClassTimeChildBatch(childList);
-        //model.addAttribute("studentList",studentList);
-        //return "classlist";
+
         return "redirect:/class/classlist.html";
     }
 
@@ -198,15 +207,69 @@ public class ClassController  extends  MyBaseController  implements Serializable
      * @return
      */
     @ResponseBody
-
     @RequestMapping(value = "classchildlist.json")
     public String classChildListJson(HttpServletRequest request, Model model,@RequestParam("mid") String mid) {
-            List<ClassTimeMain> classTimeMainList = classTimeMainManager.selectClassMainById(Integer.parseInt(mid));
+            List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainId(Integer.parseInt(mid));
+
             System.out.println("22222222222222222");
             System.out.println(toJsonResult(classTimeMainList));
 
             return toJsonResult(classTimeMainList);
 
     }
+
+
+    /**
+     * 取当 前学生 当前月 所有上课日历 组成json串并返回
+     * @param request
+     * @param pageModel
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "listClassByMonth.json", method = RequestMethod.POST)
+    public String listByMonth(HttpServletRequest request, @ModelAttribute Student pageModel) {
+
+        System.out.print("listClassByMonth.json");
+
+        //Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+
+        //System.out.print("cpsuser.getId()="+cpsuser.getId());
+
+
+        return "getListByMonth.json";
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping(value = "addClass.json", method = RequestMethod.POST)
+    public String addClass(HttpServletRequest request, @ModelAttribute Student pageModel) {
+
+        System.out.print("addClass.json");
+
+        //Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+
+        //System.out.print("cpsuser.getId()="+cpsuser.getId());
+
+
+        return "getListByMonth.json";
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping(value = "delClass.json", method = RequestMethod.POST)
+    public String delClass(HttpServletRequest request, @ModelAttribute Student pageModel) {
+
+        System.out.print("delClass.json");
+
+        //Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+
+        //System.out.print("cpsuser.getId()="+cpsuser.getId());
+
+
+        return "getListByMonth.json";
+    }
+
 
 }

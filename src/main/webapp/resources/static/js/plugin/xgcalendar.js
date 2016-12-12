@@ -148,7 +148,7 @@
     }
     $.fn.bcalendar = function(option) {
         var def = {
-            view: "week", //默认是周视图day,week,month
+            view: "month", //默认是周视图day,week,month
             weekstartday: 1,  //默认星期一开始
             theme: 0, //默认使用第一套主题
             height: false, //视图的高度，如果不设置则默认获取所在页面的高度
@@ -1123,7 +1123,7 @@
                         	 alert(datastr);
                         datastr =datastr.replace(/"\\\/(Date\([0-9-]+\))\\\/"/gi, 'new $1');
                         alert(datastr);
-                        datastr  =  datastr.substring(5);
+                      // datastr  =  datastr.substring(5);
                         
                         alert(datastr);
                         var data = (new Function("return " + datastr))();

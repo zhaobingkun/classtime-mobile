@@ -80,4 +80,6 @@ public class StudentController extends MyBaseController{
         return "redirect:/class/classaddbefore.html";
     }
 
+
+
 }

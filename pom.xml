@@ -260,6 +260,31 @@
         </dependency>
 
         <!--taobao sdk end-->
+
+        <!--hadoop sdk-->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-auth</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-core</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <!--hadoop sdk end-->
+
     </dependencies>
     <build>
 
@@ -402,7 +427,7 @@
 
     </profiles>
 
-  <!--  <repositories>
+   <repositories>
         <repository>
             <id>public</id>
             <name>User Project public</name>
@@ -413,5 +438,5 @@
             <name>User Project thirdparty</name>
             <url>http://101.201.232.250:8081/nexus/content/repositories/thirdparty</url>
         </repository>
-    </repositories>-->
+    </repositories>
 </project>

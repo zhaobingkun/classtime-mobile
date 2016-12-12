@@ -13,10 +13,10 @@
 <body>
 <div id="mainpanel">
     <div id="toppanel">
-        <div id="errorpannel">errormsg</div>
-        <p class="logo">title</p>
+        <div id="errorpannel">error消息</div>
+        <p class="logo">课时笔记</p>
         <div class="calbtnp1">
-            <button id="todaybtn" type="button" class="btn">today</button>
+            <button id="todaybtn" type="button" class="btn">今天</button>
             <div class="btngroup">
                 <span id="prevbtn" type="button" class="btn prevbtn"><em></em></span>
                 <span id="nextbtn" type="button" class="btn nextbtn"><em></em></span>
@@ -41,6 +41,7 @@
         app.init();
     });
 </script>
+
 </body>
 
 </html>

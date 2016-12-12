@@ -84,6 +84,12 @@ $(document).ready(function() {
                 <label class="tit">上课时间：</label>
                 <input type="text" name="classtime"  id="classtime" class="i-txt">
             </li>
+			
+			<!-- <li class="one-item">
+                <label class="tit">上课时间：</label>
+                <input type="text" name="classtime"  id="classtime" class="i-txt">
+            </li>-->
+			
 		<li class="one-item">
 			<label class="tit">上课地点：</label>
 			<input type="text" name="classaddress" class="i-txt">
