@@ -280,7 +280,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
         }
 
-        System.out.println(toJsonResult(viewList));
+       // System.out.println(toJsonResult(viewList));
         Object[][] aa = new String[viewList.size()][11];
 
         for(int i=0;i<viewList.size();i++){
@@ -312,7 +312,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
         vj.setEvents(aa);
 
 
-        System.out.println(toJsonResult(vj));
+       // System.out.println(toJsonResult(vj));
 
     return toJsonResult(vj);
     }
