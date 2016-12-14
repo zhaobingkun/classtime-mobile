@@ -45,7 +45,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
     public String classlist(HttpServletRequest request, Model model) {
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
 
-        System.out.println(cpsuser.getId());
+      //  System.out.println(cpsuser.getId());
 
         if(cpsuser!=null) {
             List<Student> studentList = studentManager.selectForUser(Integer.parseInt(cpsuser.getId() + ""));
