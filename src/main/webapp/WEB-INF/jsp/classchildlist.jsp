@@ -95,7 +95,8 @@
             },
             success: function (data) {
                 $('#ttt').html('');
-                var list = data[0].classTimeChildList;
+                //var list = data[0].classTimeChildList;
+                var list = data;
                 //alert(list[0].classTimeChildList);
                 $('#ttt').append('<li class="little-changes"><i>上课时间</i><em><span class="green">状态</span></em><em><span class="green"><a href="">操作</a></span></em></li>');
                 if (null != list && list != '{}') {

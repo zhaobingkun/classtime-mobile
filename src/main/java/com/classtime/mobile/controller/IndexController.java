@@ -57,7 +57,10 @@ public class IndexController extends MyBaseController {
         }
     }
 
-
+    @RequestMapping(value = "/calendar.html")
+    public String calendar(HttpServletRequest request, Model model) {
+        return "calendar";
+    }
 
     @RequestMapping(value = "/index.html")
     public String home(HttpServletRequest request, Model model) {

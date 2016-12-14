@@ -4,10 +4,7 @@ import com.classtime.mobile.util.CookieUtil;
 import com.classtime.service.manager.ClassTimeChildManager;
 import com.classtime.service.manager.ClassTimeMainManager;
 import com.classtime.service.manager.StudentManager;
-import com.classtime.service.model.ClassTimeChild;
-import com.classtime.service.model.ClassTimeMain;
-import com.classtime.service.model.Cpsuser;
-import com.classtime.service.model.Student;
+import com.classtime.service.model.*;
 import com.classtime.service.utils.DateUtils;
 import com.classtime.service.utils.WeekDayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Date;
 /**
  * Created by Administrator on 2016/7/5.
  */
@@ -57,7 +55,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
             if (studentList.size() <= 0) {
                 return "/addStudent";
-            }/*
+            }
 
             for (int i = 0; i < studentList.size(); i++) {
                 List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
@@ -74,7 +72,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
                     System.out.println("cmain.getId()="+cmain.getId());
 
                 }
-            }*/
+            }
 
 
             model.addAttribute("studentList", studentList);
@@ -209,12 +207,33 @@ public class ClassController  extends  MyBaseController  implements Serializable
     @ResponseBody
     @RequestMapping(value = "classchildlist.json")
     public String classChildListJson(HttpServletRequest request, Model model,@RequestParam("mid") String mid) {
-            List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainId(Integer.parseInt(mid));
+            List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(mid));
 
-            System.out.println("22222222222222222");
+            System.out.println("mid==="+mid);
             System.out.println(toJsonResult(classTimeMainList));
+        ViewModel viewModel = new ViewModel();
+          List viewList = new ArrayList();
+        for(int i=0;i<classTimeMainList.size();i++){
+            ClassTimeChild  child = classTimeMainList.get(i);
+            viewModel.setId(child.getId());
+            viewModel.setClassName(child.getClassTimeMain().getClassname());
+            viewModel.setStartTime(DateUtils.formatDate(child.getClassdatetime(), "yyyy-MM-dd HH:mm:ss"));
+            viewModel.setEndTime(DateUtils.formatDate(DateUtils.getHourAfter(child.getClassdatetime(), 1),"yyyy-MM-dd HH:mm:ss"));
+            viewModel.setType1(0);
+            viewModel.setType2(0);
+            viewModel.setType3(0);
+            viewModel.setColor(10);
+            viewModel.setType4(0);
+            viewModel.setAddress(child.getClassTimeMain().getClassaddress());
+            viewModel.setContent(child.getContent());
+            viewList.add(viewModel);
+        }
+       // int size=viewList.size();
+        //String[] array = (String[])viewList.toArray(new String[size]);
 
-            return toJsonResult(classTimeMainList);
+
+        System.out.print(toJsonResult(viewList));
+        return toJsonResult(classTimeMainList);
 
     }
 
@@ -228,15 +247,60 @@ public class ClassController  extends  MyBaseController  implements Serializable
     @ResponseBody
     @RequestMapping(value = "listClassByMonth.json", method = RequestMethod.POST)
     public String listByMonth(HttpServletRequest request, @ModelAttribute Student pageModel) {
+        String mid = "16";
+        List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(mid));
 
-        System.out.print("listClassByMonth.json");
+        //System.out.println("mid==="+mid);
+      //  System.out.println(toJsonResult(classTimeMainList));
+        ViewModel viewModel = new ViewModel();
+        List<ViewModel> viewList = new ArrayList();
+        for(int i=0;i<classTimeMainList.size();i++){
+            ClassTimeChild  child = classTimeMainList.get(i);
+            viewModel.setId(child.getId());
+            viewModel.setClassName(child.getClassTimeMain().getClassname());
+            viewModel.setStartTime(DateUtils.formatDate(child.getClassdatetime(), "yyyy-MM-dd HH:mm:ss"));
+            viewModel.setEndTime(DateUtils.formatDate(DateUtils.getHourAfter(child.getClassdatetime(), 1),"yyyy-MM-dd HH:mm:ss"));
+            viewModel.setType1(0);
+            viewModel.setType2(0);
+            viewModel.setType3(0);
+            viewModel.setColor(10);
+            viewModel.setType4(0);
+            viewModel.setAddress(child.getClassTimeMain().getClassaddress());
+            viewModel.setContent(child.getContent());
+            viewList.add(viewModel);
 
-        //Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
 
-        //System.out.print("cpsuser.getId()="+cpsuser.getId());
+        }
+
+        Object[][] aa = new String[viewList.size()][11];
+
+        for(int i=0;i<viewList.size();i++){
+            ViewModel view = viewList.get(i);
+            aa[i][0] = view.getId()+"";
+            aa[i][1] = view.getClassName();
+            aa[i][2] = "/Date("+DateUtils.parseDate(view.getStartTime(),"yyyy-MM-dd HH:mm:ss").getTime()+"/)";
+            aa[i][3] = "/Date("+DateUtils.parseDate(view.getEndTime(),"yyyy-MM-dd HH:mm:ss").getTime()+"/)";
+            aa[i][4] = view.getType1()+"";
+            aa[i][5] = view.getType1()+"";
+            aa[i][6] = view.getType1()+"";
+            aa[i][7] = view.getColor()+"";
+            aa[i][8] = view.getType1()+"";
+            aa[i][9] = "";
+            aa[i][10] = "";
+        }
 
 
-        return "getListByMonth.json";
+        viewJson vj = new viewJson();
+        vj.setStart("/Date("+new Date().getTime()+"/)");
+        vj.setEnd("/Date("+new Date().getTime()+"/)");
+        vj.setError(null);
+        vj.setIssort("true");
+        vj.setEvents(aa);
+
+
+        System.out.println(toJsonResult(vj));
+
+    return toJsonResult(vj);
     }
 
 
