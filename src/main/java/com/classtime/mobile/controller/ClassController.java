@@ -252,10 +252,11 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
         //System.out.println("mid==="+mid);
       //  System.out.println(toJsonResult(classTimeMainList));
-        ViewModel viewModel = new ViewModel();
+
         List<ViewModel> viewList = new ArrayList();
         for(int i=0;i<classTimeMainList.size();i++){
             ClassTimeChild  child = classTimeMainList.get(i);
+            ViewModel viewModel = new ViewModel();
             viewModel.setId(child.getId());
             viewModel.setClassName(child.getClassTimeMain().getClassname());
             viewModel.setStartTime(DateUtils.formatDate(child.getClassdatetime(), "yyyy-MM-dd HH:mm:ss"));
@@ -272,14 +273,20 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
         }
 
+        System.out.println(toJsonResult(viewList));
         Object[][] aa = new String[viewList.size()][11];
 
         for(int i=0;i<viewList.size();i++){
             ViewModel view = viewList.get(i);
             aa[i][0] = view.getId()+"";
             aa[i][1] = view.getClassName();
+            aa[i][2] = view.getStartTime();
+            aa[i][3] = view.getEndTime();
+
+/*
             aa[i][2] = "/Date("+DateUtils.parseDate(view.getStartTime(),"yyyy-MM-dd HH:mm:ss").getTime()+"/)";
             aa[i][3] = "/Date("+DateUtils.parseDate(view.getEndTime(),"yyyy-MM-dd HH:mm:ss").getTime()+"/)";
+            */
             aa[i][4] = view.getType1()+"";
             aa[i][5] = view.getType1()+"";
             aa[i][6] = view.getType1()+"";
@@ -291,8 +298,8 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
 
         viewJson vj = new viewJson();
-        vj.setStart("/Date("+new Date().getTime()+"/)");
-        vj.setEnd("/Date("+new Date().getTime()+"/)");
+        vj.setStart(new Date());
+        vj.setEnd(new Date());
         vj.setError(null);
         vj.setIssort("true");
         vj.setEvents(aa);

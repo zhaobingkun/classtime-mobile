@@ -13,7 +13,7 @@
 <body>
 <div id="mainpanel">
     <div id="toppanel">
-        <div id="errorpannel">error消息</div>
+       <%-- <div id="errorpannel">error消息</div>--%>
         <p class="logo">课时笔记</p>
         <div class="calbtnp1">
             <button id="todaybtn" type="button" class="btn">今天</button>
@@ -24,6 +24,8 @@
             <div id="dateshow"></div>
         </div>
     </div>
+
+    </br></br></br>
     <div id="rightpanel">
         <div id="xgcalendarp">
         </div>

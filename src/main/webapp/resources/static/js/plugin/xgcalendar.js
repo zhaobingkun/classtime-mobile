@@ -33,21 +33,24 @@
     }
     if (!dateFormat || typeof (dateFormat) != "function") {
         var dateFormat = function(format) {
+
             var o = {
-                "M+": this.getMonth() + 1,
-                "d+": this.getDate(),
-                "h+": this.getHours()>12?this.getHours()-12:this.getHours(),
-                "H+": this.getHours(),
-                "m+": this.getMinutes(),
-                "s+": this.getSeconds(),
-                "q+": Math.floor((this.getMonth() + 3) / 3),
-                "w": "0123456".indexOf(this.getDay()),
-				"t":this.getHours()<12?i18n.xgcalendar.dateformat.AM:i18n.xgcalendar.dateformat.PM,
-                "W": __WDAY[this.getDay()],
-                "\\bL\\b": __MonthName[this.getMonth()] //non-standard
+
+                "M+": new Date(this).getMonth() + 1,
+                "d+": new Date(this).getDate(),
+                "h+": new Date(this).getHours()>12?new Date(this).getHours()-12:new Date(this).getHours(),
+                "H+": new Date(this).getHours(),
+                "m+": new Date(this).getMinutes(),
+                "s+": new Date(this).getSeconds(),
+                "q+": Math.floor((new Date(this).getMonth() + 3) / 3),
+                "w": "0123456".indexOf(new Date(this).getDay()),
+				"t":new Date(this).getHours()<12?i18n.xgcalendar.dateformat.AM:i18n.xgcalendar.dateformat.PM,
+                "W": __WDAY[new Date(this).getDay()],
+                "\\bL\\b": __MonthName[new Date(this).getMonth()] //non-standard
             };
+           // alert(this.getMonth);
             if (/(y+)/.test(format)) {
-                format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                format = format.replace(RegExp.$1, (new Date(this).getFullYear() + "").substr(4 - RegExp.$1.length));
             }
             for (var k in o) {
                 if (new RegExp("(" + k + ")").test(format))
@@ -83,10 +86,14 @@
     }
     if (!DateDiff || typeof (DateDiff) != "function") {
         var DateDiff = function(interval, d1, d2) {
+
+
+            d1=new Date(d1);
+            d2 = new Date(d2);
             switch (interval) {
                 case "d": //天
                 case "w":
-                    d1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
+                    d1 = new Date(d1.getFullYear(),d1.getMonth(), d1.getDate());
                     d2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
                     break;  //w
                 case "h":
@@ -183,6 +190,7 @@
         }
 		cc=null;
 		var gridcontainer = $(this);
+
         gridcontainer.css("position","relative");
         option = $.extend(def, option);
         //如果快速更新链接陪游配置，则快速新增不能实现
@@ -412,8 +420,9 @@
             var deB = aDE;
             var deA = sDE;
             for (var j = 0; j < el; j++) {
-                var sD = events[j][2];
-                var eD = events[j][3];
+             //  alert(events[j][2]);
+                var sD = new Date(events[j][2]);
+                var eD = new Date(events[j][3]);
                 var s = {};
                 s.event = events[j];
                 s.day = sD.getDate();
@@ -891,8 +900,8 @@
             var hast = new Object();
             var l = events.length;
             for (var i = 0; i < l; i++) {
-                var sD = events[i][2];
-                var eD = events[i][3];
+                var sD = new Date(events[i][2]);
+                var eD = new Date(events[i][3]);
                 var diff = DateDiff("d", sD, eD);
                 var s = {};
                 s.event = events[i];
@@ -1120,12 +1129,7 @@
                     //dataFilter: function(data, type) { return data.replace(/"\\\/(Date\([0-9-]+\))\\\/"/gi, "new $1"); },
                     success://function(data) {
                         function(datastr){
-                        	 alert(datastr);
                         datastr =datastr.replace(/"\\\/(Date\([0-9-]+\))\\\/"/gi, 'new $1');
-                        alert(datastr);
-                      // datastr  =  datastr.substring(5);
-                        
-                        alert(datastr);
                         var data = (new Function("return " + datastr))();
                         //debugger;
                         if (data != null && data.error != null) {
@@ -1314,6 +1318,8 @@
 
         }
         function getymformat(date, comparedate, isshowtime, isshowweek, showcompare) {
+            date = new Date(date);
+            comparedate = new Date(comparedate);
             var showyear = isshowtime != undefined ? (date.getFullYear() != new Date().getFullYear()) : true;
             var showmonth = true;
             var showday = true;
