@@ -250,7 +250,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
         List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(sid));
 
         //System.out.println("mid==="+mid);
-      //  System.out.println(toJsonResult(classTimeMainList));
+        //System.out.println(toJsonResult(classTimeMainList));
 
         List<ViewModel> viewList = new ArrayList();
         for(int i=0;i<classTimeMainList.size();i++){
@@ -258,8 +258,16 @@ public class ClassController  extends  MyBaseController  implements Serializable
             ViewModel viewModel = new ViewModel();
             viewModel.setId(child.getId());
             viewModel.setClassName(child.getClassTimeMain().getClassname());
+
             viewModel.setStartTime(DateUtils.formatDate(child.getClassdatetime(), "yyyy-MM-dd HH:mm:ss"));
-            viewModel.setEndTime(DateUtils.formatDate(DateUtils.getHourAfter(child.getClassdatetime(), 1),"yyyy-MM-dd HH:mm:ss"));
+
+            //System.out.println("start=="+DateUtils.formatDate(child.getClassdatetime(), "yyyy-MM-dd HH:mm:ss"));
+
+            viewModel.setEndTime(DateUtils.formatDate(child.getClassdatetime(),"yyyy-MM-dd HH:mm:ss"));
+
+            //System.out.println("end=="+DateUtils.formatDate(child.getClassdatetime(),"yyyy-MM-dd HH:mm:ss"));
+
+
             viewModel.setType1(0);
             viewModel.setType2(0);
             viewModel.setType3(0);
