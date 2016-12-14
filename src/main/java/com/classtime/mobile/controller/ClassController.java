@@ -241,14 +241,13 @@ public class ClassController  extends  MyBaseController  implements Serializable
     /**
      * 取当 前学生 当前月 所有上课日历 组成json串并返回
      * @param request
-     * @param pageModel
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "listClassByMonth.json", method = RequestMethod.POST)
-    public String listByMonth(HttpServletRequest request, @ModelAttribute Student pageModel) {
-        String mid = "16";
-        List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(mid));
+    public String listByMonth(HttpServletRequest request,@RequestParam("sid") String sid) {
+        sid = "19";
+        List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(sid));
 
         //System.out.println("mid==="+mid);
       //  System.out.println(toJsonResult(classTimeMainList));

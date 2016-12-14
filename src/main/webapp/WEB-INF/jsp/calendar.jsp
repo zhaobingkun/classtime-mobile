@@ -39,8 +39,9 @@
     var loadingmsg = 'loadingmsg';
     var sucessmsg = 'sucessmsg';
     var processdatamsg = 'processdatamsg';
+    alert("sid="+${sid});
     seajs.use('page/index', function(app) {
-        app.init();
+        app.init(${sid});
     });
 </script>
 

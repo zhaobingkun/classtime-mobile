@@ -2,11 +2,12 @@ define(function(require, exports, module) { //参数名字不能改
   var minicalendar = require("../plugin/minicalendar");
   require("plugin/xgcalendar");
   require("dailog");
-  exports.init =function() {   
+  exports.init =function(sid) {
      var minical =new minicalendar({
         onchange:datechange
      });
-    // minical.init("#minical");    
+
+
      minical.init("");    
      var op = {
        // view: "week",
@@ -22,13 +23,14 @@ define(function(require, exports, module) { //参数名字不能改
         onAfterRequestData: cal_afterrequest,
         onRequestDataError: cal_onerror, 
        //url: "calendar.php?mode=get" ,
-         url: "/class/listClassByMonth.json" ,
+        url: "/class/listClassByMonth.json?sid="+sid ,
         quickAddUrl: "/class/addClass.json" ,
         quickUpdateUrl: "/class/addClass.json" ,
         quickDeleteUrl:  "/class/delClass.json" //快速删除日程的
         /* timeFormat:" hh:mm t", //t表示上午下午标识,h 表示12小时制的小时，H表示24小时制的小时,m表示分钟
         tgtimeFormat:"ht" //同上 */ 
     };
+     // alert("index.jsp/sid="+sid);
     var _MH = document.documentElement.clientHeight;
     op.height = _MH-90;
     op.eventItems =[];
