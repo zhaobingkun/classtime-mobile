@@ -248,7 +248,7 @@
             <version>1.2.15</version>
         </dependency>
         <!--taobao sdk-->
-        <dependency>
+      <dependency>
             <groupId>taobao-sdk</groupId>
             <artifactId>taobao-sdk</artifactId>
             <version>20151203</version>
@@ -262,7 +262,7 @@
         <!--taobao sdk end-->
 
         <!--hadoop sdk-->
-        <dependency>
+       <!-- <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-hdfs</artifactId>
             <version>2.6.0</version>
@@ -281,7 +281,7 @@
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-core</artifactId>
             <version>1.2.1</version>
-        </dependency>
+        </dependency>-->
 
         <!--hadoop sdk end-->
 
@@ -431,12 +431,12 @@
         <repository>
             <id>public</id>
             <name>User Project public</name>
-            <url>http://101.201.232.250:8081/nexus/content/groups/public</url>
+            <url>http://182.92.214.72:8081/nexus/content/groups/public</url>
         </repository>
         <repository>
             <id>thirdparty</id>
             <name>User Project thirdparty</name>
-            <url>http://101.201.232.250:8081/nexus/content/repositories/thirdparty</url>
+            <url>http://182.92.214.72:8081/nexus/content/repositories/thirdparty</url>
         </repository>
     </repositories>
 </project>
