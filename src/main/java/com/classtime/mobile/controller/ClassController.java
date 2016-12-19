@@ -259,11 +259,11 @@ public class ClassController  extends  MyBaseController  implements Serializable
             viewModel.setId(child.getId());
             viewModel.setClassName(child.getClassTimeMain().getClassname());
 
-            viewModel.setStartTime(DateUtils.formatDate(child.getClassdatetime(), "yyyy-MM-dd HH:mm:ss"));
+            viewModel.setStartTime(DateUtils.formatDate(child.getClassdatetime(), "yyyy/MM/dd HH:mm:ss"));
 
             //System.out.println("start=="+DateUtils.formatDate(child.getClassdatetime(), "yyyy-MM-dd HH:mm:ss"));
 
-            viewModel.setEndTime(DateUtils.formatDate(child.getClassdatetime(),"yyyy-MM-dd HH:mm:ss"));
+            viewModel.setEndTime(DateUtils.formatDate(child.getClassdatetime(),"yyyy/MM/dd HH:mm:ss"));
 
             //System.out.println("end=="+DateUtils.formatDate(child.getClassdatetime(),"yyyy-MM-dd HH:mm:ss"));
 

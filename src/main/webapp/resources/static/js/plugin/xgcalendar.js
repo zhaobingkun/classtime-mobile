@@ -186,7 +186,9 @@
 
         var cc = $("#cal-month-cc");
 	    if (cc.length == 0) {
-           $( "<div id='cal-month-cc' class='cc'><div id='cal-month-cc-header'><div class='cc-close' id='cal-month-closebtn'></div><div id='cal-month-cc-title' class='cc-title'></div></div><div id='cal-month-cc-body' class='cc-body'><div id='cal-month-cc-content' class='st-contents'><table class='st-grid' cellSpacing='0' cellPadding='0'><tbody></tbody></table></div></div></div>").appendTo(document.body);
+           $( "<div id='cal-month-cc' class='cc'><div id='cal-month-cc-header'><div class='cc-close' id='cal-month-closebtn'></div><div id='cal-month-cc-title' class='cc-title'></div></div><div id='cal-month-cc-body' class='cc-body'><div id='cal-month-cc-content' class='st-contents'>" +
+               "<table class='st-grid' cellSpacing='0' cellPadding='0'><tbody></tbody></table>" +
+               "</div></div></div>").appendTo(document.body);
         }
 		cc=null;
 		var gridcontainer = $(this);
@@ -320,10 +322,10 @@
             }
             switch (option.view) {
                 case "day":
-                    BuildDaysAndWeekView(showday, 1, events, config);
+                    // BuildDaysAndWeekView(showday, 1, events, config);
                     break;
                 case "week":
-                    BuildDaysAndWeekView(showday, 7, events, config);
+                  //  BuildDaysAndWeekView(showday, 7, events, config);
                     break;
                 case "month":
                     BuildMonthView(showday, events, config);
@@ -338,7 +340,7 @@
         }
 
         //构建日视图
-        function BuildDaysAndWeekView(startday, l, events, config) {
+       /* function BuildDaysAndWeekView(startday, l, events, config) {
             var days = [];
             if (l == 1) {
                 var show = dateFormat.call(startday, i18n.xgcalendar.dateformat.Md);
@@ -366,7 +368,7 @@
 
             var allDayEvents = [];
             var scollDayEvents = [];
-            //返回所有全天日程的个数,拆分日程分成全天跨天日程和当天日程；
+            //返回所有全天日程的个数,拆分日程分成全天跨天日程和当天日程；  在table里写入当天事件
             var dM = PropareEvents(days, events, allDayEvents, scollDayEvents);
 
             var html = [];
@@ -385,7 +387,9 @@
             html = null;
             //事件处理TODO
             //$("#weekViewAllDaywk").click(RowHandler);
-        }
+        }*/
+
+
         //构建月视图
         function BuildMonthView(showday, events, config) {
             var html = [];
@@ -401,6 +405,8 @@
             html.push("</div>");
             var bH = GetMonthViewBodyHeight() - GetMonthViewHeaderHeight();
 
+
+
             html.push("<div id=\"mvEventContainer\" class=\"mv-event-container\" style=\"height:", bH, "px;", "\">");
             BuilderMonthBody(html, showday, config.weekstartday, events, bH);
             html.push("</div>");
@@ -412,7 +418,7 @@
             $("#cal-month-cc").css("display", "none");
         }
         //切分一半的日程后，全天日程（包括跨日）
-        function PropareEvents(dayarrs, events, aDE, sDE) {
+     /*   function PropareEvents(dayarrs, events, aDE, sDE) {
 
             var l = dayarrs.length;
             var el = events.length;
@@ -542,9 +548,10 @@
                 }
             }
             return dMax;
-        }
+        }*/
 
-        function BuildWT(ht, dayarrs, events, dMax) {
+
+      /*  function BuildWT(ht, dayarrs, events, dMax) {
             //1:
             ht.push("<tr>", "<th width=\"60\" rowspan=\"3\">&nbsp;</th>");
             for (var i = 0; i < dayarrs.length; i++) {
@@ -648,9 +655,9 @@
             }
             ht.push("></td>");
             ht.push("</tr>");
-        }
+        }*/
 
-        function BuildDayScollEventContainer(ht, dayarrs, events) {
+       /* function BuildDayScollEventContainer(ht, dayarrs, events) {
             //1:
             ht.push("<tr>");
             ht.push("<td style='width:60px;'></td>");
@@ -702,8 +709,10 @@
                 ht.push("</td>");
             }
             ht.push("</tr>");
-        }
+        }*/
+
         //绘制某一天的日程
+        /*
         function BuildEvents(hv, events, sday) {
             for (var i = 0; i < events.length; i++) {
                 var c;
@@ -716,7 +725,7 @@
                 var tt = BuildDayEvent(c, events[i], i);
                 hv.push(tt);
             }
-        }
+        }*/
         function getTitle(event) {
             var timeshow, locationshow, attendsshow, eventshow;
             var showtime = event[4] != 1;
@@ -742,6 +751,7 @@
             return ret.join("");
         }
         //单个跨天日程和全天日程，或者是月视图下的日程
+        /*
         function BuildDayEvent(theme, e, index) {
             var p = { bdcolor: theme[0], bgcolor2: theme[0], bgcolor1: theme[2], width: "70%", icon: "", title: "", data: "" };
 
@@ -774,7 +784,7 @@
             var newtemp = Tp(__SCOLLEVENTTEMP, p);
             p = null;
             return newtemp;
-        }
+        }*/
 
         //获取月视图body的高度
         function GetMonthViewBodyHeight() {
@@ -804,13 +814,33 @@
             option.datestrshow = CalDateShow(startdate, enddate);
             bodyHeight = bodyHeight - 18 * rc;
             var rowheight = bodyHeight / rc;
+
+
+            //alert("rowheight=" + rowheight);
+
             var roweventcount = parseInt(rowheight / 21);
+
+
+
+          //  alert("roweventcount=" + roweventcount);
+
             if (rowheight % 21 > 15) {
                 roweventcount++;
             }
+
+
+          //  alert("roweventcount=" + roweventcount);
             var p = 100 / rc;
             var formatevents = [];
             var hastdata = formartEventsInHashtable(events, startday, 7, startdate, enddate);
+
+           // var obj = eval('(' + hastdata + ')');
+           // alert(obj);
+
+            var jsObjstr = JSON.stringify(hastdata);
+            console.log(jsObjstr);
+        //    alert(jsObjstr);
+
             var B = [];
             var C = [];
             for (var j = 0; j < rc; j++) {
@@ -856,8 +886,8 @@
 
                 //title tr
                 htb.push("<tr>");
-                var titletemp = "<td class=\"st-dtitle${titleClass}\" ch='qkadd' abbr='${abbr}' axis='00:00' title=\"${title}\"><a href='javascript:void(0);' class='monthdayshow'>${dayshow}</a></td>";
-
+                //var titletemp = "<td class=\"st-dtitle${titleClass}\" ch='qkadd' abbr='${abbr}' axis='00:00' title=\"${title}\"><a href='javascript:void(0);' class='monthdayshow'>${dayshow} dddddd </a></td>";
+                var titletemp = "<td class=\"st-dtitle${titleClass}\" ch='qkadd' abbr='${abbr}' axis='00:00' title=\"${title}\"><span class='monthdayshow'>${dayshow}</span></td>";
                 for (var i = 0; i < 7; i++) {
                     var o = { titleClass: "", dayshow: "" };
                     var day = C[j * 7 + i];
@@ -884,6 +914,10 @@
                 }
                 htb.push("</tr>");
                 var sfirstday = C[j * 7];
+
+                //alert("roweventcount==="+roweventcount);
+               // alert("dMax==="+dMax);
+
                 BuildMonthRow(htb, formatevents[j], dMax, roweventcount, sfirstday);
                 //htb=htb.concat(rowHtml); rowHtml = null;
 
@@ -900,8 +934,18 @@
             var hast = new Object();
             var l = events.length;
             for (var i = 0; i < l; i++) {
+              //  alert("events2="+events[i][2]);
+              //  alert("events3="+events[i][3]);
+
                 var sD = new Date(events[i][2]);
                 var eD = new Date(events[i][3]);
+
+
+
+               // alert("sD="+sD);
+
+              //  alert("eD="+eD);
+
                 var diff = DateDiff("d", sD, eD);
                 var s = {};
                 s.event = events[i];
@@ -912,6 +956,8 @@
                 s.crossday = events[i][5] == 1;
                 s.reevent = events[i][6] == 1; //循环日程
                 s.daystr = s.year + "/" + s.month + "/" + s.day;
+
+
                 s.st = {};
                 s.st.hour = sD.getHours();
                 s.st.minute = sD.getMinutes();
@@ -957,6 +1003,10 @@
             return hast;
         }
         function BuildMonthRow(htr, events, dMax, sc, day) {
+
+           // alert("sc==="+sc);
+           // alert("dMax==="+dMax);
+            sc = 2;
             var x = []; //一周中每一天都已经登记了多少个日程;
             var y = []; //一周中每一天总共有多少个日程;
             var z = []; //一周中每一天日程已经占用了多少行;
@@ -984,15 +1034,25 @@
             }
             //var htr=[];
             var tdtemp = "<td class='${cssclass}' axis='${axis}' ch='${ch}' abbr='${abbr}' title='${title}' ${otherAttr}>${html}</td>";
-            for (var j = 0; j < sc && el < dMax; j++) {
+           // alert("tdtemp"+tdtemp);
+           // alert("sc="+sc);
+           // alert("el="+el);
+          //  alert("dMax="+dMax);
+            for (var j = 0;j < sc && el < dMax; j++) {
+
+                //alert("for1");
                 htr.push("<tr>");
                 //var gridtr = $(__TRTEMP);
                 for (var h = 0; h < l; ) {
+                   // alert("for2");
                     var e = events[h] ? events[h][x[h]] : undefined;
                     var tempdata = { "class": "", axis: "", ch: "", title: "", abbr: "", html: "", otherAttr: "", click: "javascript:void(0);" };
                     var tempCss = ["st-c"];
 
+                  //  alert(e);
                     if (e) { //如果存在
+                      //  alert("BuildMonthRow----e");
+
                         x[h] = x[h] + 1;
                         //如果当前是当天的最后一个日程
                         var bs = false;
@@ -1006,6 +1066,8 @@
                             h++;
                         }
                         else {
+
+                          //  alert("BuildMonthRow----!bs");
                             tempdata.html = BuildMonthDayEvent(e, cday[h], l - h);
                             tempdata.ch = "show";
                             if (e.colSpan > 1) {
@@ -1046,6 +1108,9 @@
             //return htr;
         }
         function BuildMonthDayEvent(e, cday, length) {
+
+
+         //   alert('BuildMonthDayEvent');
             var theme;
             if (e.event[7] && e.event[7] >= 0) {
                 theme = tc(e.event[7]);
@@ -1064,6 +1129,7 @@
                 p.eclass = "cal_" + e.event[0];
             }
             p.data = e.event.join("$");
+          //  alert("pdata =" + p.data);
             var sp = "<span style=\"cursor: pointer\">${content}</span>";
             var i = "<I class=\"cic cic-tmr\">&nbsp;</I>";
             var i2 = "<I class=\"cic cic-rcr\">&nbsp;</I>";
