@@ -60,7 +60,8 @@ public class IndexController extends MyBaseController {
     @RequestMapping(value = "/calendar/{sid}")
     public String calendar(HttpServletRequest request, Model model,@PathVariable("sid") String sid) {
         model.addAttribute("sid",sid);
-        return "calendar";
+        //return "calendar";
+        return "calendar-new";
     }
 
     @RequestMapping(value = "/index.html")

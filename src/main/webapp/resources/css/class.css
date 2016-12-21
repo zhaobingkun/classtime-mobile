@@ -1,3 +1,4 @@
+/*课程管理*/
 .class-wrap{ padding:15px }
 h2.student-overview{ font-weight:normal; color:#80827c; line-height:16px; padding:4px 0 20px  }
 h2.student-overview b{ font-size:18px }
@@ -7,7 +8,7 @@ h2.student-overview .btn-student{ margin-top:-4px }
 
 .subject-wrap{ background:#fff; border-bottom:1px solid #eaeaea; }
 .subject-wrap .subject{ overflow:hidden; font-size:12px; color:#727272 }
-.subject-wrap .subject .name-settings{ color:#ff5114; padding:0 21px 0 15px; background:url(../images/icon-settings.png) no-repeat right center; background-size:19px 19px; line-height:44px; margin-right:17px; font-size:15px }
+.subject-wrap .subject .name-settings{ color:#ff5114; padding:0 21px 0 10px; background:url(../images/icon-settings.png) no-repeat right center; background-size:19px 19px; line-height:44px; margin-right:17px; font-size:15px }
 .subject-wrap .subject em{ font-size:15px }
 .subject-wrap .subject .slide-switch{ float:right; width:47px; height:44px; display:block }
 .subject-wrap .subject .slide-up{ background:url(../images/icon-up-select.png) no-repeat right center; background-size:auto 13px }
@@ -20,10 +21,72 @@ h2.student-overview .btn-student{ margin-top:-4px }
 .subject-detail .changes li.little-changes{ line-height:18px; float:left; padding-left:30px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; width:50% }
 .subject-detail .changes li.little-changes i, .subject-detail .changes li.little-changes em, .subject-detail .changes li.little-changes span{ font-size:12px }
 
+/*添加课程*/
+.form-wrap{ background:#fff; margin:15px; margin-bottom:76px; padding:18px 20px }
+.form-wrap h4.top-id{ font-weight:normal; margin-bottom:16px }
 
+.inputs-ul li.one-item{ margin-bottom:10px; width:100% }
+.inputs-ul li label.tit{ line-height:36px; display:block }
+.inputs-ul li .i-txt, .inputs-ul .select{ line-height:40px; height:40px; border:1px solid #e3e3e3 }
+.inputs-ul li .i-txt-calendar{ background:url(../images/icon-calendar.png) no-repeat right center; background-size:37px auto }
+.inputs-ul li .sex-choice{ border:1px solid #e3e3e3; display:block; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; width:100%; height:40px }
+.sex-choice li{ float:left; width:50%; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; text-align:center; height:40px; line-height:40px; color:#2d9e1b; cursor:pointer }
+.sex-choice li:first-child{ border-right:1px solid #e3e3e3 }
+.sex-choice .current{ background:#abce7c; color:#fff; cursor:default }
+.inputs-ul li.one-item-week{ overflow:hidden; line-height:20px }
+.day-of-week{ width:33%; float:left; font-size:15px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;  background:url(../images/icon-checkbox.png) no-repeat 0 8px; background-size:19px auto; padding:8px 0 8px 25px }
+.day-of-week .checkbox-week{ display:none }
+.week-selected{ background-position:0 -54px }
+.inputs-ul .btm-btn{ margin-top:30px }
 
+.inputs-ul .color-select-wrap{ padding:4px; height:50px; line-height:50px }
+.color-select-wrap .select-a-color{ background:url(../images/icon-down-white.png) no-repeat right center #f39a72; background-size:auto 13px; color:#fff; text-align:center; height:40px; line-height:40px; border:none }
+.color-select-wrap .select-a-color option{ color:#fff; text-align:center }
+/*.color-select-wrap .select-a-color option{ background-color:#f62831 }*/
 
+.class-amount{ text-align:center; font-size:15px; line-height:18px; padding-bottom:9px }
+.class-amount b{ font-size:18px; color:#2d9e1b }
+.btm-btn .btn-grey{ margin-top:10px }
 
+/*课程日历*/
+.calendar-wrap{ padding:86px 0 61px; text-align:center }
+.days-head{ border-bottom:1px solid #e5e5e5; background:#fff; color:#9ac265; display:-moz-box; display:-webkit-box; display:box; display:flex }
+.days-head li{ -moz-box-flex:1; -webkit-box-flex:1; box-flex:1; flex:1; line-height:40px; color:#9ac265; text-align:center }
+
+.year-month{ line-height:45px; color:#4f4f4f }
+.dates-ul{ background:#fff; padding:15px 0; overflow:hidden }
+.dates-ul li{ float:left; width:14%; line-height:40px; height:40px }
+.dates-ul li:nth-child(7n-6){ margin-left:1% }
+.dates-ul li:nth-child(7n){ margin-right:1% }
+.calendar-date-p{ line-height:40px; color:#4f4f4f; cursor:pointer } 
+
+.orange-bg{ background-color:#f2a05e; color:#fff }
+.yellow-bg{ background-color:#e0dc67; color:#fff }
+.yellow-green-bg{ background-color:#a2e24d; color:#fff }
+.turquoise-bg{ background-color:#7adca3; color:#fff }
+.blue-bg{ background-color:#6bbefe; color:#fff }
+.rose-red-bg{ background-color:#f078d2; color:#fff }
+.purple-bg{ background-color:#a892f0; color:#fff }
+.red{ background-color:#ed111b; color:#fff }
+
+/*弹出层*/
+.pop-class{ background:#fff; width:60%; min-width:268px; max-width:420px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px; padding:15px; position:relative; text-align:center }
+.pop-class .close{ background:url(../images/icon-delete.png) no-repeat center center #9ac265; background-size:15px; text-indent:-10000px; -moz-border-radius:100px; -webkit-border-radius:100px; border-radius:100px; width:36px; height:36px; display:block; position:absolute; right:-8px; top:-14px }
+.pop-class h3.date{ color:#f62831; font-weight:normal; margin-bottom:9px }
+.pop-class p.title{ background:#f6eed4; color:#7f5813; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; font-size:12px; line-height:25px }
+.pop-class .tip-infor{ line-height:20px; font-size:15px; padding:27px 0 36px }
+
+.classes-ul{ padding:12px 6px }
+.classes-ul li{ display:block }
+.classes-ul li .day-of-week{ float:none; width:100%; text-align:left; display:block; padding:5px 0 5px 32px; font-size:18px }
+.classes-ul li .day-of-week .orange{ color:#ff5114; display:inline-block; padding-right:19px }
+
+.operation-ul{ overflow:hidden; padding:11px 0 23px }
+.operation-ul li{ float:left; width:32%; margin:3px 2% 3px 0 }
+.operation-ul li:nth-child(3n){ margin-right:0 }
+.operation-ul li:nth-child(5){ width:66%; margin-right:0 }
+.operation-ul li a{ color:#b07f61; font-size:15px; line-height:31px; display:block; background:#ece6dd; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px }
+.operation-ul li a.selected{ color:#fff; background:#9ac265 }
 
 
 

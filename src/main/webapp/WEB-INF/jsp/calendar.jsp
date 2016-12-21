@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="/resources/static/css/plugin/minical.css">
     <link rel="stylesheet" href="/resources/static/css/plugin/calendar.css">
     <link rel="stylesheet" href="/resources/static/css/plugin/dailog.css">
+
+    <link rel="stylesheet" href="/resources/css/base.css">
+    <link rel="stylesheet" href="/resources/css/class.css">
+    <link rel="stylesheet" href="/resources/css/base.css">
+    <link rel="stylesheet" href="/resources/css/login.css">
+    <link rel="stylesheet" href="/resources/css/class.css">
+    <link rel="stylesheet" href="/resources/css/userInputs.css">
+    <script src="/resources/js/jquery.min.js"></script>
+    <script src="/resources/js/mobiscroll.custom-2.6.2.min.js" type="text/javascript"></script>
+
+
 </head>
 <body>
 <div id="mainpanel">

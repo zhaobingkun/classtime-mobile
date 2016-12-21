@@ -1,6 +1,5 @@
 body{ background:#f2f2f2 }
-#{ color:#727272; font-size:18px; font-family:microsoft Yahei; padding:0; margin:0; outline:none }
-*{font-size:18px; font-family:microsoft Yahei; padding:0; margin:0; outline:none }
+*{ color:#727272; font-size:18px; font-family:microsoft Yahei; padding:0; margin:0; outline:none }
 ul, li{ list-style:none }
 a{ text-decoration:none }
 em,i{ font-style:normal }
@@ -32,6 +31,8 @@ em,i{ font-style:normal }
 .fix-bottom li.current a.add{ background-image:url(../images/icon-add-class-green.png) }
 .fix-bottom li.current a.mine{ background-image:url(../images/icon-girl-green.png) }
 .fix-bottom li.current a{ color:#2d9e1b }
+
+.fix-head{ position:fixed; left:0; right:0; top:0; z-index:1000 }
 
 .i-txt, .select{ border:none; height:45px; line-height:45px; color:#2d9e1b; background:#fff; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; display:block; padding-left:10px; width:100%; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box }
 .select{ appearance:none; -webkit-appearance:none; -moz-appearance:none; background: url(../images/icon-down-select.png) no-repeat scroll right center #fff; background-size:auto 12px; padding-right:44px }

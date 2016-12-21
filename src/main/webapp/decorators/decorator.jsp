@@ -20,6 +20,7 @@
 
 
 <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/js/popup.js"></script>
 <script src="/resources/js/mobiscroll.custom-2.6.2.min.js" type="text/javascript"></script>
 <decorator:head/>
 </head>

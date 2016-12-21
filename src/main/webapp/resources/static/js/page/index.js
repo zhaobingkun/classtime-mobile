@@ -2,6 +2,7 @@ define(function(require, exports, module) { //参数名字不能改
   var minicalendar = require("../plugin/minicalendar");
   require("plugin/xgcalendar");
   require("dailog");
+  require("mobiscroll");
   exports.init =function(sid) {
      var minical =new minicalendar({
         onchange:datechange

@@ -321,7 +321,20 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
     @ResponseBody
     @RequestMapping(value = "addClass.json", method = RequestMethod.POST)
-    public String addClass(HttpServletRequest request, @ModelAttribute Student pageModel) {
+    public String addClass(HttpServletRequest request, @ModelAttribute Student pageModel,
+                           @RequestParam("CalendarTitle") String CalendarTitle,
+                           @RequestParam("CalendarStartTime") String CalendarStartTime,
+                                   @RequestParam("CalendarEndTime") String CalendarEndTime,
+                                   @RequestParam("IsAllDayEvent") String IsAllDayEvent,
+                                   @RequestParam("timezone") String timezone
+    ) {
+
+        System.out.println("CalendarTitle="+CalendarTitle);
+        System.out.println("CalendarStartTime="+CalendarStartTime);
+        System.out.println("CalendarEndTime="+CalendarEndTime);
+        System.out.println("IsAllDayEvent="+IsAllDayEvent);
+        System.out.println("timezone="+timezone);
+
 
         System.out.print("addClass.json");
 

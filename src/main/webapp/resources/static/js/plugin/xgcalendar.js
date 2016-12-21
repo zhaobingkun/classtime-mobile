@@ -1,13 +1,11 @@
 ﻿/*
-* Copyright (c) 2013 Xuanye.wan
+* Copyright (c) 2013
 * Last update: 2013-02-1
-* Author:假正经哥哥(xuanye)
-* Email:xuanye.wan@gmail.com
-* Source:https://github.com/xuanye/xgcalendar
+* Email:
 */
 ; (function($) {
-    var __WDAY = new Array(i18n.xgcalendar.dateformat.sun, i18n.xgcalendar.dateformat.mon, i18n.xgcalendar.dateformat.tue, i18n.xgcalendar.dateformat.wed, i18n.xgcalendar.dateformat.thu, i18n.xgcalendar.dateformat.fri, i18n.xgcalendar.dateformat.sat);
-    var __MonthName = new Array(i18n.xgcalendar.dateformat.jan, i18n.xgcalendar.dateformat.feb, i18n.xgcalendar.dateformat.mar, i18n.xgcalendar.dateformat.apr, i18n.xgcalendar.dateformat.may, i18n.xgcalendar.dateformat.jun, i18n.xgcalendar.dateformat.jul, i18n.xgcalendar.dateformat.aug, i18n.xgcalendar.dateformat.sep, i18n.xgcalendar.dateformat.oct, i18n.xgcalendar.dateformat.nov, i18n.xgcalendar.dateformat.dec);
+    var __WDAY = new Array("周日","周一","周二","周三","周四","周五","周六");
+    var __MonthName = new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
 
     if (!Clone || typeof (Clone) != "function") {
         var Clone = function(obj) {
@@ -44,7 +42,7 @@
                 "s+": new Date(this).getSeconds(),
                 "q+": Math.floor((new Date(this).getMonth() + 3) / 3),
                 "w": "0123456".indexOf(new Date(this).getDay()),
-				"t":new Date(this).getHours()<12?i18n.xgcalendar.dateformat.AM:i18n.xgcalendar.dateformat.PM,
+				"t":new Date(this).getHours()<12?"上午":"下午",
                 "W": __WDAY[new Date(this).getDay()],
                 "\\bL\\b": __MonthName[new Date(this).getMonth()] //non-standard
             };
@@ -156,7 +154,7 @@
     $.fn.bcalendar = function(option) {
         var def = {
             view: "month", //默认是周视图day,week,month
-            weekstartday: 1,  //默认星期一开始
+            weekstartday: 0,  //默认星期一开始
             theme: 0, //默认使用第一套主题
             height: false, //视图的高度，如果不设置则默认获取所在页面的高度
             url: "", //请求数据的Url
@@ -168,7 +166,7 @@
             onRequestDataError: false, //在异步调用发生异常时
             onWeekOrMonthToDay: false, //当周视图切换到日视图，因为在转换在内部完成，所以公开一个入口可得到该行为
             quickAddHandler: false, //快速添加的拦截函数，该参数设置后quickAddUrl参数的设置将被忽略
-            quickAddUrl: "", //快速添加日程响应的 Url 地址
+            quickAddUrl: "/class/addClass.json", //快速添加日程响应的 Url 地址
             quickUpdateUrl: "", //拖拽更新时响应的 Url 地址
             quickDeleteUrl: "", //快速删除日程时响应的Urk 地址
             autoload: false, //自动加载，如果eventItems参数没有配置，可启用该参数，默认第一次展现时
@@ -339,61 +337,11 @@
             //log.diff("视图生成结束");
         }
 
-        //构建日视图
-       /* function BuildDaysAndWeekView(startday, l, events, config) {
-            var days = [];
-            if (l == 1) {
-                var show = dateFormat.call(startday, i18n.xgcalendar.dateformat.Md);
-                days.push({ display: show, date: startday, day: startday.getDate(), year: startday.getFullYear(), month: startday.getMonth() + 1 });
-                option.datestrshow = CalDateShow(days[0].date);
-                option.vstart = days[0].date;
-                option.vend = days[0].date;
-            }
-            else {
-                var w = 0;
-                if (l == 7) {
-                    w = config.weekstartday - startday.getDay();
-                    if (w > 0) w = w - 7;
-                }
-                var ndate;
-                for (var i = w, j = 0; j < l; i = i + 1, j++) {
-                    ndate = DateAdd("d", i, startday);
-                    var show = dateFormat.call(ndate, i18n.xgcalendar.dateformat.Md);
-                    days.push({ display: show, date: ndate, day: ndate.getDate(), year: ndate.getFullYear(), month: ndate.getMonth() + 1 });
-                }
-                option.vstart = days[0].date;
-                option.vend = days[l - 1].date;
-                option.datestrshow = CalDateShow(days[0].date, days[l - 1].date);
-            }
-
-            var allDayEvents = [];
-            var scollDayEvents = [];
-            //返回所有全天日程的个数,拆分日程分成全天跨天日程和当天日程；  在table里写入当天事件
-            var dM = PropareEvents(days, events, allDayEvents, scollDayEvents);
-
-            var html = [];
-            html.push("<div id=\"dvwkcontaienr\" class=\"wktopcontainer\">");
-            html.push("<table class=\"wk-top\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
-            BuildWT(html, days, allDayEvents, dM);
-            html.push("</table>");
-            html.push("</div>");
-
-            //onclick=\"javascript:FunProxy('rowhandler',event,this);\"
-            html.push("<div id=\"dvtec\"  class=\"scolltimeevent\"><table style=\"table-layout: fixed;", jQuery.browser.msie ? "" : "width:100%", "\" cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td>");
-            html.push("<table style=\"height: 1008px\" id=\"tgTable\" class=\"tg-timedevents\" cellspacing=\"0\" cellpadding=\"0\"><tbody>");
-            BuildDayScollEventContainer(html, days, scollDayEvents);
-            html.push("</tbody></table></td></tr></tbody></table></div>");
-            gridcontainer.html(html.join(""));
-            html = null;
-            //事件处理TODO
-            //$("#weekViewAllDaywk").click(RowHandler);
-        }*/
-
 
         //构建月视图
         function BuildMonthView(showday, events, config) {
             var html = [];
-            //build header
+            //build header  showday  当期日期
             html.push("<div id=\"mvcontainer\" class=\"mv-container\">");
             html.push("<table id=\"mvweek\" class=\"mv-daynames-table\" cellSpacing=\"0\" cellPadding=\"0\"><tbody><tr>");
             for (var i = config.weekstartday, j = 0; j < 7; i++, j++) {
@@ -417,315 +365,7 @@
         function closeCc() {
             $("#cal-month-cc").css("display", "none");
         }
-        //切分一半的日程后，全天日程（包括跨日）
-     /*   function PropareEvents(dayarrs, events, aDE, sDE) {
 
-            var l = dayarrs.length;
-            var el = events.length;
-            var fE = [];
-            var deB = aDE;
-            var deA = sDE;
-            for (var j = 0; j < el; j++) {
-             //  alert(events[j][2]);
-                var sD = new Date(events[j][2]);
-                var eD = new Date(events[j][3]);
-                var s = {};
-                s.event = events[j];
-                s.day = sD.getDate();
-                s.year = sD.getFullYear();
-                s.month = sD.getMonth() + 1;
-                s.allday = events[j][4] == 1;
-                s.crossday = events[j][5] == 1;
-                s.reevent = events[j][6] == 1; //循环日程
-                s.daystr = [s.year, s.month, s.day].join("/");
-                s.st = {};
-                s.st.hour = sD.getHours();
-                s.st.minute = sD.getMinutes();
-                s.st.p = s.st.hour * 60 + s.st.minute; // 时间的开始位置
-                s.et = {};
-                s.et.hour = eD.getHours();
-                s.et.minute = eD.getMinutes();
-                s.et.p = s.et.hour * 60 + s.et.minute; // 时间的结束位置
-                fE.push(s);
-            }
-            var dMax = 0;
-            for (var i = 0; i < l; i++) {
-                var da = dayarrs[i];
-                deA[i] = []; deB[i] = [];
-                da.daystr = da.year + "/" + da.month + "/" + da.day;
-                for (var j = 0; j < fE.length; j++) {
-                    if (!fE[j].crossday && !fE[j].allday) {
-                        if (da.daystr == fE[j].daystr)
-                            deA[i].push(fE[j]);
-                    }
-                    else {
-                        if (da.daystr == fE[j].daystr) {
-                            deB[i].push(fE[j]);
-                            dMax++;
-                        }
-                        else {
-                            if (i == 0 && da.date >= fE[j].event[2] && da.date <= fE[j].event[3])//跨日的第一个日程
-                            {
-                                deB[i].push(fE[j]);
-                                dMax++;
-                            }
-                        }
-                    }
-                }
-            }
-            var lrdate = dayarrs[l - 1].date;
-            for (var i = 0; i < l; i++) { //处理全天和跨日的日程
-                var de = deB[i];
-                if (de.length > 0) { //有日程
-                    for (var j = 0; j < de.length; j++) {
-                        var end = DateDiff("d", lrdate, de[j].event[3]) > 0 ? lrdate : de[j].event[3];
-                        de[j].colSpan = DateDiff("d", dayarrs[i].date, end) + 1
-                    }
-                }
-                de = null;
-            }
-            //处理单日的日程
-            for (var i = 0; i < l; i++) {
-                var de = deA[i];
-                if (de.length > 0) { //存在日程
-                    var x = []; //数组1
-                    var y = []; // 数组2
-                    var D = [];
-                    var dl = de.length;
-                    var Ia;
-                    for (var j = 0; j < dl; ++j) {
-                        var ge = de[j];
-                        for (var La = ge.st.p, Ia = 0; y[Ia] > La; ) Ia++;
-                        ge.PO = Ia; ge.ne = []; //PO是指前面有多少个日程
-                        y[Ia] = ge.et.p || 1440;
-                        x[Ia] = ge;
-                        if (!D[Ia]) {
-                            D[Ia] = [];
-                        }
-                        D[Ia].push(ge);
-                        if (Ia != 0) {
-                            ge.pe = [x[Ia - 1]]; //前面日程
-                            x[Ia - 1].ne.push(ge); //后面日程
-                        }
-                        for (Ia = Ia + 1; y[Ia] <= La; ) Ia++;
-                        if (x[Ia]) {
-                            var k = x[Ia];
-                            ge.ne.push(k);
-                            k.pe.push(ge);
-                        }
-                        ge.width = 1 / (ge.PO + 1);
-                        ge.left = 1 - ge.width;
-                    }
-                    var k = Array.prototype.concat.apply([], D);
-                    x = y = D = null;
-                    var t = k.length;
-                    for (var y = t; y--; ) {
-                        var H = 1;
-                        var La = 0;
-                        var x = k[y];
-                        for (var D = x.ne.length; D--; ) {
-                            var Ia = x.ne[D];
-                            La = Math.max(La, Ia.VL);
-                            H = Math.min(H, Ia.left)
-                        }
-                        x.VL = La + 1;
-                        x.width = H / (x.PO + 1);
-                        x.left = H - x.width;
-                    }
-                    for (var y = 0; y < t; y++) {
-                        var x = k[y];
-                        x.left = 0;
-                        if (x.pe) for (var D = x.pe.length; D--; ) {
-                            var H = x.pe[D];
-                            x.left = Math.max(x.left, H.left + H.width);
-                        }
-                        var p = (1 - x.left) / x.VL;
-                        x.width = Math.max(x.width, p);
-                        x.aQ = Math.min(1 - x.left, x.width + 0.7 * p); //width的偏移
-                    }
-                    de = null;
-                    deA[i] = k;
-                }
-            }
-            return dMax;
-        }*/
-
-
-      /*  function BuildWT(ht, dayarrs, events, dMax) {
-            //1:
-            ht.push("<tr>", "<th width=\"60\" rowspan=\"3\">&nbsp;</th>");
-            for (var i = 0; i < dayarrs.length; i++) {
-                var ev, title, cl;
-                if (dayarrs.length == 1) {
-                    ev = "";
-                    title = "";
-                    cl = "";
-                }
-                else {
-                    ev = ""; // "onclick=\"javascript:FunProxy('week2day',event,this);\"";
-                    title = i18n.xgcalendar.to_date_view;
-                    cl = "wk-daylink";
-                }
-                if(dateFormat.call(dayarrs[i].date,"yyyyMMdd")==dateFormat.call(new Date(),"yyyyMMdd"))
-                {
-                    ht.push("<th abbr='", dateFormat.call(dayarrs[i].date, i18n.xgcalendar.dateformat.fulldayvalue), "' class='gcweekname gcweek-today' scope=\"col\"><div title='", title, "' ", ev, " class='wk-dayname'><span class='", cl, "'>", dayarrs[i].display, "</span></div></th>");
-                }
-                else
-                {
-                    ht.push("<th abbr='", dateFormat.call(dayarrs[i].date, i18n.xgcalendar.dateformat.fulldayvalue), "' class='gcweekname' scope=\"col\"><div title='", title, "' ", ev, " class='wk-dayname'><span class='", cl, "'>", dayarrs[i].display, "</span></div></th>");
-                }
-            }
-            ht.push("<th width=\"16\" rowspan=\"3\">&nbsp;</th>");
-            ht.push("</tr>"); //end tr1;
-            //2:
-            ht.push("<tr>");
-            ht.push("<td class=\"wk-allday\"");
-
-            if (dayarrs.length > 1) {
-                ht.push(" colSpan='", dayarrs.length, "'");
-            }
-            //onclick=\"javascript:FunProxy('rowhandler',event,this);\"
-            ht.push("><div id=\"weekViewAllDaywk\" ><table class=\"st-grid\" cellpadding=\"0\" cellspacing=\"0\"><tbody>");
-
-            if (dMax == 0) {
-                ht.push("<tr>");
-                for (var i = 0; i < dayarrs.length; i++) {
-                    //如果是当天的话 价格样式
-                    var sshow = dateFormat.call(dayarrs[i].date, "yyyy-M-d");
-                    if(sshow == dateFormat.call(new Date(), "yyyy-M-d"))
-                    {
-                        ht.push("<td class=\"st-c st-s st-today\"", " ch='qkadd' abbr='", sshow, "' axis='00:00'>&nbsp;</td>");
-                    }
-                    else
-                    {
-                        ht.push("<td class=\"st-c st-s\"", " ch='qkadd' abbr='", sshow, "' axis='00:00'>&nbsp;</td>");
-                    }
-                }
-                ht.push("</tr>");
-            }
-            else {
-                var l = events.length;
-                var el = 0;
-                var x = [];
-                for (var j = 0; j < l; j++) {
-                    x.push(0);
-                }
-                //var c = tc();
-                for (var j = 0; el < dMax; j++) {
-                    ht.push("<tr>");
-                    for (var h = 0; h < l; ) {
-                        var e = events[h][x[h]];
-                        ht.push("<td class='st-c");
-                        if (e) { //如果存在
-                            x[h] = x[h] + 1;
-                            ht.push("'");
-                            var t = BuildMonthDayEvent(e, dayarrs[h].date, l - h);
-                            if (e.colSpan > 1) {
-                                ht.push(" colSpan='", e.colSpan, "'");
-                                h += e.colSpan;
-                            }
-                            else {
-                                h++;
-                            }
-                            ht.push(" ch='show'>", t);
-                            t = null;
-                            el++;
-                        }
-                        else {
-                            ht.push(" st-s' ch='qkadd' abbr='", dateFormat.call(dayarrs[h].date, i18n.xgcalendar.dateformat.fulldayvalue), "' axis='00:00'>&nbsp;");
-                            h++;
-                        }
-                        ht.push("</td>");
-                    }
-                    ht.push("</tr>");
-                }
-                ht.push("<tr>");
-                for (var h = 0; h < l; h++) {
-                    ht.push("<td class='st-c st-s' ch='qkadd' abbr='", dateFormat.call(dayarrs[h].date, i18n.xgcalendar.dateformat.fulldayvalue), "' axis='00:00'>&nbsp;</td>");
-                }
-                ht.push("</tr>");
-            }
-            ht.push("</tbody></table></div></td></tr>"); // stgrid end //wvAd end //td2 end //tr2 end
-            //3:
-            ht.push("<tr>");
-
-            ht.push("<td style=\"height: 5px;\"");
-            if (dayarrs.length > 1) {
-                ht.push(" colSpan='", dayarrs.length, "'");
-            }
-            ht.push("></td>");
-            ht.push("</tr>");
-        }*/
-
-       /* function BuildDayScollEventContainer(ht, dayarrs, events) {
-            //1:
-            ht.push("<tr>");
-            ht.push("<td style='width:60px;'></td>");
-            ht.push("<td");
-            if (dayarrs.length > 1) {
-                ht.push(" colSpan='", dayarrs.length, "'");
-            }
-            ht.push("><div id=\"tgspanningwrapper\" class=\"tg-spanningwrapper\"><div style=\"font-size: 20px\" class=\"tg-hourmarkers\">");
-            for (var i = 0; i < 24; i++) {
-                ht.push("<div class=\"tg-dualmarker\"></div>");
-            }
-            ht.push("</div></div></td></tr>");
-
-            //2:
-            ht.push("<tr>");
-            ht.push("<td style=\"width: 60px\" class=\"tg-times\">");
-
-            //计算当前时间的位置
-            var now = new Date(); var h = now.getHours(); var m = now.getMinutes();
-            var mHg = gP(h, m) - 4; //减去标志本身一半的高度，可以让箭头刚好指向目标位置
-            ht.push("<div id=\"tgnowptr\" class=\"tg-nowptr\" style=\"left:0px;top:", mHg, "px\"></div>");
-            var tmt = "";
-            for (var i = 0; i < 24; i++) {
-                tmt = fomartTimeShow(i,0,option.tgtimeFormat);
-                ht.push("<div style=\"height: 41px\" class=\"tg-time\">", tmt, "</div>");
-            }
-            ht.push("</td>");
-
-            var l = dayarrs.length;
-            for (var i = 0; i < l; i++) {
-                ht.push("<td class=\"tg-col\" ch='qkadd' abbr='", dateFormat.call(dayarrs[i].date, i18n.xgcalendar.dateformat.fulldayvalue), "'>");
-                var istoday = dateFormat.call(dayarrs[i].date, "yyyyMMdd") == dateFormat.call(new Date(), "yyyyMMdd");
-                // Today
-                if (istoday) {
-                    ht.push("<div style=\"margin-bottom: -1008px; height:1008px\" class=\"tg-today\">&nbsp;</div>");
-                }
-                //var eventC = $(eventWrap);
-                //onclick=\"javascript:FunProxy('rowhandler',event,this);\"
-                ht.push("<div  style=\"margin-bottom: -1008px; height: 1008px\" id='tgCol", i, "' class=\"tg-col-eventwrapper\">");
-                BuildEvents(ht, events[i], dayarrs[i]);
-                ht.push("</div>");
-
-                ht.push("<div class=\"tg-col-overlaywrapper\" id='tgOver", i, "'>");
-                if (istoday) {
-                    var mhh = mHg + 4;
-                    ht.push("<div id=\"tgnowmarker\" class=\"tg-hourmarker tg-nowmarker\" style=\"left:0px;top:", mhh, "px\"></div>");
-                }
-                ht.push("</div>");
-                ht.push("</td>");
-            }
-            ht.push("</tr>");
-        }*/
-
-        //绘制某一天的日程
-        /*
-        function BuildEvents(hv, events, sday) {
-            for (var i = 0; i < events.length; i++) {
-                var c;
-                if (events[i].event[7] && events[i].event[7] >= 0) {
-                    c = tc(events[i].event[7]); //主题
-                }
-                else {
-                    c = tc(); //默认主题
-                }
-                var tt = BuildDayEvent(c, events[i], i);
-                hv.push(tt);
-            }
-        }*/
         function getTitle(event) {
             var timeshow, locationshow, attendsshow, eventshow;
             var showtime = event[4] != 1;
@@ -750,41 +390,7 @@
             }
             return ret.join("");
         }
-        //单个跨天日程和全天日程，或者是月视图下的日程
-        /*
-        function BuildDayEvent(theme, e, index) {
-            var p = { bdcolor: theme[0], bgcolor2: theme[0], bgcolor1: theme[2], width: "70%", icon: "", title: "", data: "" };
 
-            p.starttime =fomartTimeShow(e.st.hour,e.st.minute,option.timeFormat);
-            p.endtime = fomartTimeShow(e.et.hour,e.et.minute,option.timeFormat);
-            p.content = e.event[1];
-            p.title = getTitle(e.event);
-            p.data = e.event.join("$");
-            var icons = [];
-            icons.push("<I class=\"cic cic-tmr\">&nbsp;</I>");
-            if (e.reevent) {
-                icons.push("<I class=\"cic cic-spcl\">&nbsp;</I>");
-            }
-            p.icon = icons.join("");
-            var sP = gP(e.st.hour, e.st.minute);
-            var eP = gP(e.et.hour, e.et.minute);
-            p.top = sP + "px";
-            p.left = (e.left * 100) + "%";
-            p.width = (e.aQ * 100) + "%";
-            p.height = (eP - sP - 4);
-            p.i = index;
-            if (option.enableDrag && e.event[8] == 1) {
-                p.drag = "drag";
-                p.redisplay = "block";
-            }
-            else {
-                p.drag = "";
-                p.redisplay = "none";
-            }
-            var newtemp = Tp(__SCOLLEVENTTEMP, p);
-            p = null;
-            return newtemp;
-        }*/
 
         //获取月视图body的高度
         function GetMonthViewBodyHeight() {
@@ -796,8 +402,8 @@
         function BuilderMonthBody(htb, showday, startday, events, bodyHeight) {
 
             var firstdate = new Date(showday.getFullYear(), showday.getMonth(), 1);
-            var diffday = startday - firstdate.getDay();
-            var showmonth = showday.getMonth();
+            var diffday = startday - firstdate.getDay();  //第一天是星期几 ，和开始的星期几的差
+            var showmonth = showday.getMonth();  //当期月
             if (diffday > 0) {
                 diffday -= 7;
             }
@@ -814,33 +420,15 @@
             option.datestrshow = CalDateShow(startdate, enddate);
             bodyHeight = bodyHeight - 18 * rc;
             var rowheight = bodyHeight / rc;
-
-
-            //alert("rowheight=" + rowheight);
-
             var roweventcount = parseInt(rowheight / 21);
-
-
-
-          //  alert("roweventcount=" + roweventcount);
-
             if (rowheight % 21 > 15) {
                 roweventcount++;
             }
-
-
-          //  alert("roweventcount=" + roweventcount);
             var p = 100 / rc;
             var formatevents = [];
             var hastdata = formartEventsInHashtable(events, startday, 7, startdate, enddate);
-
-           // var obj = eval('(' + hastdata + ')');
-           // alert(obj);
-
             var jsObjstr = JSON.stringify(hastdata);
-            console.log(jsObjstr);
-        //    alert(jsObjstr);
-
+          //  console.log(jsObjstr);
             var B = [];
             var C = [];
             for (var j = 0; j < rc; j++) {
@@ -849,7 +437,7 @@
                 for (var i = 0; i < 7; i++) {
                     var newkeyDate = DateAdd("d", j * 7 + i, startdate);
                     C[j * 7 + i] = newkeyDate;
-                    var newkey = dateFormat.call(newkeyDate, i18n.xgcalendar.dateformat.fulldaykey);
+                    var newkey = dateFormat.call(newkeyDate,"yyyyMMdd");
                     b[i] = hastdata[newkey];
                     if (b[i] && b[i].length > 0) {
                         k += b[i].length;
@@ -857,18 +445,15 @@
                 }
                 B[j] = k;
             }
-            //var c = tc();
+
             eventDiv.data("mvdata", formatevents);
             for (var j = 0; j < rc; j++) {
-                //onclick=\"javascript:FunProxy('rowhandler',event,this);\"
                 htb.push("<div id='mvrow_", j, "' style=\"HEIGHT:", p, "%; TOP:", p * j, "%\"  class=\"month-row\">");
                 htb.push("<table class=\"st-bg-table\" cellSpacing=\"0\" cellPadding=\"0\"><tbody><tr>");
                 var dMax = B[j];
-
                 for (var i = 0; i < 7; i++) {
                     var day = C[j * 7 + i];
-                    htb.push("<td abbr='", dateFormat.call(day, i18n.xgcalendar.dateformat.fulldayvalue), "' ch='qkadd' axis='00:00' title=''");
-
+                    htb.push("<td abbr='", dateFormat.call(day,"yyyy-M-d"), "' ch='qkadd' axis='00:00' title=''");
                     if (dateFormat.call(day, "yyyyMMdd") == dateFormat.call(new Date(), "yyyyMMdd")) {
                         htb.push(" class=\"st-bg st-bg-today\">");
                     }
@@ -877,14 +462,11 @@
                     }
                     htb.push("&nbsp;</td>");
                 }
-                //bgtable
                 htb.push("</tr></tbody></table>");
 
                 //log.diff("第" + j + "周的背景table构建耗时");
-                //stgrid
                 htb.push("<table class=\"st-grid\" cellpadding=\"0\" cellspacing=\"0\"><tbody>");
 
-                //title tr
                 htb.push("<tr>");
                 //var titletemp = "<td class=\"st-dtitle${titleClass}\" ch='qkadd' abbr='${abbr}' axis='00:00' title=\"${title}\"><a href='javascript:void(0);' class='monthdayshow'>${dayshow} dddddd </a></td>";
                 var titletemp = "<td class=\"st-dtitle${titleClass}\" ch='qkadd' abbr='${abbr}' axis='00:00' title=\"${title}\"><span class='monthdayshow'>${dayshow}</span></td>";
@@ -914,13 +496,7 @@
                 }
                 htb.push("</tr>");
                 var sfirstday = C[j * 7];
-
-                //alert("roweventcount==="+roweventcount);
-               // alert("dMax==="+dMax);
-
                 BuildMonthRow(htb, formatevents[j], dMax, roweventcount, sfirstday);
-                //htb=htb.concat(rowHtml); rowHtml = null;
-
                 htb.push("</tbody></table>");
                 //month-row
                 htb.push("</div>");
@@ -929,23 +505,14 @@
             formatevents = B = C = hastdata = null;
             //return htb;
         }
+
         //格式化月日程格式化
         function formartEventsInHashtable(events, startday, daylength, rbdate, redate) {
             var hast = new Object();
             var l = events.length;
             for (var i = 0; i < l; i++) {
-              //  alert("events2="+events[i][2]);
-              //  alert("events3="+events[i][3]);
-
                 var sD = new Date(events[i][2]);
                 var eD = new Date(events[i][3]);
-
-
-
-               // alert("sD="+sD);
-
-              //  alert("eD="+eD);
-
                 var diff = DateDiff("d", sD, eD);
                 var s = {};
                 s.event = events[i];
@@ -956,8 +523,6 @@
                 s.crossday = events[i][5] == 1;
                 s.reevent = events[i][6] == 1; //循环日程
                 s.daystr = s.year + "/" + s.month + "/" + s.day;
-
-
                 s.st = {};
                 s.st.hour = sD.getHours();
                 s.st.minute = sD.getMinutes();
@@ -1003,9 +568,6 @@
             return hast;
         }
         function BuildMonthRow(htr, events, dMax, sc, day) {
-
-           // alert("sc==="+sc);
-           // alert("dMax==="+dMax);
             sc = 2;
             var x = []; //一周中每一天都已经登记了多少个日程;
             var y = []; //一周中每一天总共有多少个日程;
@@ -1032,27 +594,15 @@
                     }
                 }
             }
-            //var htr=[];
             var tdtemp = "<td class='${cssclass}' axis='${axis}' ch='${ch}' abbr='${abbr}' title='${title}' ${otherAttr}>${html}</td>";
-           // alert("tdtemp"+tdtemp);
-           // alert("sc="+sc);
-           // alert("el="+el);
-          //  alert("dMax="+dMax);
             for (var j = 0;j < sc && el < dMax; j++) {
-
-                //alert("for1");
                 htr.push("<tr>");
-                //var gridtr = $(__TRTEMP);
                 for (var h = 0; h < l; ) {
-                   // alert("for2");
                     var e = events[h] ? events[h][x[h]] : undefined;
                     var tempdata = { "class": "", axis: "", ch: "", title: "", abbr: "", html: "", otherAttr: "", click: "javascript:void(0);" };
                     var tempCss = ["st-c"];
 
-                  //  alert(e);
                     if (e) { //如果存在
-                      //  alert("BuildMonthRow----e");
-
                         x[h] = x[h] + 1;
                         //如果当前是当天的最后一个日程
                         var bs = false;
@@ -1066,8 +616,6 @@
                             h++;
                         }
                         else {
-
-                          //  alert("BuildMonthRow----!bs");
                             tempdata.html = BuildMonthDayEvent(e, cday[h], l - h);
                             tempdata.ch = "show";
                             if (e.colSpan > 1) {
@@ -1108,9 +656,6 @@
             //return htr;
         }
         function BuildMonthDayEvent(e, cday, length) {
-
-
-         //   alert('BuildMonthDayEvent');
             var theme;
             if (e.event[7] && e.event[7] >= 0) {
                 theme = tc(e.event[7]);
@@ -1129,8 +674,7 @@
                 p.eclass = "cal_" + e.event[0];
             }
             p.data = e.event.join("$");
-          //  alert("pdata =" + p.data);
-            var sp = "<span style=\"cursor: pointer\">${content}</span>";
+            var sp = "<span style=\"word-break;break-all\">${content}</span>";
             var i = "<I class=\"cic cic-tmr\">&nbsp;</I>";
             var i2 = "<I class=\"cic cic-rcr\">&nbsp;</I>";
             var ml = "<div class=\"st-ad-ml\"></div>";
@@ -1176,7 +720,7 @@
                 }
                 var zone = new Date().getTimezoneOffset() / 60 * -1;
                 var param = [
-                { name: "showdate", value: dateFormat.call(option.showday, i18n.xgcalendar.dateformat.fulldayvalue) },
+                { name: "showdate", value: dateFormat.call(option.showday,"yyyy-M-d") },
                 { name: "viewtype", value: option.view },
 				 { name: "timezone", value: zone }
                 ];
@@ -1232,6 +776,7 @@
                 alert("url" + i18n.xgcalendar.i_undefined);
             }
         }
+
         function responseData(data, start, end) {
             var events;
             if (data.issort == false) {
@@ -1249,6 +794,7 @@
             render();
 
         }
+
         function clearrepeat(events, start, end) {
             var jl = events.length;
             if (jl > 0) {
@@ -1271,6 +817,7 @@
                 }
             }
         }
+
         function ConcatEvents(events, start, end) {
             if (!events) {
                 events = [];
@@ -1316,6 +863,7 @@
                 }
             }
         }
+
         //region 工具函数开始 {
         function weekormonthtoday(e) {
             var th = $(this);
@@ -1384,6 +932,7 @@
 			return f;
 
         }
+
         function getymformat(date, comparedate, isshowtime, isshowweek, showcompare) {
             date = new Date(date);
             comparedate = new Date(comparedate);
@@ -1662,6 +1211,7 @@
             return false;
         }
 
+
         function moreshow(mv) {
             var me = $(this);
             var divIndex = mv.id.split('_')[1];
@@ -1785,19 +1335,107 @@
             }
             var buddle = $("#bbit-cal-buddle");
             if (buddle.length == 0) {
-                var temparr = [];
-                temparr.push('<div id="bbit-cal-buddle" style="z-index: 990; width: 400px;visibility:hidden;" class="bubble">');
-                temparr.push('<table class="bubble-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="bubble-cell-side"><div id="tl1" class="bubble-corner"><div class="bubble-sprite bubble-tl"></div></div>');
-                temparr.push('<td class="bubble-cell-main"><div class="bubble-top"></div><td class="bubble-cell-side"><div id="tr1" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  <tr><td class="bubble-mid" colSpan="3"><div style="overflow: hidden" id="bubbleContent1"><div><div></div><div class="cb-root">');
-                temparr.push('<table class="cb-table" cellSpacing="0" cellPadding="0"><tbody><tr><th class="cb-key">');
-                temparr.push(i18n.xgcalendar.time, ':</th><td class=cb-value><div id="bbit-cal-buddle-timeshow"></div></td></tr><tr><th class="cb-key">');
-                temparr.push(i18n.xgcalendar.content, ':</th><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><input id="bbit-cal-what" class="textbox-fill-input"/></div></div><div class="cb-example">');
-                temparr.push(i18n.xgcalendar.example, '</div></td></tr></tbody></table><input id="bbit-cal-start" type="hidden"/><input id="bbit-cal-end" type="hidden"/><input id="bbit-cal-allday" type="hidden"/><input id="bbit-cal-quickAddBTN" value="');
-                temparr.push(i18n.xgcalendar.create_event, '" type="button"/>&nbsp; <SPAN id="bbit-cal-editLink" class="lk">');
-                temparr.push(i18n.xgcalendar.update_detail, ' <StrONG>»</StrONG></SPAN></div></div></div><tr><td><div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl"></div></div><td><div class="bubble-bottom"></div><td><div id="br1" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div></tr></tbody></table><div id="bubbleClose1" class="bubble-closebutton"></div><div id="prong2" class="prong"><div class=bubble-sprite></div></div></div>');
+                var temparr = [];//弹出窗口，增加事件
+                temparr.push('<div id="bbit-cal-buddle" style="z-index: 990; width: 600px;visibility:hidden;" class="bubble">');
+                temparr.push('<table class="bubble-table" cellSpacing="0" cellPadding="0">' +
+                    '<tbody><tr><td class="bubble-cell-side">' +
+                    '<div id="tl1" class="bubble-corner">' +
+                    '<div class="bubble-sprite bubble-tl"></div>' +
+                    '</div>');
+                temparr.push('<td class="bubble-cell-main">' +
+                    '<div class="bubble-top"></div>' +
+                    '<td class="bubble-cell-side">' +
+                    '<div id="tr1" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  ' +
+                    '<tr><td class="bubble-mid" colSpan="3">' +
+                    '<div style="overflow: hidden" id="bubbleContent1"><div><div></div><div class="cb-root">');
+                temparr.push('<table class="cb-table" cellSpacing="0" cellPadding="0">' +
+                    '<tbody><tr><th class="cb-key">');
+                //temparr.push(i18n.xgcalendar.time, ':</th>' +
+                temparr.push("时  间", ':</th>' +
+                    '<td class=cb-value><div id="bbit-cal-buddle-timeshow"></div></td>' +
+                    '</tr><tr><th class="cb-key">');
+                //temparr.push(i18n.xgcalendar.content, ':</th>' +
+                temparr.push("内 容", ':</th>' +
+                    '<td class="cb-value">' +
+                    '<div class="textbox-fill-wrapper">' +
+                    '<div class="textbox-fill-mid">' +
+                            '<li class="one-item">' +
+                            '<label class="tit">上课时间：</label>' +
+                            '<input type="text" name="classtime"  id="classtime">' +
+                            '</li>' +
+                   // '<input id="bbit-cal-what" class="textbox-fill-input"/>' +
+                   '<select>'+
+                        '<option value="volvo">Volvo</option>'+
+                        '<option value="saab">Saab</option>'+
+                        '<option value="opel">Opel</option>'+
+                        '<option value="audi">Audi</option>'+
+                    '</select>'+
+                    '</div>' +
+                    '</div>' +
+                 //   '<div class="cb-example">');
+               // temparr.push(i18n.xgcalendar.example, '</div>' +
+               // temparr.push("例如：有个办公会议", '</div>' +
+                    '</td></tr></tbody></table>' +
+                    '<input id="bbit-cal-start" type="text"/>' +
+                    '<input id="bbit-cal-end" type="text"/>' +
+                    '<input id="bbit-cal-allday" type="text"/>' +
+                    '<input id="bbit-cal-quickAddBTN" value="');//创建新事件按钮
+                //temparr.push(i18n.xgcalendar.create_event, '" type="button"/>&nbsp; <SPAN id="bbit-cal-editLink" class="lk">');
+                temparr.push("加课", '" type="button"/>&nbsp; ' +
+                  //  '<SPAN id="bbit-cal-editLink" class="lk">');
+                //temparr.push(i18n.xgcalendar.update_detail, ' <StrONG>»</StrONG></SPAN>' +
+               // temparr.push("修改日程详细信息", ' <StrONG>»</StrONG></SPAN>' +
+                    '</div></div></div>' +
+                    '<tr>' +
+                    '<td>' +
+                    '<div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl"></div></div>' +
+                    '<td><div class="bubble-bottom"></div><td>' +
+                    '<div id="br1" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div>' +
+                    '</tr>' +
+                    '</tbody></table>' +
+                    '<div id="bubbleClose1" class="bubble-closebutton"></div>' +
+                    '<div id="prong2" class="prong"><div class=bubble-sprite></div>' +
+                    '</div>' +
+                    '</div>');
+                /*temparr.push('<div id="bbit-cal-buddle" style="z-index: 990; width: 400px;visibility:hidden;" class="bubble">');
+                temparr.push('<div class="pop-class" id="pop-edit-class" style="display:none">'+
+                '<a href="javascript:void(0)" class="close" onClick="closeWindow("pop-edit-class")">×</a>'+
+                '<h3 class="date">2016-06-25</h3>'+
+                '<p class="title">请选择要管理的课程</p>'+
+                '<ul class="classes-ul">'+
+                '<li>'+
+                '<label class="day-of-week" for="Chinese">'+
+                '<input type="radio" id="Chinese" name="class" class="checkbox-week">'+
+                '<span class="orange">14:00</span>'+
+                '语文'+
+                '</label>'+
+                '</li>'+
+                '<li>'+
+                '<label class="day-of-week" for="English">'+
+                '<input type="radio" id="English" name="class" class="checkbox-week">'+
+                '<span class="orange">16:00</span>英语'+
+                '</label>'+
+                '</li>'+
+                '</ul>'+
+                '<p class="title">请选择要进行的操作</p>'+
+                '<ul class="operation-ul">'+
+                '<li><a href="javascript:void(0)">调课</a></li>'+
+                '<li><a href="javascript:void(0)">请假</a></li>'+
+                '<li><a href="javascript:void(0)">加课</a></li>'+
+                '<li><a href="javascript:void(0)">补课</a></li>'+
+                '<li class="holiday-delay"><a href="javascript:void(0)">公假顺延</a></li>'+
+                '</ul>'+
+                '<a href="javascript:void(0)" class="btn-submit">确定</a>' +
+                '</div>');
+                temparr.push("</div>");*/
+
+
                 var tempquickAddHanler = temparr.join("");
+                alert(tempquickAddHanler);
                 temparr = null;
+               // alert("1");
                 $(document.body).append(tempquickAddHanler);
+               // alert("2");
                 buddle = $("#bbit-cal-buddle");
                 var calbutton = $("#bbit-cal-quickAddBTN");
                 var lbtn = $("#bbit-cal-editLink");
@@ -1831,6 +1469,7 @@
                     if (option.extParam) {
                         for (var pi = 0; pi < option.extParam.length; pi++) {
                             param[param.length] = option.extParam[pi];
+                           // alert( option.extParam[pi]);
                         }
                     }
 
@@ -1844,7 +1483,15 @@
                         var newdata = [];
                         var tId = -1;
                         option.onBeforeRequestData && option.onBeforeRequestData(2);
-                        $.post(option.quickAddUrl, param, function(data) {
+
+                        alert(param);
+
+                        $.post(
+                            option.quickAddUrl, param, function(data)
+
+
+                            {
+
                             if (data) {
                                 if (data.IsSuccess == true) {
 
@@ -1889,7 +1536,7 @@
                     }
                     return false;
                 });
-                buddle.mousedown(function(e) { return false });
+               // buddle.mousedown(function(e) { return false });
             }
 
             var dateshow = CalDateShow(start, end, !isallday, true);
@@ -1914,6 +1561,7 @@
             return false;
         }
         //format datestring to Date Type
+
         function strtodate(str) {
 
             var arr = str.split(" ");
@@ -2124,77 +1772,18 @@
             realsedragevent();
             switch (type) {
                 case "dw1": //周日视图的	快速新增事件 单日
-                    _dragdata = { type: 1, target: obj, sx: e.pageX, sy: e.pageY };
                     break;
                 case "dw2": //周日视图的快速新增事件 全天跨天
-                    var w = obj.width();
-                    var h = obj.height();
-                    var offset = obj.offset();
-                    var left = offset.left;
-                    var top = offset.top;
-                    var l = option.view == "day" ? 1 : 7;
-                    var py = w % l;
-                    var pw = parseInt(w / l,10);
-                    //每个单元格的宽度
-                    if (py > l / 2 + 1) {
-                        pw++;
-                    }
-                    var xa = [];
-                    var ya = [];
-                    for (var i = 0; i < l; i++) {
-                        xa.push({ s: i * pw + left, e: (i + 1) * pw + left });
-                    }
-                    ya.push({ s: top, e: top + h });
-                    _dragdata = { type: 2, target: obj, sx: e.pageX, sy: e.pageY, pw: pw, xa: xa, ya: ya, h: h };
-                    w = left = l = py = pw = xa = null;
+
                     break;
                 case "dw3": //周日视图的拖拽和查看事件 单日
-                    var evid = obj.parent().attr("id").replace("tgCol", "");
-                    var p = obj.parent();
-                    var pos = p.offset();
-                    var w = p.width() + 10;
-                    var h = obj.height();
-                    var data = getdata(obj);
-                    _dragdata = { type: 4, target: obj, sx: e.pageX, sy: e.pageY,
-                        pXMin: pos.left, pXMax: pos.left + w, pw: w, h: h,
-                        cdi: parseInt(evid,10), fdi: parseInt(evid,10), data: data
-                    };
+
                     break;
                 case "dw4": //resize;
-                    var h = obj.height();
-                    var data = getdata(obj);
-                    _dragdata = { type: 5, target: obj, sx: e.pageX, sy: e.pageY, h: h, data: data };
+
                     break;
                 case "dw5":
-                    var con = $("#weekViewAllDaywk");
-                    var w = con.width();
-                    var h = con.height();
-                    var offset = con.offset();
-                    var moffset = obj.offset();
-                    var left = offset.left;
-                    var top = offset.top;
-                    var l = 7;
-                    var py = w % l;
-                    var pw = parseInt(w / l);
-                    //每个单元格的宽度
-                    if (py > l / 2 + 1) {
-                        pw++;
-                    }
-                    var xa = [];
-                    var ya = [];
-                    var di = 0;
-                    for (var i = 0; i < l; i++) {
-                        xa.push({ s: i * pw + left, e: (i + 1) * pw + left });
-                        if (moffset.left >= xa[i].s && moffset.left < xa[i].e) {
-                            di = i;
-                        }
-                    }
-                    var fdi = { x: di, y: 0, di: di };
-                    ya.push({ s: top, e: top + h });
-                    var data = getdata(obj);
-                    var dp = DateDiff("d", data[2], data[3]) + 1;
-                    _dragdata = { type: 6, target: obj, sx: e.pageX, sy: e.pageY, data: data, xa: xa, ya: ya, fdi: fdi, h: h, dp: dp, pw: pw };
-                    break;
+                     break;
                 case "m1": //月视图的快速新增事件
                     var w = obj.width();
                     var offset = obj.offset();
@@ -2226,44 +1815,7 @@
                     _dragdata = { type: 3, target: obj, sx: e.pageX, sy: e.pageY, pw: pw, xa: xa, ya: ya, h: h };
                     break;
                 case "m2": //月视图日程拖动处理
-                    var row0 = $("#mvrow_0");
-                    var row1 = $("#mvrow_1");
-                    var w = row0.width();
-                    var offset = row0.offset();
-                    var diffset = row1.offset();
-                    var moffset = obj.offset();
-                    var h = diffset.top - offset.top;
-                    var left = offset.left;
-                    var top = offset.top;
-                    var l = 7;
-                    var yl = row0.parent().children().length;
-                    var py = w % l;
-                    var pw = parseInt(w / l);
-                    //每个单元格的宽度
-                    if (py > l / 2 + 1) {
-                        pw++;
-                    }
-                    var xa = [];
-                    var ya = [];
-                    var xi = 0;
-                    var yi = 0;
-                    for (var i = 0; i < l; i++) {
-                        xa.push({ s: i * pw + left, e: (i + 1) * pw + left });
-                        if (moffset.left >= xa[i].s && moffset.left < xa[i].e) {
-                            xi = i;
-                        }
-                    }
-                    for (var i = 0; i < yl; i++) {
-                        ya.push({ s: i * h + top, e: (i + 1) * h + top });
-                        if (moffset.top >= ya[i].s && moffset.top < ya[i].e) {
-                            yi = i;
-                        }
-                    }
-                    var fdi = { x: xi, y: yi, di: yi * 7 + xi };
-                    var data = getdata(obj);
-                    var dp = DateDiff("d", data[2], data[3]) + 1;
-                    _dragdata = { type: 7, target: obj, sx: e.pageX, sy: e.pageY, data: data, xa: xa, ya: ya, fdi: fdi, h: h, dp: dp, pw: pw };
-                    break;
+                     break;
             }
             //$('body').noSelect();
         }
@@ -2523,26 +2075,11 @@
                 var d = _dragdata;
                 switch (d.type) {
                     case 1: //选择单日的时间段来添加日程
-                        var wrapid = new Date().getTime();
-                        tp = d.target.offset().top;
-                        if (!d.cpwrap) {
-                            var gh = gH(d.sy, d.sy + 42, tp);
-                            var ny = gP(gh.sh, gh.sm);
-                            var tempdata = buildtempdayevent(gh.sh, gh.sm, gh.eh, gh.em, gh.h);
-                            d.cpwrap = $("<div class='ca-evpi drag-chip-wrapper' style='top:" + ny + "px'/>").html(tempdata);
-                            $(d.target).find("div.tg-col-overlaywrapper").append(d.cpwrap);
-                            d.cgh = gh;
-                        }
-                        var pos = d.cpwrap.offset();
-                        pos.left = pos.left + 30;
-                        d.cpwrap.attr("id", wrapid);
-                        var start = strtodate(d.target.attr("abbr") + " " + d.cgh.sh + ":" + d.cgh.sm);
-                        var end = strtodate(d.target.attr("abbr") + " " + d.cgh.eh + ":" + d.cgh.em);
-                        _dragevent = function() { $("#" + wrapid).remove(); $("#bbit-cal-buddle").css("visibility", "hidden"); };
-                        quickadd(start, end, false, pos);
+
                         break;
                     case 2: //周日视图添加日程
                     case 3: //月视图添加日程
+                      //  alert('3333');
                         var source = e.srcElement || e.target;
                         var lassoid = new Date().getTime();
                         if (!d.lasso) {
@@ -2565,20 +2102,7 @@
                         quickadd(start, end, true, { left: e.pageX, top: e.pageY });
                         break;
                     case 4: // 单日日程的移动
-                        if (d.cpwrap) {
-                            var start = DateAdd("d", d.cdi, option.vstart);
-                            var end = DateAdd("d", d.cdi, option.vstart);
-                            var gh = gW(d.ny, d.ny + d.h);
-                            start.setHours(gh.sh, gh.sm);
-                            end.setHours(gh.eh, gh.em);
-                            if (start.getTime() == d.data[2].getTime() && end.getTime() == d.data[3].getTime()) {
-                                d.cpwrap.remove();
-                                d.target.show();
-                            }
-                            else {
-                                dayupdate(d.data, start, end);
-                            }
-                        }
+
                         break;
                     case 5: //Resize
                         if (d.cpwrap) {
