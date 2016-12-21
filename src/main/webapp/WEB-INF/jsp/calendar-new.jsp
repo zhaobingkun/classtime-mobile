@@ -68,8 +68,8 @@
 			<li><p class="calendar-date-p red">27</p></li>
 			<li><p class="calendar-date-p">28</p></li>
 			<li><p class="calendar-date-p blue-bg">29</p></li>
-			<li><p class="calendar-date-p">30</p></li>
-			<li><p class="calendar-date-p"></p></li>
+			<li><p class="calendar-date-p" >30</p></li>
+			<li><p class="calendar-date-p" ></p></li>
 			<li><p class="calendar-date-p"></p></li>
 		</ul>
 	</div>
@@ -142,7 +142,7 @@
     }
 
     function drawDateCalendar(currentCalendar) {
-        //  $('#showlist').html('');
+        $('#showlist').html('');
         console.log(new Date(currentCalendar[0]).getDay());
         var days = parseInt(new Date(currentCalendar[0]).getDay());  //取月份第一天是星期几
         //如果月份开头第一天不是周日，则补齐前面的空日
@@ -156,15 +156,17 @@
         }
         for (var j=0;j<currentCalendar.length;j++) {
             $('#showlist').append(
-                '<li><p class="calendar-date-p">'+new Date(currentCalendar[j]).getDate()+'</p></li>'
+                '<li><p class="calendar-date-p" onclick="pop();">'+new Date(currentCalendar[j]).getDate()+'</p></li>'
             );
         }
     }
 
+    function  pop(){
+        popup('pop-edit-class');
+    };
 
     !function(){
 	$('.dates-ul p').click(function(){
-        alert('123');
 		popup('pop-edit-class');
 	});
 	
