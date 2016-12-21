@@ -32,7 +32,7 @@
 	<div class="one-month">
 		<div class="year-month">2016年6月</div>
 		<ul class="dates-ul"  id="showlist">
-			<%--<li><p class="calendar-date-p"></p></li>
+			<li><p class="calendar-date-p"></p></li>
 			<li><p class="calendar-date-p"></p></li>
 			<li><p class="calendar-date-p"></p></li>
 			<li><p class="calendar-date-p">01</p></li>
@@ -70,7 +70,7 @@
 			<li><p class="calendar-date-p blue-bg">29</p></li>
 			<li><p class="calendar-date-p">30</p></li>
 			<li><p class="calendar-date-p"></p></li>
-			<li><p class="calendar-date-p"></p></li>--%>
+			<li><p class="calendar-date-p"></p></li>
 		</ul>
 	</div>
 
@@ -115,8 +115,56 @@
 </div>
 
 <script>
-!function(){
+
+
+
+    $(function () {
+        var date = new Date();
+
+        var currentCalendar = createMonthDay(date)
+
+        drawDateCalendar(currentCalendar);
+
+    });
+
+    function createMonthDay(currentDate) {
+
+        let daysOfMonth = [];
+        let fullYear = new Date(currentDate).getFullYear();
+        let month = new Date().getMonth() + 1;
+        let lastDayOfMonth = new Date(fullYear, month, 0).getDate();
+        for (var i = 1; i <= lastDayOfMonth; i++) {
+            daysOfMonth.push(fullYear + '/' + month + '/' + i);
+        };
+
+        // console.log(daysOfMonth);
+        return daysOfMonth;
+    }
+
+    function drawDateCalendar(currentCalendar) {
+        //  $('#showlist').html('');
+        console.log(new Date(currentCalendar[0]).getDay());
+        var days = parseInt(new Date(currentCalendar[0]).getDay());  //取月份第一天是星期几
+        //如果月份开头第一天不是周日，则补齐前面的空日
+        if(days>0){
+            for (var zeroDays=0;zeroDays<days;zeroDays++) {
+                $('#showlist').append(
+                        '<li><p class="calendar-date-p"></p></li>'
+                );
+
+            }
+        }
+        for (var j=0;j<currentCalendar.length;j++) {
+            $('#showlist').append(
+                '<li><p class="calendar-date-p">'+new Date(currentCalendar[j]).getDate()+'</p></li>'
+            );
+        }
+    }
+
+
+    !function(){
 	$('.dates-ul p').click(function(){
+        alert('123');
 		popup('pop-edit-class');
 	});
 	
@@ -128,50 +176,6 @@
 		$(this).addClass('selected').parent().siblings().children().removeClass('selected');
 	})
 }();
-
-
-$(function () {
-    var date = new Date();
-
-    var currentCalendar = createMonthDay(date)
-
-    drawDateCalendar(currentCalendar);
-
-});
-
-function createMonthDay(currentDate) {
-
-    let daysOfMonth = [];
-    let fullYear = new Date(currentDate).getFullYear();
-    let month = new Date().getMonth() + 1;
-    let lastDayOfMonth = new Date(fullYear, month, 0).getDate();
-    for (var i = 1; i <= lastDayOfMonth; i++) {
-        daysOfMonth.push(fullYear + '/' + month + '/' + i);
-    };
-
-   // console.log(daysOfMonth);
-    return daysOfMonth;
-}
-
-function drawDateCalendar(currentCalendar) {
-    $('#showlist').html('');
-    console.log(new Date(currentCalendar[0]).getDay());
-    var days = parseInt(new Date(currentCalendar[0]).getDay());  //取月份第一天是星期几
-    //如果月份开头第一天不是周日，则补齐前面的空日
-    if(days>0){
-        for (var zeroDays=0;zeroDays<days;zeroDays++) {
-            $('#showlist').append(
-                            '<li><p class="calendar-date-p"></p></li>'
-            );
-
-        }
-    }
-    for (var j=0;j<currentCalendar.length;j++) {
-            $('#showlist').append(
-                    '<li><p class="calendar-date-p">'+new Date(currentCalendar[j]).getDate()+'</p></li>'
-            );
-    }
-}
 
 </script>
 
