@@ -120,15 +120,12 @@
 
     $(function () {
         var date = new Date();
-
         var currentCalendar = createMonthDay(date)
-
         drawDateCalendar(currentCalendar);
 
     });
 
     function createMonthDay(currentDate) {
-
         let daysOfMonth = [];
         let fullYear = new Date(currentDate).getFullYear();
         let month = new Date().getMonth() + 1;
