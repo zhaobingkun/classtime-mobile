@@ -148,7 +148,6 @@
                 $('#showlist').append(
                         '<li><p class="calendar-date-p"></p></li>'
                 );
-
             }
         }
         for (var j=0;j<currentCalendar.length;j++) {
