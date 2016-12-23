@@ -17,7 +17,13 @@
 		<a href="mine.html" class="icon-return"></a>
 		课程日历
 	</header>
-	<ul class="days-head">
+	
+</div>
+
+<div class="calendar-wrap">
+	<div class="one-month">
+		<div class="year-month"><span><b><a href="javascript:getSubtractionMonth()">-</a></b></span> <span id="viewYear">2016</span>年<span id="viewMonth">6</span>月 <span onClick=""><b><a href="javascript:getAddMonth();">+</a></b></span></div>
+		<ul class="days-head">
 		<li>日</li>
 		<li>一</li>
 		<li>二</li>
@@ -26,11 +32,6 @@
 		<li>五</li>
 		<li>六</li>
 	</ul>
-</div>
-
-<div class="calendar-wrap">
-	<div class="one-month">
-		<div class="year-month">2016年6月</div>
 		<ul class="dates-ul"  id="showlist">
 			<li><p class="calendar-date-p"></p></li>
 			<li><p class="calendar-date-p"></p></li>
@@ -120,15 +121,62 @@
 
     $(function () {
         var date = new Date();
+        //alert(date)
+        var fullYear = date.getFullYear();
+        var month = date.getMonth() + 1;
+
+        $('#viewYear').html(fullYear);
+        $('#viewMonth').html(month);
         var currentCalendar = createMonthDay(date)
+
         drawDateCalendar(currentCalendar);
 
     });
 
+    function getAddMonth(){
+
+        var month = $('#viewMonth').html();
+        var year =   $('#viewYear').html();
+
+        var newMonth = parseInt(month)+1;
+        var newYear = parseInt(year);
+
+        if(newMonth>12){
+            newMonth = 1;
+            newYear = newYear+1;
+        }
+
+        $('#viewYear').html(newYear);
+        $('#viewMonth').html(newMonth);
+        var newCurrentCalendar = newYear+"/" + newMonth + "/" + "1";
+        var currentCalendar = createMonthDay(new Date(newCurrentCalendar));
+        drawDateCalendar(currentCalendar);
+    }
+
+    function getSubtractionMonth(){
+        var month = $('#viewMonth').html();
+        var year =   $('#viewYear').html();
+        var newMonth = parseInt(month)-1;
+        var newYear = parseInt(year);
+        if(newMonth<1){
+            newMonth = 12;
+            newYear = newYear-1;
+        }
+
+        $('#viewYear').html(newYear);
+        $('#viewMonth').html(newMonth);
+
+        var newCurrentCalendar = newYear+"/" + newMonth + "/" + "1";
+        var currentCalendar = createMonthDay(new Date(newCurrentCalendar));
+        drawDateCalendar(currentCalendar);
+    }
+
+    //取当前月的所有日期
     function createMonthDay(currentDate) {
+
         let daysOfMonth = [];
-        let fullYear = new Date(currentDate).getFullYear();
-        let month = new Date().getMonth() + 1;
+        let fullYear = currentDate.getFullYear();
+        let month = currentDate.getMonth() + 1;
         let lastDayOfMonth = new Date(fullYear, month, 0).getDate();
         for (var i = 1; i <= lastDayOfMonth; i++) {
             daysOfMonth.push(fullYear + '/' + month + '/' + i);
@@ -138,10 +186,40 @@
         return daysOfMonth;
     }
 
+
+
     function drawDateCalendar(currentCalendar) {
+
+
         $('#showlist').html('');
         console.log(new Date(currentCalendar[0]).getDay());
         var days = parseInt(new Date(currentCalendar[0]).getDay());  //取月份第一天是星期几
+
+
+
+        //取这个月第一天的所有日程
+        var  classListJson="";
+        $.ajax({
+            type: 'post',
+            url: "/class/listClassByMonth.json",
+            dataType: 'json',
+            async: false,
+            data: {
+                checkDate: "2016-12-1",
+                sid: 19
+            },
+            success: function (data) {
+                console.log('success');
+                classListJson = data;
+                alert(classListJson);
+            },
+            error: function (data) {
+                console.log('出现错误，请重新操作！');
+            }
+        });
+
+
+
         //如果月份开头第一天不是周日，则补齐前面的空日
         if(days>0){
             for (var zeroDays=0;zeroDays<days;zeroDays++) {
@@ -150,9 +228,23 @@
                 );
             }
         }
+
+
+        alert(classListJson);
         for (var j=0;j<currentCalendar.length;j++) {
+            var txt ='';
+            var no = j+1;
+
+            $.each(classListJson, function (index, cinfo) {
+                //如果日期相等，加入课程项
+                 txt =  "cinfo";
+                //如果日期不相等，显示日期
+                cinfo.classdatetime;
+                classTimeMain.classname;
+            });
+
             $('#showlist').append(
-                '<li><p class="calendar-date-p" onclick="pop();">'+new Date(currentCalendar[j]).getDate()+'</p></li>'
+                 '<li><p class="calendar-date-p" onclick="pop();" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt+'</p></li>'
             );
         }
     }

@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.Date;
 /**
  * Created by Administrator on 2016/7/5.
  */
@@ -207,7 +205,10 @@ public class ClassController  extends  MyBaseController  implements Serializable
     @ResponseBody
     @RequestMapping(value = "classchildlist.json")
     public String classChildListJson(HttpServletRequest request, Model model,@RequestParam("mid") String mid) {
-            List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(mid));
+
+
+        //要改。注意注意
+            List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(mid),"2016-12-01");
 
             System.out.println("mid==="+mid);
             System.out.println(toJsonResult(classTimeMainList));
@@ -245,13 +246,18 @@ public class ClassController  extends  MyBaseController  implements Serializable
      */
     @ResponseBody
     @RequestMapping(value = "listClassByMonth.json", method = RequestMethod.POST)
-    public String listByMonth(HttpServletRequest request,@RequestParam("sid") String sid) {
+    public String listByMonth(HttpServletRequest request,@RequestParam("sid") String sid
+            ,@RequestParam("checkDate") String checkDate
+    ) {
         sid = "19";
-        List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(sid));
+
+        System.out.println(checkDate);
+
+        List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(sid),checkDate);
 
         //System.out.println("mid==="+mid);
         //System.out.println(toJsonResult(classTimeMainList));
-
+/*
         List<ViewModel> viewList = new ArrayList();
         for(int i=0;i<classTimeMainList.size();i++){
             ClassTimeChild  child = classTimeMainList.get(i);
@@ -290,10 +296,10 @@ public class ClassController  extends  MyBaseController  implements Serializable
             aa[i][2] = view.getStartTime();
             aa[i][3] = view.getEndTime();
 
-/*
+*//*
             aa[i][2] = "/Date("+DateUtils.parseDate(view.getStartTime(),"yyyy-MM-dd HH:mm:ss").getTime()+"/)";
             aa[i][3] = "/Date("+DateUtils.parseDate(view.getEndTime(),"yyyy-MM-dd HH:mm:ss").getTime()+"/)";
-            */
+            *//*
             aa[i][4] = view.getType1()+"";
             aa[i][5] = view.getType1()+"";
             aa[i][6] = view.getType1()+"";
@@ -309,12 +315,12 @@ public class ClassController  extends  MyBaseController  implements Serializable
         vj.setEnd(new Date());
         vj.setError(null);
         vj.setIssort("true");
-        vj.setEvents(aa);
+        vj.setEvents(aa);*/
 
 
-       // System.out.println(toJsonResult(vj));
+       System.out.println(toJsonResult(classTimeMainList));
 
-    return toJsonResult(vj);
+    return toJsonResult(classTimeMainList);
     }
 
 
