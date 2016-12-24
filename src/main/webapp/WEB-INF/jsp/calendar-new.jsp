@@ -128,8 +128,8 @@
         $('#viewYear').html(fullYear);
         $('#viewMonth').html(month);
         var currentCalendar = createMonthDay(date)
-
-        drawDateCalendar(currentCalendar);
+        var dateStr = fullYear+"-"+month+"-" +"1";
+        drawDateCalendar(currentCalendar,dateStr);
 
     });
 
@@ -145,12 +145,12 @@
             newMonth = 1;
             newYear = newYear+1;
         }
-
+        var dateStr = newYear+"-"+newMonth+"-" +"1";
         $('#viewYear').html(newYear);
         $('#viewMonth').html(newMonth);
         var newCurrentCalendar = newYear+"/" + newMonth + "/" + "1";
         var currentCalendar = createMonthDay(new Date(newCurrentCalendar));
-        drawDateCalendar(currentCalendar);
+        drawDateCalendar(currentCalendar,dateStr);
     }
 
     function getSubtractionMonth(){
@@ -158,6 +158,7 @@
         var year =   $('#viewYear').html();
         var newMonth = parseInt(month)-1;
         var newYear = parseInt(year);
+        var dateStr = newYear+"-"+newMonth+"-" +"1";
         if(newMonth<1){
             newMonth = 12;
             newYear = newYear-1;
@@ -168,7 +169,7 @@
 
         var newCurrentCalendar = newYear+"/" + newMonth + "/" + "1";
         var currentCalendar = createMonthDay(new Date(newCurrentCalendar));
-        drawDateCalendar(currentCalendar);
+        drawDateCalendar(currentCalendar,dateStr);
     }
 
     //取当前月的所有日期
@@ -188,7 +189,7 @@
 
 
 
-    function drawDateCalendar(currentCalendar) {
+    function drawDateCalendar(currentCalendar,dateStr) {
 
 
         $('#showlist').html('');
@@ -205,13 +206,13 @@
             dataType: 'json',
             async: false,
             data: {
-                checkDate: "2016-12-1",
+                checkDate: dateStr,
                 sid: 19
             },
             success: function (data) {
                 console.log('success');
                 classListJson = data;
-                alert(classListJson);
+               // alert(classListJson);
             },
             error: function (data) {
                 console.log('出现错误，请重新操作！');
@@ -230,17 +231,30 @@
         }
 
 
-        alert(classListJson);
+       // alert(classListJson);
         for (var j=0;j<currentCalendar.length;j++) {
             var txt ='';
-            var no = j+1;
+            var no = parseInt(j+1);
 
             $.each(classListJson, function (index, cinfo) {
                 //如果日期相等，加入课程项
-                 txt =  "cinfo";
+
                 //如果日期不相等，显示日期
-                cinfo.classdatetime;
-                classTimeMain.classname;
+                var viewDate = cinfo.classdatetime;
+                var viewDateArr = viewDate.split(' ');
+                var viewDateArrDate = viewDateArr[0].split('-');
+
+                //
+                var viewDay = parseInt(viewDateArrDate[2]);
+
+                var viewClassName = cinfo.classTimeMain.classname;
+                if (viewDay == no) {
+                   // alert(viewDay);
+                    txt =txt +  (cinfo.classTimeMain.classname).substr(0,1);
+                }
+
+
+
             });
 
             $('#showlist').append(
