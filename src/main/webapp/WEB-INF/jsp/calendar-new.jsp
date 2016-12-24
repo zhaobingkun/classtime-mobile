@@ -190,14 +190,9 @@
 
 
     function drawDateCalendar(currentCalendar,dateStr) {
-
-
         $('#showlist').html('');
         console.log(new Date(currentCalendar[0]).getDay());
         var days = parseInt(new Date(currentCalendar[0]).getDay());  //取月份第一天是星期几
-
-
-
         //取这个月第一天的所有日程
         var  classListJson="";
         $.ajax({
@@ -212,14 +207,11 @@
             success: function (data) {
                 console.log('success');
                 classListJson = data;
-               // alert(classListJson);
             },
             error: function (data) {
                 console.log('出现错误，请重新操作！');
             }
         });
-
-
 
         //如果月份开头第一天不是周日，则补齐前面的空日
         if(days>0){
@@ -230,8 +222,6 @@
             }
         }
 
-
-       // alert(classListJson);
         for (var j=0;j<currentCalendar.length;j++) {
             var txt ='';
             var no = parseInt(j+1);
@@ -243,18 +233,11 @@
                 var viewDate = cinfo.classdatetime;
                 var viewDateArr = viewDate.split(' ');
                 var viewDateArrDate = viewDateArr[0].split('-');
-
-                //
                 var viewDay = parseInt(viewDateArrDate[2]);
-
-                var viewClassName = cinfo.classTimeMain.classname;
+                //var viewClassName = cinfo.classTimeMain.classname;
                 if (viewDay == no) {
-                   // alert(viewDay);
                     txt =txt +  (cinfo.classTimeMain.classname).substr(0,1);
                 }
-
-
-
             });
 
             $('#showlist').append(

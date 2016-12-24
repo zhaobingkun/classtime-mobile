@@ -35,7 +35,7 @@
                 <a href="javascript:void(0)" class="name-settings">
                     ${classInfo.classname}   展开
                 </a>
-                <a href="/class/classchildlist/${classInfo.id}">详情</a>
+                <%--<a href="/class/classchildlist/${classInfo.id}">详情</a>--%>
 
                 <a href="/calendar/${student.id}">日历</a>
 
@@ -44,8 +44,12 @@
             </li>
             <li class="subject-detail">
                 <ul class="time-ul">
-                    <li class="start-over">开始时间：${classInfo.begintime}<%--<em class="green">2016</em>年<em class="green">4</em>月<em class="green">10</em>日--%></li>
-                    <li class="start-over">结束时间：${classInfo.endtime}<%--<em class="green">2017</em>年<em class="green">1</em>月<em class="green">1</em>日--%></li>
+                    <li class="start-over">开始时间：
+                        <fmt:formatDate value="${classInfo.begintime}" pattern="yyyy年MM月dd日"/>
+                    <%--<em class="green">2016</em>年<em class="green">4</em>月<em class="green">10</em>日--%></li>
+                    <li class="start-over">结束时间：
+                        <fmt:formatDate value="${classInfo.endtime}" pattern="yyyy年MM月dd日"/>
+                    <%--<em class="green">2017</em>年<em class="green">1</em>月<em class="green">1</em>日--%></li>
                 </ul>
                 <ul class="changes">
                     <li class="little-changes"><i>请假：</i><em><span class="green">${classInfo.leavenum}</span>次</em></li>
