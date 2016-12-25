@@ -202,7 +202,7 @@
             async: false,
             data: {
                 checkDate: dateStr,
-                sid: 19
+                sid: ${sid}
             },
             success: function (data) {
                 console.log('success');
@@ -237,11 +237,14 @@
                 //var viewClassName = cinfo.classTimeMain.classname;
                 if (viewDay == no) {
                     txt =txt +  (cinfo.classTimeMain.classname).substr(0,1);
+
                 }
+              //  classchild = cinfo.id
+
             });
 
             $('#showlist').append(
-                 '<li><p class="calendar-date-p" onclick="pop();" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt+'</p></li>'
+                 '<li><p class="calendar-date-p" onclick="pop('+ ${sid}+','+ no +');" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt +'</p></li>'
             );
         }
     }
