@@ -25,6 +25,7 @@
 		<a href="" class="btn-student fr pad-5">管理所有课程</a>
 		<b>${student.name}</b>
             <b><span class="id">学号：${student.sno}</span></b>
+            <b><a href="/calendar/${student.id}">日历</a></b>
 	</h2>
 
     <c:if test="${not empty student.classTimeMainList}">
@@ -37,7 +38,7 @@
                 </a>
                 <%--<a href="/class/classchildlist/${classInfo.id}">详情</a>--%>
 
-                <a href="/calendar/${student.id}">日历</a>
+
 
                 <a href="javascript:void(0)" class="slide-up slide-switch"></a>
                 共<em class="green"> ${classInfo.sumnum}</em>次课  剩余<em class="green"> ${classInfo.num}</em>次课

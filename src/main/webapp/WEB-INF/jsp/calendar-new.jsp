@@ -82,6 +82,8 @@
 	<h3 class="date">2016-06-25</h3>
 	<p class="title">请选择要管理的课程</p>
 	<ul class="classes-ul">
+
+
 		<li>
 			<label class="day-of-week" for="Chinese">
 				<input type="radio" id="Chinese" name="class" class="checkbox-week">
@@ -96,6 +98,9 @@
 				英语
 			</label>
 		</li>
+
+
+
 	</ul>
 	<p class="title">请选择要进行的操作</p>
 	<ul class="operation-ul">
@@ -242,14 +247,39 @@
               //  classchild = cinfo.id
 
             });
-
+            var dataStrArr  = currentCalendar[j].split("/");
+            var dataStr =  dataStrArr[0]+"-"+dataStrArr[1]+"-"+dataStrArr[2];
+            //alert(dataStr);
             $('#showlist').append(
-                 '<li><p class="calendar-date-p" onclick="pop('+ ${sid}+','+ no +');" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt +'</p></li>'
+                 '<li><p class="calendar-date-p" onclick="pop('+ ${sid}+',\''+ dataStr +'\');" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt +'</p></li>'
             );
         }
     }
 
-    function  pop(){
+    function  pop(sid,childDate){
+        //根据传过来的日期和sid获取当前用户当天课程
+        var childClassListjson="";
+        alert(sid);
+        alert(childDate);
+        $.ajax({
+            type: 'post',
+            url: "/class/listClassByDay.json",
+            dataType: 'json',
+            async: false,
+            data: {
+                checkDate: childDate,
+                sid: sid
+            },
+            success: function (data) {
+                console.log('success');
+                childClassListjson = data;
+            },
+            error: function (data) {
+                console.log('出现错误，请重新操作！');
+            }
+        });
+
+        //alert(childClassListjson);
         popup('pop-edit-class');
     };
 

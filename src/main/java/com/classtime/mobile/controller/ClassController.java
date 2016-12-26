@@ -249,78 +249,27 @@ public class ClassController  extends  MyBaseController  implements Serializable
     public String listByMonth(HttpServletRequest request,@RequestParam("sid") String sid
             ,@RequestParam("checkDate") String checkDate
     ) {
-        sid = "19";
-
-        System.out.println(checkDate);
-
+       // sid = "19";
         List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(sid),checkDate);
-
-        //System.out.println("mid==="+mid);
-        //System.out.println(toJsonResult(classTimeMainList));
-/*
-        List<ViewModel> viewList = new ArrayList();
-        for(int i=0;i<classTimeMainList.size();i++){
-            ClassTimeChild  child = classTimeMainList.get(i);
-            ViewModel viewModel = new ViewModel();
-            viewModel.setId(child.getId());
-            viewModel.setClassName(child.getClassTimeMain().getClassname());
-
-            viewModel.setStartTime(DateUtils.formatDate(child.getClassdatetime(), "yyyy/MM/dd HH:mm:ss"));
-
-            //System.out.println("start=="+DateUtils.formatDate(child.getClassdatetime(), "yyyy-MM-dd HH:mm:ss"));
-
-            viewModel.setEndTime(DateUtils.formatDate(child.getClassdatetime(),"yyyy/MM/dd HH:mm:ss"));
-
-            //System.out.println("end=="+DateUtils.formatDate(child.getClassdatetime(),"yyyy-MM-dd HH:mm:ss"));
-
-
-            viewModel.setType1(0);
-            viewModel.setType2(0);
-            viewModel.setType3(0);
-            viewModel.setColor(10);
-            viewModel.setType4(0);
-            viewModel.setAddress(child.getClassTimeMain().getClassaddress());
-            viewModel.setContent(child.getContent());
-            viewList.add(viewModel);
-
-
-        }
-
-       // System.out.println(toJsonResult(viewList));
-        Object[][] aa = new String[viewList.size()][11];
-
-        for(int i=0;i<viewList.size();i++){
-            ViewModel view = viewList.get(i);
-            aa[i][0] = view.getId()+"";
-            aa[i][1] = view.getClassName();
-            aa[i][2] = view.getStartTime();
-            aa[i][3] = view.getEndTime();
-
-*//*
-            aa[i][2] = "/Date("+DateUtils.parseDate(view.getStartTime(),"yyyy-MM-dd HH:mm:ss").getTime()+"/)";
-            aa[i][3] = "/Date("+DateUtils.parseDate(view.getEndTime(),"yyyy-MM-dd HH:mm:ss").getTime()+"/)";
-            *//*
-            aa[i][4] = view.getType1()+"";
-            aa[i][5] = view.getType1()+"";
-            aa[i][6] = view.getType1()+"";
-            aa[i][7] = view.getColor()+"";
-            aa[i][8] = view.getType1()+"";
-            aa[i][9] = "";
-            aa[i][10] = "";
-        }
-
-
-        viewJson vj = new viewJson();
-        vj.setStart(new Date());
-        vj.setEnd(new Date());
-        vj.setError(null);
-        vj.setIssort("true");
-        vj.setEvents(aa);*/
-
-
-       System.out.println(toJsonResult(classTimeMainList));
+        System.out.println(toJsonResult(classTimeMainList));
 
     return toJsonResult(classTimeMainList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "listClassByDay.json", method = RequestMethod.POST)
+    public String listByDay(HttpServletRequest request,@RequestParam("sid") String sid
+            ,@RequestParam("checkDate") String checkDate
+    ) {
+       // sid = "19";
+
+        System.out.println("checkDate="+checkDate);
+       // String getDate =  DateUtils.formatDate(DateUtils.parseDate(checkDate,"yyyy/MM/dd"),"yyyy-MM,dd");
+
+        List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByDay(Integer.parseInt(sid),checkDate);
+        System.out.println(toJsonResult(classTimeMainList));
+
+        return toJsonResult(classTimeMainList);
     }
 
 
