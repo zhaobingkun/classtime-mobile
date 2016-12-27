@@ -33,85 +33,41 @@
 		<li>六</li>
 	</ul>
 		<ul class="dates-ul"  id="showlist">
-			<li><p class="calendar-date-p"></p></li>
-			<li><p class="calendar-date-p"></p></li>
-			<li><p class="calendar-date-p"></p></li>
-			<li><p class="calendar-date-p">01</p></li>
-			<li><p class="calendar-date-p">02</p></li>
-			<li><p class="calendar-date-p">03</p></li>
-			<li><p class="calendar-date-p">04</p></li>
-
-			<li><p class="calendar-date-p">05</p></li>
-			<li><p class="calendar-date-p">06</p></li>
-			<li><p class="calendar-date-p">07</p></li>
-			<li><p class="calendar-date-p">08</p></li>
-			<li><p class="calendar-date-p">09</p></li>
-			<li><p class="calendar-date-p">10</p></li>
-			<li><p class="calendar-date-p">11</p></li>
-
-			<li><p class="calendar-date-p orange-bg">12</p></li>
-			<li><p class="calendar-date-p yellow-bg">13</p></li>
-			<li><p class="calendar-date-p yellow-green-bg">14</p></li>
-			<li><p class="calendar-date-p turquoise-bg">15</p></li>
-			<li><p class="calendar-date-p blue-bg">16</p></li>
-			<li><p class="calendar-date-p rose-red-bg">17</p></li>
-			<li><p class="calendar-date-p purple-bg">18</p></li>
-
-			<li><p class="calendar-date-p">19</p></li>
-			<li><p class="calendar-date-p">20</p></li>
-			<li><p class="calendar-date-p">21</p></li>
-			<li><p class="calendar-date-p">22</p></li>
-			<li><p class="calendar-date-p">23</p></li>
-			<li><p class="calendar-date-p">24</p></li>
-			<li><p class="calendar-date-p">25</p></li>
-
-			<li><p class="calendar-date-p">26</p></li>
-			<li><p class="calendar-date-p red">27</p></li>
-			<li><p class="calendar-date-p">28</p></li>
-			<li><p class="calendar-date-p blue-bg">29</p></li>
-			<li><p class="calendar-date-p" >30</p></li>
-			<li><p class="calendar-date-p" ></p></li>
-			<li><p class="calendar-date-p"></p></li>
 		</ul>
 	</div>
 
 </div>
 
+<%--增加课程弹层--%>
+<div class="pop-class" id="pop-add-class" style="display:none">
+    <a href="javascript:void(0)" class="close" onClick="closeWindow('pop-edit-class')">×</a>
+    <h3 class="date" id="viewdateday">2016-06-25</h3>
+    <p class="title">请选择要管理的课程</p>
+    <ul class="classes-ul" id="childadd">
+    </ul>
+    <a href="javascript:void(0)" onClick="closeWindow('pop-add-class');popup('pop-infor-add')" class="btn-submit">确定</a>
+</div>
+
+
+<%--修改课程弹层--%>
 <div class="pop-class" id="pop-edit-class" style="display:none">
-	<a href="javascript:void(0)" class="close" onClick="closeWindow('pop-edit-class')">×</a>
-	<h3 class="date" id="viewdateday">2016-06-25</h3>
-	<p class="title">请选择要管理的课程</p>
-	<ul class="classes-ul" id="childlist">
-
-        <%--
-                <li>
-                    <label class="day-of-week" for="Chinese">
-                        <input type="radio" id="Chinese" name="class" class="checkbox-week">
-                        <span class="orange">14:00</span>
-                        语文
-                    </label>
-                </li>
-                <li>
-                    <label class="day-of-week" for="English">
-                        <input type="radio" id="English" name="class" class="checkbox-week">
-                        <span class="orange">16:00</span>
-                        英语
-                    </label>
-                </li>--%>
+    <a href="javascript:void(0)" class="close" onClick="closeWindow('pop-edit-class')">×</a>
+    <h3 class="date" id="viewdateday">2016-06-25</h3>
+    <p class="title">请选择要管理的课程</p>
 
 
+    <ul class="classes-ul" id="childlist">
+    </ul>
+    <p class="title">请选择要进行的操作</p>
+    <ul class="operation-ul">
+        <li><a href="javascript:void(0)">调课</a></li>
+        <li><a href="javascript:void(0)">请假</a></li>
+        <li><a href="javascript:void(0)">加课</a></li>
+        <li><a href="javascript:void(0)">补课</a></li>
+        <li class="holiday-delay"><a href="javascript:void(0)">公假顺延</a></li>
+    </ul>
 
-	</ul>
-	<p class="title">请选择要进行的操作</p>
-	<ul class="operation-ul">
-		<li><a href="javascript:void(0)">调课</a></li>
-		<li><a href="javascript:void(0)">请假</a></li>
-		<li><a href="javascript:void(0)">加课</a></li>
-		<li><a href="javascript:void(0)">补课</a></li>
-		<li class="holiday-delay"><a href="javascript:void(0)">公假顺延</a></li>
-	</ul>
-	
-	<a href="javascript:void(0)" onClick="closeWindow('pop-edit-class');popup('pop-infor')" class="btn-submit">确定</a>
+    <a href="javascript:void(0)" onClick="closeWindow('pop-edit-class');popup('pop-infor')" class="btn-submit">确定</a>
 </div>
 
 <div class="pop-class" id="pop-infor" style="display:none">
@@ -119,6 +75,18 @@
 	<div class="tip-infor">恭喜您，操作成功！</div>
 	<a href="javascript:void(0)" class="btn-submit" onClick="closeWindow('pop-infor')">确定</a>
 </div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        var opt = {
+        }
+        opt.time = {preset : 'time'};
+        $('#classtime').val('').scroller('destroy').scroller($.extend(opt['time'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
+
+    });
+</script>
 
 <script>
 
@@ -194,7 +162,7 @@
 
 
     function drawDateCalendar(currentCalendar,dateStr) {
-        $('#showlist').html('');
+       // $('#showlist').html('');
         console.log(new Date(currentCalendar[0]).getDay());
         var days = parseInt(new Date(currentCalendar[0]).getDay());  //取月份第一天是星期几
         //取这个月第一天的所有日程
@@ -240,55 +208,82 @@
                 var viewDay = parseInt(viewDateArrDate[2]);
                 if (viewDay == no) {
                     txt =txt +  (cinfo.classTimeMain.classname).substr(0,1);
-
                 }
             });
             var dataStrArr  = currentCalendar[j].split("/");
             var dataStr =  dataStrArr[0]+"-"+dataStrArr[1]+"-"+dataStrArr[2];
+            var flag = 0;
+            if(txt!=''){
+                flag=1;
+            }
+
             $('#showlist').append(
-                 '<li><p class="calendar-date-p" onclick="pop('+ ${sid}+',\''+ dataStr +'\');" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt +'</p></li>'
+                 '<li><p class="calendar-date-p" onclick="pop('+ flag + ${sid}+',\''+ dataStr +'\');" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt +'</p></li>'
             );
         }
     }
 
-    function  pop(sid,childDate){
+    function  pop(flag,sid,childDate){
         //根据传过来的日期和sid获取当前用户当天课程
 
         $('#viewdateday').html(childDate);
-        $.ajax({
-            type: 'post',
-            url: "/class/listClassByDay.json",
-            dataType: 'json',
-            async: false,
-            data: {
-                checkDate: childDate,
-                sid: sid
-            },
-            success: function (data) {
-                console.log('pop windows success');
-                if(data!=null) {
-                    $('#childlist').html("")
+
+        if(flag=0){  //当天没课程 ，弹出增加课程层
+
+            $('#childlist').append(
+        '<div class="form-wrap">'+
+                    '<ul class="inputs-ul">'+
+                    '<li class="one-item">'+
+                    '<label class="tit">上课时间：</label>'+
+            '<input type="text" name="classtime"  id="classtime" class="i-txt">'+
+                    '</li>'+
+            '</ul>'+
+            '</div>'
+            )
+            popup('pop-add-class');
+        }
+        else {
+            $.ajax({
+                type: 'post',
+                url: "/class/listClassByDay.json",
+                dataType: 'json',
+                async: false,
+                data: {
+                    checkDate: childDate,
+                    sid: sid
+                },
+                success: function (data) {
+                    console.log('pop windows success');
+
+                    if (data != null) {
+                        $('#childlist').html("")
+                        $.each(data, function (index, cinfo) {
+                            $('#childlist').append(
+                                            '<li>' +
+                                            '<label class="day-of-week" for="Chinese">' +
+                                            '<input type="radio" id="Chinese" name="class" class="checkbox-week">' +
+                                            '<span class="orange">' + cinfo.classdatetime.split(" ")[1] + '</span>' +
+                                            cinfo.classTimeMain.classname +
+                                            '</label>' +
+                                            '</li>'
+                            );
+
+                        });
+                    }
+                    else {
+
+                    }
+                },
+                error: function (data) {
+                    console.log('出现错误，请重新操作！');
                 }
-                $.each(data, function (index, cinfo) {
-                    $('#childlist').append(
-                            '<li>'+
-                             '<label class="day-of-week" for="Chinese">'+
-                            '<input type="radio" id="Chinese" name="class" class="checkbox-week">'+
-                            '<span class="orange">'+cinfo.classdatetime.split(" ")[1]+'</span>'+
-                      cinfo.classTimeMain.classname +
-                    '</label>'+
-                    '</li>'
-                    );
+            });
 
-                });
+            popup('pop-add-class');
+        }
 
-            },
-            error: function (data) {
-                console.log('出现错误，请重新操作！');
-            }
-        });
 
-        popup('pop-edit-class');
+
     };
 
     !function(){
