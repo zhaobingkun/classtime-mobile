@@ -40,12 +40,20 @@
 
 <%--增加课程弹层--%>
 <div class="pop-class" id="pop-add-class" style="display:none">
-    <a href="javascript:void(0)" class="close" onClick="closeWindow('pop-edit-class')">×</a>
+    <a href="javascript:void(0)" class="close" onClick="closeWindow('pop-add-class')">×</a>
     <h3 class="date" id="viewdateday">2016-06-25</h3>
-    <p class="title">请选择要管理的课程</p>
+    <p class="title">请选择课程和时间</p>
     <ul class="classes-ul" id="childadd">
+        <div class="form-wrap">
+            <ul class="inputs-ul">
+                <li class="one-item">
+                    <label class="tit">上课时间：</label>
+                    <input type="text" name="classtime"  id="classtime" class="i-txt">
+               </li>
+            </ul>
+        </div>
     </ul>
-    <a href="javascript:void(0)" onClick="closeWindow('pop-add-class');popup('pop-infor-add')" class="btn-submit">确定</a>
+    <a href="javascript:void(0)" onClick="closeWindow('pop-add-class');popup('pop-infor')" class="btn-submit">确定</a>
 </div>
 
 
@@ -54,8 +62,6 @@
     <a href="javascript:void(0)" class="close" onClick="closeWindow('pop-edit-class')">×</a>
     <h3 class="date" id="viewdateday">2016-06-25</h3>
     <p class="title">请选择要管理的课程</p>
-
-
     <ul class="classes-ul" id="childlist">
     </ul>
     <p class="title">请选择要进行的操作</p>
@@ -80,9 +86,13 @@
 
 <script type="text/javascript">
     $(function () {
+        var curr = new Date().getFullYear();
         var opt = {
+
         }
+        opt.date = {preset : 'date'};
         opt.time = {preset : 'time'};
+        $('#begintimeStr').val('').scroller('destroy').scroller($.extend(opt['date'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
         $('#classtime').val('').scroller('destroy').scroller($.extend(opt['time'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
 
     });
@@ -212,34 +222,22 @@
             });
             var dataStrArr  = currentCalendar[j].split("/");
             var dataStr =  dataStrArr[0]+"-"+dataStrArr[1]+"-"+dataStrArr[2];
-            var flag = 0;
+            var flag = '0';
             if(txt!=''){
-                flag=1;
+                flag='1';
             }
 
             $('#showlist').append(
-                 '<li><p class="calendar-date-p" onclick="pop('+ flag + ${sid}+',\''+ dataStr +'\');" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt +'</p></li>'
+                 '<li><p class="calendar-date-p" onclick="pop(\''+ flag+'\',' + ${sid}+',\''+ dataStr +'\');" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt +'</p></li>'
             );
         }
     }
 
     function  pop(flag,sid,childDate){
         //根据传过来的日期和sid获取当前用户当天课程
-
         $('#viewdateday').html(childDate);
+        if(flag=='0'){  //当天没课程 ，弹出增加课程层
 
-        if(flag=0){  //当天没课程 ，弹出增加课程层
-
-            $('#childlist').append(
-        '<div class="form-wrap">'+
-                    '<ul class="inputs-ul">'+
-                    '<li class="one-item">'+
-                    '<label class="tit">上课时间：</label>'+
-            '<input type="text" name="classtime"  id="classtime" class="i-txt">'+
-                    '</li>'+
-            '</ul>'+
-            '</div>'
-            )
             popup('pop-add-class');
         }
         else {
@@ -257,6 +255,8 @@
 
                     if (data != null) {
                         $('#childlist').html("")
+
+
                         $.each(data, function (index, cinfo) {
                             $('#childlist').append(
                                             '<li>' +
@@ -279,7 +279,7 @@
                 }
             });
 
-            popup('pop-add-class');
+            popup('pop-edit-class');
         }
 
 
