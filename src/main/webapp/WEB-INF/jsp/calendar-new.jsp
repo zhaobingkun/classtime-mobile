@@ -83,21 +83,21 @@
 	<p class="title">请选择要管理的课程</p>
 	<ul class="classes-ul" id="childlist">
 
-
-		<li>
-			<label class="day-of-week" for="Chinese">
-				<input type="radio" id="Chinese" name="class" class="checkbox-week">
-				<span class="orange">14:00</span>
-				语文
-			</label>
-		</li>
-	<%--	<li>
-			<label class="day-of-week" for="English">
-				<input type="radio" id="English" name="class" class="checkbox-week">
-				<span class="orange">16:00</span>
-				英语
-			</label>
-		</li>--%>
+        <%--
+                <li>
+                    <label class="day-of-week" for="Chinese">
+                        <input type="radio" id="Chinese" name="class" class="checkbox-week">
+                        <span class="orange">14:00</span>
+                        语文
+                    </label>
+                </li>
+                <li>
+                    <label class="day-of-week" for="English">
+                        <input type="radio" id="English" name="class" class="checkbox-week">
+                        <span class="orange">16:00</span>
+                        英语
+                    </label>
+                </li>--%>
 
 
 
