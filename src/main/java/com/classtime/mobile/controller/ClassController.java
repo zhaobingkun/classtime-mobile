@@ -233,7 +233,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
         //String[] array = (String[])viewList.toArray(new String[size]);
 
 
-        System.out.print(toJsonResult(viewList));
+        //System.out.print(toJsonResult(viewList));
         return toJsonResult(classTimeMainList);
 
     }
@@ -249,7 +249,6 @@ public class ClassController  extends  MyBaseController  implements Serializable
     public String listByMonth(HttpServletRequest request,@RequestParam("sid") String sid
             ,@RequestParam("checkDate") String checkDate
     ) {
-       // sid = "19";
         List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(sid),checkDate);
         System.out.println(toJsonResult(classTimeMainList));
 
@@ -261,14 +260,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
     public String listByDay(HttpServletRequest request,@RequestParam("sid") String sid
             ,@RequestParam("checkDate") String checkDate
     ) {
-       // sid = "19";
-
-        //System.out.println("checkDate="+checkDate);
-       // String getDate =  DateUtils.formatDate(DateUtils.parseDate(checkDate,"yyyy/MM/dd"),"yyyy-MM,dd");
-
         List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByDay(Integer.parseInt(sid),checkDate);
-        //System.out.println(toJsonResult(classTimeMainList));
-
         return toJsonResult(classTimeMainList);
     }
 
