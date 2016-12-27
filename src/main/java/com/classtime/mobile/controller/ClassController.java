@@ -263,11 +263,11 @@ public class ClassController  extends  MyBaseController  implements Serializable
     ) {
        // sid = "19";
 
-        System.out.println("checkDate="+checkDate);
+        //System.out.println("checkDate="+checkDate);
        // String getDate =  DateUtils.formatDate(DateUtils.parseDate(checkDate,"yyyy/MM/dd"),"yyyy-MM,dd");
 
         List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByDay(Integer.parseInt(sid),checkDate);
-        System.out.println(toJsonResult(classTimeMainList));
+        //System.out.println(toJsonResult(classTimeMainList));
 
         return toJsonResult(classTimeMainList);
     }
@@ -289,8 +289,6 @@ public class ClassController  extends  MyBaseController  implements Serializable
         System.out.println("CalendarEndTime="+CalendarEndTime);
         System.out.println("IsAllDayEvent="+IsAllDayEvent);
         System.out.println("timezone="+timezone);
-
-
         System.out.print("addClass.json");
 
         //Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);

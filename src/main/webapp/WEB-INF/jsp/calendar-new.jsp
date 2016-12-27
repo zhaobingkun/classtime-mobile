@@ -79,9 +79,9 @@
 
 <div class="pop-class" id="pop-edit-class" style="display:none">
 	<a href="javascript:void(0)" class="close" onClick="closeWindow('pop-edit-class')">×</a>
-	<h3 class="date">2016-06-25</h3>
+	<h3 class="date" id="viewdateday">2016-06-25</h3>
 	<p class="title">请选择要管理的课程</p>
-	<ul class="classes-ul">
+	<ul class="classes-ul" id="childlist">
 
 
 		<li>
@@ -91,13 +91,13 @@
 				语文
 			</label>
 		</li>
-		<li>
+	<%--	<li>
 			<label class="day-of-week" for="English">
 				<input type="radio" id="English" name="class" class="checkbox-week">
 				<span class="orange">16:00</span>
 				英语
 			</label>
-		</li>
+		</li>--%>
 
 
 
@@ -126,7 +126,6 @@
 
     $(function () {
         var date = new Date();
-        //alert(date)
         var fullYear = date.getFullYear();
         var month = date.getMonth() + 1;
 
@@ -239,17 +238,13 @@
                 var viewDateArr = viewDate.split(' ');
                 var viewDateArrDate = viewDateArr[0].split('-');
                 var viewDay = parseInt(viewDateArrDate[2]);
-                //var viewClassName = cinfo.classTimeMain.classname;
                 if (viewDay == no) {
                     txt =txt +  (cinfo.classTimeMain.classname).substr(0,1);
 
                 }
-              //  classchild = cinfo.id
-
             });
             var dataStrArr  = currentCalendar[j].split("/");
             var dataStr =  dataStrArr[0]+"-"+dataStrArr[1]+"-"+dataStrArr[2];
-            //alert(dataStr);
             $('#showlist').append(
                  '<li><p class="calendar-date-p" onclick="pop('+ ${sid}+',\''+ dataStr +'\');" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt +'</p></li>'
             );
@@ -258,9 +253,8 @@
 
     function  pop(sid,childDate){
         //根据传过来的日期和sid获取当前用户当天课程
-        var childClassListjson="";
-        alert(sid);
-        alert(childDate);
+
+        $('#viewdateday').html(childDate);
         $.ajax({
             type: 'post',
             url: "/class/listClassByDay.json",
@@ -271,15 +265,29 @@
                 sid: sid
             },
             success: function (data) {
-                console.log('success');
-                childClassListjson = data;
+                console.log('pop windows success');
+                if(data!=null) {
+                    $('#childlist').html("")
+                }
+                $.each(data, function (index, cinfo) {
+                    $('#childlist').append(
+                            '<li>'+
+                             '<label class="day-of-week" for="Chinese">'+
+                            '<input type="radio" id="Chinese" name="class" class="checkbox-week">'+
+                            '<span class="orange">'+cinfo.classdatetime.split(" ")[1]+'</span>'+
+                      cinfo.classTimeMain.classname +
+                    '</label>'+
+                    '</li>'
+                    );
+
+                });
+
             },
             error: function (data) {
                 console.log('出现错误，请重新操作！');
             }
         });
 
-        //alert(childClassListjson);
         popup('pop-edit-class');
     };
 
