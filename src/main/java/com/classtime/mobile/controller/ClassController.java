@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by Administrator on 2016/7/5.
  */
@@ -264,6 +265,21 @@ public class ClassController  extends  MyBaseController  implements Serializable
         return toJsonResult(classTimeMainList);
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "listClassByAdd.json", method = RequestMethod.POST)
+    public String listByAdd(HttpServletRequest request,@RequestParam("sid") String sid
+    ) {
+        //List<ClassTimeChild> childList = classTimeChildManager.selectByMainIdByDay(Integer.parseInt(sid),checkDate);
+        List<ClassTimeMain> mainList =  classTimeMainManager.selectClassMainForSid(Integer.parseInt(sid));
+/*
+        Map<String,Object> classList = new HashMap<String,Object>();
+        classList.put("child",childList);
+        classList.put("mail",mainList);
+        System.out.println(toJsonResult(childList));
+*/
+        return toJsonResult(mainList);
+    }
 
 
     @ResponseBody

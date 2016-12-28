@@ -50,6 +50,11 @@
                     <label class="tit">上课时间：</label>
                     <input type="text" name="classtime"  id="classtime" class="i-txt">
                </li>
+                <li class="one-item">
+                    <label class="tit">课程：</label>
+                    <select id="className">
+                    </select>
+                </li>
             </ul>
         </div>
     </ul>
@@ -238,6 +243,38 @@
         $('#viewdateday').html(childDate);
         if(flag=='0'){  //当天没课程 ，弹出增加课程层
 
+
+            //$("#selectService").empty();  动态组织下来选择
+            //$("#selectService").append('<option value="0" selected="selected">选择服务</option>');
+            $.ajax({
+                type: 'post',
+                url: "/class/listClassByAdd.json",
+                dataType: 'json',
+                async: false,
+                data: {
+                    sid: sid
+                },
+                success: function (data) {
+                    console.log('pop windows success');
+                    $("#className").empty();
+
+
+                    if (data != null) {
+                        $.each(data, function (index, cinfo) {
+                            $('#className').append(
+                                    '<option value="'+cinfo.id+'" selected="selected">'+cinfo.classname+'</option>'
+                            );
+
+                        });
+                    }
+                    else {
+
+                    }
+                },
+                error: function (data) {
+                    console.log('出现错误，请重新操作！');
+                }
+            });
             popup('pop-add-class');
         }
         else {
@@ -252,11 +289,8 @@
                 },
                 success: function (data) {
                     console.log('pop windows success');
-
                     if (data != null) {
                         $('#childlist').html("")
-
-
                         $.each(data, function (index, cinfo) {
                             $('#childlist').append(
                                             '<li>' +
