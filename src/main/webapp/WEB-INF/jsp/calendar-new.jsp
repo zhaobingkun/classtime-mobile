@@ -172,7 +172,7 @@
 
 
     function drawDateCalendar(currentCalendar,dateStr) {
-       // $('#showlist').html('');
+       $('#showlist').html('');
         console.log(new Date(currentCalendar[0]).getDay());
         var days = parseInt(new Date(currentCalendar[0]).getDay());  //取月份第一天是星期几
         //取这个月第一天的所有日程
