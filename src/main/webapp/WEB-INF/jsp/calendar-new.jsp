@@ -72,10 +72,10 @@
     <p class="title">请选择要进行的操作</p>
     <ul class="operation-ul">
         <li><a href="javascript:void(0)">调课</a></li>
-        <li><a href="javascript:void(0)">请假</a></li>
-        <li><a href="javascript:void(0)">加课</a></li>
-        <li><a href="javascript:void(0)">补课</a></li>
-        <li class="holiday-delay"><a href="javascript:void(0)">公假顺延</a></li>
+     <%--   <li><a href="javascript:void(0)">请假</a></li>--%>
+        <li><a href="javascript:pop(0,'${sid}',0);closeWindow('pop-edit-class')">加课</a></li>
+<%--        <li><a href="javascript:void(0)">补课</a></li>
+        <li class="holiday-delay"><a href="javascript:void(0)">公假顺延</a></li>--%>
     </ul>
 
     <a href="javascript:void(0)" onClick="closeWindow('pop-edit-class');popup('pop-infor')" class="btn-submit">确定</a>
@@ -241,11 +241,15 @@
         function  pop(flag,sid,childDate){
             //根据传过来的日期和sid获取当前用户当天课程
 
-            if(flag=='0'){  //当天没课程 ，弹出增加课程层
+            if(flag=='0') {  //当天没课程 ，弹出增加课程层
+                if (childDate == 0) {
+                    $('#viewdatedayadd').html($('#childDate').val());
+                }
+                else {
+                    $('#viewdatedayadd').html(childDate);
+                }
 
-                $('#viewdatedayadd').html(childDate);
-            //$("#selectService").empty();  动态组织下来选择
-            //$("#selectService").append('<option value="0" selected="selected">选择服务</option>');
+
             $.ajax({
                 type: 'post',
                 url: "/class/listClassByAdd.json",
@@ -296,7 +300,9 @@
                             $('#childlist').append(
                                             '<li>' +
                                             '<label class="day-of-week" for="Chinese">' +
-                                            '<input type="radio" id="Chinese" name="class" class="checkbox-week">' +
+                                            '<input type="radio" id="Chinese" name="class" class="checkbox-week" value="'+cinfo.id+'">' +
+                                            '<input type="hidden" id="childDate" name="childDate" value="'+childDate+'">' +
+
                                             '<span class="orange">' + cinfo.classdatetime.split(" ")[1] + '</span>' +
                                             cinfo.classTimeMain.classname +
                                             '</label>' +

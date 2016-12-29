@@ -271,7 +271,9 @@ public class ClassController  extends  MyBaseController  implements Serializable
     public String listByAdd(HttpServletRequest request,@RequestParam("sid") String sid
     ) {
         //List<ClassTimeChild> childList = classTimeChildManager.selectByMainIdByDay(Integer.parseInt(sid),checkDate);
+
         List<ClassTimeMain> mainList =  classTimeMainManager.selectClassMainForSid(Integer.parseInt(sid));
+        System.out.println(toJsonResult(mainList));
 /*
         Map<String,Object> classList = new HashMap<String,Object>();
         classList.put("child",childList);
