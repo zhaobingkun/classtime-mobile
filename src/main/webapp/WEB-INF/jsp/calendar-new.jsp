@@ -71,7 +71,7 @@
     </ul>
     <p class="title">请选择要进行的操作</p>
     <ul class="operation-ul">
-        <li><a href="javascript:void(0)">调课</a></li>
+        <li><a href="javascript:upDate();">调课</a></li>
      <%--   <li><a href="javascript:void(0)">请假</a></li>--%>
         <li><a href="javascript:pop(0,'${sid}',0);closeWindow('pop-edit-class')">加课</a></li>
 <%--        <li><a href="javascript:void(0)">补课</a></li>
@@ -300,7 +300,7 @@
                             $('#childlist').append(
                                             '<li>' +
                                             '<label class="day-of-week" for="Chinese">' +
-                                            '<input type="radio" id="Chinese" name="class" class="checkbox-week" value="'+cinfo.id+'">' +
+                                            '<input type="checkbox" id="childid" name="childid" class="checkbox-week" value="'+cinfo.id+'">' +
                                             '<input type="hidden" id="childDate" name="childDate" value="'+childDate+'">' +
 
                                             '<span class="orange">' + cinfo.classdatetime.split(" ")[1] + '</span>' +
@@ -336,11 +336,6 @@
         var classTime = $("#classtime").val();
         var classNameId = $("#classNameId").val();
 
-        alert("viewdatedayadd="+$("#viewdatedayadd").html());
-        alert("classtime="+$("#classtime").val());
-        alert("classNameId="+$("#classNameId").val());
-
-
         $.ajax({
             type: 'post',
             url: "/class/addClass.json",
@@ -357,6 +352,12 @@
                 console.log('出现错误，请重新操作！');
             }
         });
+
+    }
+
+    function upDate(){
+       var childid =  $("input[name='childid']:checked").val();
+        alert(childid);
 
     }
 
