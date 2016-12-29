@@ -284,34 +284,25 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
     @ResponseBody
     @RequestMapping(value = "addClass.json", method = RequestMethod.POST)
-    public String addClass(HttpServletRequest request, @ModelAttribute Student pageModel,
-                           @RequestParam("CalendarTitle") String CalendarTitle,
-                           @RequestParam("CalendarStartTime") String CalendarStartTime,
-                                   @RequestParam("CalendarEndTime") String CalendarEndTime,
-                                   @RequestParam("IsAllDayEvent") String IsAllDayEvent,
-                                   @RequestParam("timezone") String timezone
+    public String addClass(HttpServletRequest request,@RequestParam("classNameId") String classNameId,@RequestParam("classTime") String classTime,@RequestParam("classDate") String classDate
     ) {
-
-        System.out.println("CalendarTitle="+CalendarTitle);
-        System.out.println("CalendarStartTime="+CalendarStartTime);
-        System.out.println("CalendarEndTime="+CalendarEndTime);
-        System.out.println("IsAllDayEvent="+IsAllDayEvent);
-        System.out.println("timezone="+timezone);
         System.out.print("addClass.json");
+        ClassTimeChild  child = new ClassTimeChild();
+        System.out.println(DateUtils.parseDate(classDate +" "+classTime+":00","yyyy-MM-dd HH:mm:ss"));
+        child.setMid(Integer.parseInt(classNameId));
+        child.setClassdatetime(DateUtils.parseDate(classDate +" "+classTime+":00","yyyy-MM-dd HH:mm:ss"));
+        child.setEndtime(DateUtils.parseDate(classDate +" "+classTime+":00","yyyy-MM-dd HH:mm:ss"));
+        int result = classTimeChildManager.insertSelective(child);
 
-        //Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
+        return toJsonResult(result,"","");
 
-        //System.out.print("cpsuser.getId()="+cpsuser.getId());
-
-
-        return "getListByMonth.json";
     }
 
 
 
     @ResponseBody
     @RequestMapping(value = "delClass.json", method = RequestMethod.POST)
-    public String delClass(HttpServletRequest request, @ModelAttribute Student pageModel) {
+    public String delClass(HttpServletRequest request,@RequestParam("classNameId") String classNameId,@RequestParam("classtime") String classtime ) {
 
         System.out.print("delClass.json");
 

@@ -41,7 +41,7 @@
 <%--增加课程弹层--%>
 <div class="pop-class" id="pop-add-class" style="display:none">
     <a href="javascript:void(0)" class="close" onClick="closeWindow('pop-add-class')">×</a>
-    <h3 class="date" id="viewdateday">2016-06-25</h3>
+    <h3 class="date" name="viewdatedayadd" id="viewdatedayadd">2016-06-25</h3>
     <p class="title">请选择课程和时间</p>
     <ul class="classes-ul" id="childadd">
         <div class="form-wrap">
@@ -52,13 +52,13 @@
                </li>
                 <li class="one-item">
                     <label class="tit">课程：</label>
-                    <select id="className">
+                    <select id="classNameId" name="classNameId">
                     </select>
                 </li>
             </ul>
         </div>
     </ul>
-    <a href="javascript:void(0)" onClick="closeWindow('pop-add-class');popup('pop-infor')" class="btn-submit">确定</a>
+    <a href="javascript:void(0)" onClick="addClass();closeWindow('pop-add-class');popup('pop-infor')" class="btn-submit">确定</a>
 </div>
 
 
@@ -238,12 +238,12 @@
         }
     }
 
-    function  pop(flag,sid,childDate){
-        //根据传过来的日期和sid获取当前用户当天课程
-        $('#viewdateday').html(childDate);
-        if(flag=='0'){  //当天没课程 ，弹出增加课程层
+        function  pop(flag,sid,childDate){
+            //根据传过来的日期和sid获取当前用户当天课程
 
+            if(flag=='0'){  //当天没课程 ，弹出增加课程层
 
+                $('#viewdatedayadd').html(childDate);
             //$("#selectService").empty();  动态组织下来选择
             //$("#selectService").append('<option value="0" selected="selected">选择服务</option>');
             $.ajax({
@@ -256,12 +256,12 @@
                 },
                 success: function (data) {
                     console.log('pop windows success');
-                    $("#className").empty();
+                    $("#classNameId").empty();
 
 
                     if (data != null) {
                         $.each(data, function (index, cinfo) {
-                            $('#className').append(
+                            $('#classNameId').append(
                                     '<option value="'+cinfo.id+'" selected="selected">'+cinfo.classname+'</option>'
                             );
 
@@ -278,6 +278,7 @@
             popup('pop-add-class');
         }
         else {
+           $('#viewdateday').html(childDate);
             $.ajax({
                 type: 'post',
                 url: "/class/listClassByDay.json",
@@ -319,6 +320,39 @@
 
 
     };
+
+
+
+    function addClass() {
+
+
+        var classDate = $("#viewdatedayadd").html();
+        var classTime = $("#classtime").val();
+        var classNameId = $("#classNameId").val();
+
+        alert("viewdatedayadd="+$("#viewdatedayadd").html());
+        alert("classtime="+$("#classtime").val());
+        alert("classNameId="+$("#classNameId").val());
+
+
+        $.ajax({
+            type: 'post',
+            url: "/class/addClass.json",
+            dataType: 'json',
+            data: {
+                classDate: classDate,
+                classTime: classTime,
+                classNameId: classNameId
+            },
+            success: function (data) {
+                console.log('add success');
+            },
+            error: function () {
+                console.log('出现错误，请重新操作！');
+            }
+        });
+
+    }
 
     !function(){
 	$('.dates-ul p').click(function(){
