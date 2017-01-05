@@ -53,6 +53,7 @@
                 <li class="one-item">
                     <label class="tit">课程：</label>
                     <select id="classNameId" name="classNameId">
+
                     </select>
                 </li>
             </ul>
@@ -68,6 +69,20 @@
     <h3 class="date" id="viewdateday">2016-06-25</h3>
     <p class="title">请选择要管理的课程</p>
     <ul class="classes-ul" id="childlist">
+        <li>
+            <label class="day-of-week" for="Chinese">
+                <input type="radio" id="Chinese" name="class" class="checkbox-week">
+                <span class="orange">14:00</span>
+                语文
+            </label>
+        </li>
+        <li>
+            <label class="day-of-week" for="English">
+                <input type="radio" id="English" name="class" class="checkbox-week">
+                <span class="orange">16:00</span>
+                英语
+            </label>
+        </li>
     </ul>
     <p class="title">请选择要进行的操作</p>
     <ul class="operation-ul">
@@ -295,12 +310,12 @@
                 success: function (data) {
                     console.log('pop windows success');
                     if (data != null) {
-                        $('#childlist').html("")
+                        //$('#childlist').html("")
                         $.each(data, function (index, cinfo) {
                             $('#childlist').append(
                                             '<li>' +
-                                            '<label class="day-of-week" for="Chinese">' +
-                                            '<input type="checkbox" id="childid" name="childid" class="checkbox-week" value="'+cinfo.id+'">' +
+                                            '<label class="day-of-week">' +
+                                            '<input type="radio" id="childid" name="childid" class="checkbox-week" value="'+cinfo.id+'">' +
                                             '<input type="hidden" id="childDate" name="childDate" value="'+childDate+'">' +
 
                                             '<span class="orange">' + cinfo.classdatetime.split(" ")[1] + '</span>' +
