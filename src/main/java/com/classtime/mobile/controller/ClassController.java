@@ -304,16 +304,14 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
     @ResponseBody
     @RequestMapping(value = "delClass.json", method = RequestMethod.POST)
-    public String delClass(HttpServletRequest request,@RequestParam("classNameId") String classNameId,@RequestParam("classtime") String classtime ) {
+    public String delClass(HttpServletRequest request,@RequestParam("childid") String childid) {
 
         System.out.print("delClass.json");
-
-        //Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
-
-        //System.out.print("cpsuser.getId()="+cpsuser.getId());
-
-
-        return "getListByMonth.json";
+        ClassTimeChild  child = new ClassTimeChild();
+        child.setId(Integer.parseInt(childid));
+        child.setStatus(2);
+        int result = classTimeChildManager.updateByPrimaryKeySelective(child);
+        return toJsonResult(result,"","");
     }
 
 
