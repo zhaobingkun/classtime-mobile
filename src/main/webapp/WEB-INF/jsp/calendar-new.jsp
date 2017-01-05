@@ -69,7 +69,7 @@
     <h3 class="date" id="viewdateday">2016-06-25</h3>
     <p class="title">请选择要管理的课程</p>
     <ul class="classes-ul" id="childlist">
-        <li>
+       <%-- <li>
             <label class="day-of-week" for="Chinese">
                 <input type="radio" id="Chinese" name="class" class="checkbox-week">
                 <span class="orange">14:00</span>
@@ -82,7 +82,7 @@
                 <span class="orange">16:00</span>
                 英语
             </label>
-        </li>
+        </li>--%>
     </ul>
     <p class="title">请选择要进行的操作</p>
     <ul class="operation-ul">
@@ -121,7 +121,6 @@
 <script>
 
 
-
     $(function () {
         var date = new Date();
         var fullYear = date.getFullYear();
@@ -132,6 +131,9 @@
         var currentCalendar = createMonthDay(date)
         var dateStr = fullYear+"-"+month+"-" +"1";
         drawDateCalendar(currentCalendar,dateStr);
+
+
+
 
     });
 
@@ -160,16 +162,19 @@
         var year =   $('#viewYear').html();
         var newMonth = parseInt(month)-1;
         var newYear = parseInt(year);
-        var dateStr = newYear+"-"+newMonth+"-" +"1";
+
+
         if(newMonth<1){
             newMonth = 12;
             newYear = newYear-1;
         }
-
+        var dateStr = newYear+"-"+newMonth+"-" +"1";
         $('#viewYear').html(newYear);
         $('#viewMonth').html(newMonth);
 
         var newCurrentCalendar = newYear+"/" + newMonth + "/" + "1";
+
+        //alert(newCurrentCalendar);
         var currentCalendar = createMonthDay(new Date(newCurrentCalendar));
         drawDateCalendar(currentCalendar,dateStr);
     }
@@ -310,14 +315,13 @@
                 success: function (data) {
                     console.log('pop windows success');
                     if (data != null) {
-                        //$('#childlist').html("")
+                        $('#childlist').html("")
                         $.each(data, function (index, cinfo) {
                             $('#childlist').append(
                                             '<li>' +
                                             '<label class="day-of-week">' +
-                                            '<input type="radio" id="childid" name="childid" class="checkbox-week" value="'+cinfo.id+'">' +
+                                            '<input type="radio" id="childid" name="childid"  value="'+cinfo.id+'">' +
                                             '<input type="hidden" id="childDate" name="childDate" value="'+childDate+'">' +
-
                                             '<span class="orange">' + cinfo.classdatetime.split(" ")[1] + '</span>' +
                                             cinfo.classTimeMain.classname +
                                             '</label>' +
@@ -335,7 +339,11 @@
                 }
             });
 
-            popup('pop-edit-class');
+                $("body").delegate(".calendar-date-p","click", function(){
+                    popup('pop-edit-class');
+                });
+
+
         }
 
 
