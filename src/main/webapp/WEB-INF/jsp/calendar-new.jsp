@@ -380,7 +380,25 @@
 
     function upDate(){
        var childid =  $("input[name='childid']:checked").val();
+
+
         alert(childid);
+
+        $.ajax({
+            type: 'post',
+            url: "/class/delClass.json",
+            dataType: 'json',
+            data: {
+                childid: childid
+            },
+            success: function (data) {
+                console.log('del success');
+                alert("update success!");
+            },
+            error: function () {
+                console.log('出现错误，请重新操作！');
+            }
+        });
 
     }
 
