@@ -6,15 +6,15 @@
 <body>
 <div class="fix-bottom">
 	<ul class="menu-ul">
-		<li class="current"><a href="class.html" class="class">课程</a></li>
-		<li><a href="addClass.html" class="add">添加课程</a></li>
-		<li><a href="mine.html" class="mine current">我的</a></li>
+        <li><a href="/class/classlist.html" class="class">课程</a></li>
+        <li><a href="/class/classaddbefore.html" class="add">添加课程</a></li>
+        <li class="current"><a href="classlist.html" class="mine current">我的</a></li>
 	</ul>
 </div>
 
 <div class="fix-head">
 	<header class="top-bar">
-		<a href="mine.html" class="icon-return"></a>
+		<a href="javascript:history.go(-1);" class="icon-return"></a>
 		课程日历
 	</header>
 	
@@ -248,9 +248,12 @@
             var dataStrArr  = currentCalendar[j].split("/");
             var dataStr =  dataStrArr[0]+"-"+dataStrArr[1]+"-"+dataStrArr[2];
             var flag = '0';
+
             if(txt!=''){
                 flag='1';
+                txt='<div>课</div>';
             }
+
 
             $('#showlist').append(
                  '<li><p class="calendar-date-p" onclick="pop(\''+ flag+'\',' + ${sid}+',\''+ dataStr +'\');" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt +'</p></li>'
@@ -281,8 +284,6 @@
                 success: function (data) {
                     console.log('pop windows success');
                     $("#classNameId").empty();
-
-
                     if (data != null) {
                         $.each(data, function (index, cinfo) {
                             $('#classNameId').append(
@@ -339,9 +340,9 @@
                 }
             });
 
-                $("body").delegate(".calendar-date-p","click", function(){
+              //  $("body").delegate(".calendar-date-p","click", function(){
                     popup('pop-edit-class');
-                });
+              //  });
 
 
         }
@@ -370,6 +371,7 @@
             },
             success: function (data) {
                 console.log('add success');
+                location.reload();
             },
             error: function () {
                 console.log('出现错误，请重新操作！');
@@ -393,7 +395,8 @@
             },
             success: function (data) {
                 console.log('del success');
-                alert("update success!");
+                //alert("update success!");
+                location.reload();
             },
             error: function () {
                 console.log('出现错误，请重新操作！');
