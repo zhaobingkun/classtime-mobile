@@ -93,7 +93,7 @@
         <li class="holiday-delay"><a href="javascript:void(0)">公假顺延</a></li>--%>
     </ul>
 
-    <a href="javascript:void(0)" onClick="closeWindow('pop-edit-class');popup('pop-infor')" class="btn-submit">确定</a>
+    <%--<a href="javascript:void(0)" onClick="closeWindow('pop-edit-class');popup('pop-infor')" class="btn-submit">确定</a>--%>
 </div>
 
 <div class="pop-class" id="pop-infor" style="display:none">
@@ -131,17 +131,26 @@
         var currentCalendar = createMonthDay(date)
         var dateStr = fullYear+"-"+month+"-" +"1";
         drawDateCalendar(currentCalendar,dateStr);
-
-
-
-
     });
+
+    function reloadCalendar(reloadDate){
+        //alert("reloadDate1111111111111="+reloadDate);
+        //location.reload();
+        //alert("reloadDate22222222222221="+reloadDate);
+        var month = reloadDate.split("-")[1];
+        var year =   reloadDate.split("-")[0];
+        var dateStr = newYear+"-"+newMonth+"-" +"1";
+        $('#viewYear').html(newYear);
+        $('#viewMonth').html(newMonth);
+        var newCurrentCalendar = newYear+"/" + newMonth + "/" + "1";
+        var currentCalendar = createMonthDay(new Date(newCurrentCalendar));
+        drawDateCalendar(currentCalendar,dateStr);
+    }
 
     function getAddMonth(){
 
         var month = $('#viewMonth').html();
         var year =   $('#viewYear').html();
-
         var newMonth = parseInt(month)+1;
         var newYear = parseInt(year);
 
@@ -251,13 +260,17 @@
 
             if(txt!=''){
                 flag='1';
-                txt='<div>课</div>';
+                //txt='<div>课</div>';
             }
 
 
-            $('#showlist').append(
-                 '<li><p class="calendar-date-p" onclick="pop(\''+ flag+'\',' + ${sid}+',\''+ dataStr +'\');" id="day_'+no+'">'+new Date(currentCalendar[j]).getDate()+txt +'</p></li>'
-            );
+                $('#showlist').append(
+                                '<li><p onclick="pop(\'' + flag + '\',' + ${sid}+',\'' + dataStr + '\');" id="day_' + no + '">' +
+                                new Date(currentCalendar[j]).getDate() +
+                                txt
+                                + '</p></li>'
+                );
+
         }
     }
 
@@ -371,7 +384,8 @@
             },
             success: function (data) {
                 console.log('add success');
-                location.reload();
+
+                reloadCalendar($('#childDate').val());
             },
             error: function () {
                 console.log('出现错误，请重新操作！');
@@ -384,7 +398,7 @@
        var childid =  $("input[name='childid']:checked").val();
 
 
-        alert(childid);
+        //alert(childid);
 
         $.ajax({
             type: 'post',
@@ -396,7 +410,8 @@
             success: function (data) {
                 console.log('del success');
                 //alert("update success!");
-                location.reload();
+                //location.reload();
+                reloadCalendar($('#childDate').val());
             },
             error: function () {
                 console.log('出现错误，请重新操作！');

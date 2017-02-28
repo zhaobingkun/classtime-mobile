@@ -3,12 +3,17 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:task="http://www.springframework.org/schema/task"
              xmlns:tx="http://www.springframework.org/schema/tx"
              xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		">
     <beans:bean id="constant" class="com.classtime.mobile.util.ConstantUtil"/>
     <beans:bean id="ServiceLocator" class="com.classtime.mobile.util.ServiceLocator"/>
+
     <beans:bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <beans:property name="locations">
             <beans:list>
@@ -17,6 +22,19 @@
             </beans:list>
         </beans:property>
     </beans:bean>
+
+    <!--<beans:bean id="taskJob" class="com.classtime.service.utils.TaskJob"/>-->
+    <beans:bean id="classController" class="com.classtime.mobile.controller.ClassController"/>
+       <task:scheduled-tasks>
+        <task:scheduled ref="classController" method="getClassSms" cron="0 0 20 * * ?"/>
+    </task:scheduled-tasks>
+
+    <task:scheduled-tasks>
+        <task:scheduled ref="classController" method="updateClassStatus" cron="0 0 * * * ?"/>
+    </task:scheduled-tasks>
+
+
+
     <context:component-scan base-package="com.classtime"/>
     <context:annotation-config/>
 

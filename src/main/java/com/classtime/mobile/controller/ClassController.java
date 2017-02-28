@@ -1,6 +1,7 @@
 package com.classtime.mobile.controller;
 
 import com.classtime.mobile.util.CookieUtil;
+import com.classtime.mobile.util.SmsSendUtil;
 import com.classtime.service.manager.ClassTimeChildManager;
 import com.classtime.service.manager.ClassTimeMainManager;
 import com.classtime.service.manager.StudentManager;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -314,5 +316,51 @@ public class ClassController  extends  MyBaseController  implements Serializable
         return toJsonResult(result,"","");
     }
 
+
+    public void getClassSms() {
+
+
+        String checkDate=DateUtils.getDateAfter(1);
+        System.out.print("checkDate===="+checkDate);
+
+        checkDate="2016-09-10";
+        List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectMobileByDay(checkDate);
+        for(int i=0;i<classTimeMainList.size();i++){
+            ClassTimeChild child =  classTimeMainList.get(i);
+            System.out.print(DateUtils.formatDate(child.getClassdatetime(),"hh:mm"));
+            SmsSendUtil.sendClassSms(DateUtils.formatDate(child.getClassdatetime(), "hh:mm"), child.getStudent(), child.getClassaddress(), child.getClassname(), child.getMobile());
+        }
+       System.out.println(toJsonResult(classTimeMainList));
+       // return toJsonResult(classTimeMainList);
+      //  return toJsonResult(classTimeMainList,"","");
+    }
+
+
+
+    public void updateClassStatus() {
+        String checkDate=DateUtils.formatDate(new Date(),"yyyy-MM-dd HH");
+        System.out.print("checkDate===="+checkDate);
+        //checkDate="2016-09-10 12:30";
+        int result  = classTimeChildManager.updateClassStatus(checkDate);
+        System.out.println(toJsonResult(result));
+
+    }
+
+/*
+    public void updateClassMainNum() {
+        String checkDate=DateUtils.formatDate(new Date(),"yyyy-MM-dd HH:mm:ss");
+        System.out.print("checkDate===="+checkDate);
+        //checkDate="2016-09-10 12:30";
+       List<ClassTimeChild>  childList = classTimeChildManager.selectStatusByChild();
+
+        System.out.println(toJsonResult(childList));
+        ClassTimeMain main = new ClassTimeMain();
+        for(int i=0;i<childList.size();i++){
+
+        }
+
+
+
+    }*/
 
 }
