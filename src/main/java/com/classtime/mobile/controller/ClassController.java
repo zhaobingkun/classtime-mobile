@@ -321,6 +321,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
 
         String checkDate=DateUtils.getDateAfter(1);
+        System.out.println("getClassSms====="+ DateUtils.formatDate(new Date(), "HH:mm:ss SSS"));
         System.out.println("getClassSms checkDate===="+checkDate);
 
         //checkDate="2016-09-10";
@@ -337,6 +338,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
     public void updateClassStatus() {
         String checkDate=DateUtils.formatDate(new Date(),"yyyy-MM-dd HH");
+        System.out.println("updateClassStatus====="+ DateUtils.formatDate(new Date(), "HH:mm:ss SSS"));
         System.out.println("updateClassStatus checkDate===="+checkDate);
         //checkDate="2016-09-10 12:30";
         int result  = classTimeChildManager.updateClassStatus(checkDate);
