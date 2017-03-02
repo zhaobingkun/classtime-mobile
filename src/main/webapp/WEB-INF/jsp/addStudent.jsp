@@ -29,7 +29,7 @@
 			<ul class="sex-choice">
 				<li class="boy current" onclick="setSex(1);">我是男孩</li>
 				<li class="girl" onclick="setSex(0);">我是女孩</li>
-                <input type="hidden" id="sex"  name = "sex"  class="i-txt">
+                <input type="hidden" id="sex"  name = "sex"  value="1" class="i-txt">
 			</ul>
 		</li>
 
