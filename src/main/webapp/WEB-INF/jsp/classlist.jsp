@@ -22,10 +22,10 @@
 
 <div class="class-wrap">
 	<h2 class="student-overview">
-		<a href="" class="btn-student fr pad-5">管理所有课程</a>
+		<%--<a href="" class="btn-student fr pad-5">管理所有课程</a>--%>
 		<b>${student.name}</b>
             <b><span class="id">学号：${student.sno}</span></b>
-            <b><a href="/calendar/${student.id}">日历</a></b>
+           <a href="/calendar/${student.id}"  class="btn-student fr pad-5">日历</a>
 	</h2>
 
     <c:if test="${not empty student.classTimeMainList}">

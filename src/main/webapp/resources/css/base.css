@@ -1,5 +1,5 @@
-body{ background:#f2f2f2 }
-*{ color:#727272; font-size:18px; font-family:microsoft Yahei; padding:0; margin:0; outline:none }
+body{ background:#f2f2f2 }  /*color:#727272;*/
+*{font-size:18px; font-family:microsoft Yahei; padding:0; margin:0; outline:none }
 ul, li{ list-style:none }
 a{ text-decoration:none }
 em,i{ font-style:normal }
