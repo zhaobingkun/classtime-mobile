@@ -17,7 +17,7 @@ $(document).ready(function() {
 	<ul class="menu-ul">
 		<li><a href="/class/classlist.html" class="class">课程</a></li>
 		<li class="current"><a href="/class/classaddbefore.html" class="add">添加课程</a></li>
-        <li class="current"><a href="classlist.html" class="mine current">我的</a></li>
+        <li><a href="/class/classlist.html" class="mine current">我的</a></li>
 	</ul>
 </div>
 
@@ -46,10 +46,10 @@ $(document).ready(function() {
 			<label class="tit">课程开始日期：</label>
             <input type="text" name="begintimeStr" id="begintimeStr" class="i-txt i-txt-calendar">
 		</li>
-		<li class="one-item">
+	<%--	<li class="one-item">
 			<label class="tit">课程结束日期：</label>
 			<input type="text" name="endtimeStr" id="endtimeStr" class="i-txt i-txt-calendar">
-		</li>
+		</li>--%>
 		<li class="one-item one-item-week">
 			<label class="day-of-week" for="Monday">
 				<input type="checkbox" value="1" id="Monday" name="weekday" class="checkbox-week">
@@ -139,6 +139,7 @@ $(document).ready(function() {
         opt.date = {preset : 'date'};
         opt.time = {preset : 'time'};
         $('#begintimeStr').val('').scroller('destroy').scroller($.extend(opt['date'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
+        $('#endtimeStr').val('').scroller('destroy').scroller($.extend(opt['date'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
         $('#classtime').val('').scroller('destroy').scroller($.extend(opt['time'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
 
     });

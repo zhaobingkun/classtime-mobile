@@ -8,11 +8,12 @@
 		<li><a href="/class/classlist.html" class="class">课程</a></li>
 		<li><a href="/class/classaddbefore.html" class="add">添加课程</a></li>
         <li class="current"><a href="classlist.html" class="mine current">我的</a></li>
+        <%--<li><a href="/class/classlist.html" class="mine current">我的</a></li>--%>
 	</ul>
 </div>
 
 <header class="top-bar">
-	<a href="student/addStudentBefore.html" class="add-student">新学员</a>
+	<a href="/student/addStudentBefore.html" class="add-student">新学员</a>
 	我的
 </header>
 

@@ -51,14 +51,14 @@ public class UserController extends MyBaseController {
     @RequestMapping("/getRandomCode.json")
     public String isGetRandomCode(@RequestParam("phone") String phone, HttpServletRequest request) throws IOException {
 
-
+        System.out.println("phone="+phone);
         Random random = new Random();
         String randomCode = "";
         for (int i = 0; i < 6; i++) {
             randomCode += random.nextInt(10);
         }
 
-        System.out.println(randomCode);
+        System.out.println("randomCode="+randomCode);
 
         /**面这段操作数据库的代码，可以优化
          * 1、将验证码和手机号写入session
@@ -101,6 +101,9 @@ public class UserController extends MyBaseController {
 
        // logger.info("loginForPhone user:" + ((user == null) ? "null" : user.toString()));
         if (sessionRandomCode.equals(randomcode)) {//校验码输入正确
+
+            System.out.println("randomcode="+randomcode);
+            System.out.println("phone="+phone);
             Cpsuser user = cpsuserManager.findByPhone(phone);
             if (user == null) {  //新用户，直接入库
                 user = new Cpsuser();
