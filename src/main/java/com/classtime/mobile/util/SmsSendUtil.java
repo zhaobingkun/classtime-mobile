@@ -96,10 +96,10 @@ public class SmsSendUtil {
             req.setSmsParamString(smsParamString);//短信模版内容
             req.setRecNum(mobile);
             req.setSmsTemplateCode("SMS_49315410");//短信模版编码
-           // AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
+            AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
            // opLogger.info(StringTools.toLogString("SMS_12660240|sendSMSSuccess", mobile, rsp.getBody()));
-           // return rsp.getResult().getErrCode();
-            return "1";
+            return rsp.getResult().getErrCode();
+           // return "1";
         } catch (Exception e) {
             opLogger.info(StringTools.toLogString("SMS_12660240|sendSMSError", mobile, e.toString()));
             e.printStackTrace();

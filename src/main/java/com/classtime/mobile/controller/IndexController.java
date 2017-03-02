@@ -2,8 +2,10 @@ package com.classtime.mobile.controller;
 
 
 import com.classtime.mobile.util.CookieUtil;
+import com.classtime.service.manager.ClassTimeChildManager;
 import com.classtime.service.manager.ClassTimeMainManager;
 import com.classtime.service.manager.StudentManager;
+import com.classtime.service.model.ClassTimeChild;
 import com.classtime.service.model.ClassTimeMain;
 import com.classtime.service.model.Cpsuser;
 import com.classtime.service.model.Student;
@@ -24,7 +26,8 @@ public class IndexController extends MyBaseController {
     @Autowired
     private StudentManager studentManager;
 
-
+    @Autowired
+    private ClassTimeChildManager classTimeChildManager;
 
     @Autowired
     private ClassTimeMainManager classTimeMainManager;
@@ -76,6 +79,30 @@ public class IndexController extends MyBaseController {
             if(studentList.size()>0) {
                 for(int i=0;i<studentList.size();i++){
                     List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
+                    for(int j=0;j>classTimeMains.size();j++){
+                       List<ClassTimeChild> child  = classTimeChildManager.selectStatusByChild(classTimeMains.get(j).getId());
+                        for(int h=0;h<child.size();h++) {
+                            if(child.get(h).getStatus()==1) {
+                                classTimeMains.get(j).setNum(child.get(h).getClassnum());
+                            }
+                            else if(child.get(h).getStatus()==2) {
+                                classTimeMains.get(j).setLeavenum(child.get(h).getClassnum());
+                            }
+                            else if(child.get(h).getStatus()==3) {
+                                classTimeMains.get(j).setChangenum(child.get(h).getClassnum());
+                            }
+                            else if(child.get(h).getStatus()==4) {
+                                classTimeMains.get(j).setMakeupnum(child.get(h).getClassnum());
+                            }
+                            else if(child.get(h).getStatus()==5) {
+                                classTimeMains.get(j).setMakeupnum(child.get(h).getClassnum());
+                            }
+                            else{
+                                classTimeMains.get(j).setNum(child.get(h).getClassnum());
+                            }
+                        }
+
+                    }
                     studentList.get(i).setClassTimeMainList(classTimeMains);
                 }
                 model.addAttribute("studentList",studentList);

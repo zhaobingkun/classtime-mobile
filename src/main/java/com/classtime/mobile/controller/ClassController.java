@@ -331,8 +331,6 @@ public class ClassController  extends  MyBaseController  implements Serializable
             SmsSendUtil.sendClassSms(DateUtils.formatDate(child.getClassdatetime(), "hh:mm"), child.getStudent(), child.getClassaddress(), child.getClassname(), child.getMobile());
         }
        System.out.println(toJsonResult(classTimeMainList));
-       // return toJsonResult(classTimeMainList);
-      //  return toJsonResult(classTimeMainList,"","");
     }
 
 
