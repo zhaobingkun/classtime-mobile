@@ -318,12 +318,9 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
 
     public void getClassSms() {
-
-
         String checkDate=DateUtils.getDateAfter(1);
         System.out.println("getClassSms====="+ DateUtils.formatDate(new Date(), "HH:mm:ss SSS"));
         System.out.println("getClassSms checkDate===="+checkDate);
-
         //checkDate="2016-09-10";
         List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectMobileByDay(checkDate);
         for(int i=0;i<classTimeMainList.size();i++){
@@ -343,7 +340,6 @@ public class ClassController  extends  MyBaseController  implements Serializable
         //checkDate="2016-09-10 12:30";
         int result  = classTimeChildManager.updateClassStatus(checkDate);
         System.out.println(toJsonResult(result));
-
     }
 
 /*

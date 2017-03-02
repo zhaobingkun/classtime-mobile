@@ -24,7 +24,7 @@
     </beans:bean>
 
     <!--<beans:bean id="taskJob" class="com.classtime.service.utils.TaskJob"/>-->
-    <beans:bean id="classController" class="com.classtime.mobile.controller.ClassController"/>
+  <!--  <beans:bean id="classController" class="com.classtime.mobile.controller.ClassController"/>
 
    <task:scheduled-tasks>
         <task:scheduled ref="classController" method="getClassSms" cron="0 0 20 * * ?"/>
@@ -34,7 +34,7 @@
         <task:scheduled ref="classController" method="updateClassStatus" cron="0 * * * * ?"/>
     </task:scheduled-tasks>
 
-
+-->
 
     <context:component-scan base-package="com.classtime"/>
     <context:annotation-config/>
