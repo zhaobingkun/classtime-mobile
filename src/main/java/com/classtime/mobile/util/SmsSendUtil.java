@@ -87,7 +87,7 @@ public class SmsSendUtil {
             AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
             req.setExtend("");
             req.setSmsType("normal");
-            req.setSmsFreeSignName("壹点旅行");//签名
+            req.setSmsFreeSignName("课时笔记");//签名
             //String sms = "{\"time\":\"" + dateStr + "\",\"name\":\"" + name + "\",\"code\":\"" + product + "\"}";
             String smsParamString = "{\"name\":\"" + name + "\",\"time\":\"" + time + "\",\"address\":\"" + address + "\",\"classname\":\"" + classname + "\"}";
 
@@ -103,7 +103,7 @@ public class SmsSendUtil {
             return rsp.getResult().getErrCode();
            // return "1";
         } catch (Exception e) {
-            opLogger.info(StringTools.toLogString("SMS_12660240|sendSMSError", mobile, e.toString()));
+            opLogger.info(StringTools.toLogString("SMS_49315410|sendSMSError", mobile, e.toString()));
             e.printStackTrace();
         }
         return "";
