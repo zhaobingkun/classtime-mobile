@@ -11,15 +11,13 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
          http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
 		">
-
-
-    <beans:bean id="classController" class="com.classtime.mobile.controller.ClassController"/>
+    <beans:bean id="taskWork" class="com.classtime.mobile.util.TaskWork"/>
 
     <task:scheduled-tasks>
-        <task:scheduled ref="classController" method="getClassSms" cron="0 0 20 * * ?"/>
+        <task:scheduled ref="taskWork" method="getClassSms" cron="0 0 20 * * ?"/>
     </task:scheduled-tasks>
 
     <task:scheduled-tasks>
-        <task:scheduled ref="classController" method="updateClassStatus" cron="0 * * * * ?"/>
+        <task:scheduled ref="taskWork" method="updateClassStatus" cron="0 * * * * ?"/>
     </task:scheduled-tasks>
 </beans:beans>
