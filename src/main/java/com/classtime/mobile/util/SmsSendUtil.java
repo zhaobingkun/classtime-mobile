@@ -89,9 +89,11 @@ public class SmsSendUtil {
             req.setSmsType("normal");
             req.setSmsFreeSignName("壹点旅行");//签名
             //String sms = "{\"time\":\"" + dateStr + "\",\"name\":\"" + name + "\",\"code\":\"" + product + "\"}";
-          //  String smsParamString = "{您好，宝宝"+name+"明天"+time+"在"+address+"有"+org+"的"+classname+"，请您提前做好准备。}";
+            String smsParamString = "{\"name\":\"" + name + "\",\"time\":\"" + time + "\",\"address\":\"" + address + "\",\"classname\":\"" + classname + "\"}";
 
-            String smsParamString ="{您好，"+name+"小朋友明天"+time+"在"+address+"有"+classname+"课，请您提前做好准备。}";
+
+            //您好，${name}小朋友明天${time}在${addr}有${cname}课，请您提前做好准备。
+
             System.out.println(smsParamString);
             req.setSmsParamString(smsParamString);//短信模版内容
             req.setRecNum(mobile);
