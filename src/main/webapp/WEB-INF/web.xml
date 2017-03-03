@@ -8,7 +8,7 @@
         <welcome-file>/</welcome-file>
     </welcome-file-list>
 
-<!--    <context-param>
+    <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:classtime-service-context.xml,classpath:spring-task.xml</param-value>
     </context-param>
@@ -16,7 +16,7 @@
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>-->
+    </listener>
     <!--
         <listener>
             <listener-class>com.classtime.front.util.ContextListener</listener-class>
@@ -68,7 +68,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring-servlet.xml,classpath:classtime-service-context.xml,classpath:spring-task.xml</param-value>
+            <param-value>classpath:spring-servlet.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
