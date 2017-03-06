@@ -18,6 +18,6 @@
     </task:scheduled-tasks>
 
     <task:scheduled-tasks>
-        <task:scheduled ref="taskWork" method="updateClassStatus" cron="0 * * * * ?"/>
+        <task:scheduled ref="taskWork" method="updateClassStatus" cron="0 0 * * * ?"/>
     </task:scheduled-tasks>
 </beans:beans>

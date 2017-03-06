@@ -20,11 +20,11 @@
 </head>
 
 <body>
-<%--<%@ include file="/common/header.jsp" %>--%>
+<%@ include file="/common/header.jsp" %>
 <decorator:body/>
 
 <!--版权声明部分开始-->
-<%--<%@ include file="/common/footer.jsp" %>--%>
+<%@ include file="/common/footer.jsp" %>
 <!--版权声明部分结束-->
 
 <!-- 下面几行js测试时打开，暂时注释dtrip.mobileservice.min.js;修改的js先拷贝到dtripmobileservice.js,

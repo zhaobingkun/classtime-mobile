@@ -7,7 +7,7 @@ function getRandomCode() {
     }*/
     var mobile = $("#mobile").val();
 
-    alert(mobile);
+   // alert(mobile);
 
     if (mobile == '') {
         alert('请输入手机号！');

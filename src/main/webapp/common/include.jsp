@@ -13,7 +13,6 @@
 		String pdfUrl = ConstantUtil.DOWNLOAD_URL;
 %>
 <c:url value="<%=imgUrl%>" var="imgUrl" scope="application"></c:url>
-<c:url value="<%=pdfUrl%>" var="pdfUrl" scope="application"></c:url>
 <%
     String webappUrl = ConstantUtil.WEBAPP_URL;
 %>

@@ -2,8 +2,7 @@
 <script type="text/javascript">
     //rootUrl 和usename 必须引入include.jsp使用
     var rootUrl = '${rootUrl}';
-    var dtripImgUrl = '${imgUrl}';
-    var dtripPdfUrl = '${pdfUrl}';
+    var imgUrl = '${imgUrl}';
 
     function createCookie(name, value, days, domain, path) {
         var expires = '';

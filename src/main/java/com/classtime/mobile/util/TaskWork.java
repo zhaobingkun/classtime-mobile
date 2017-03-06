@@ -1,8 +1,6 @@
 package com.classtime.mobile.util;
 
 import com.classtime.service.manager.ClassTimeChildManager;
-import com.classtime.service.manager.ClassTimeMainManager;
-import com.classtime.service.manager.StudentManager;
 import com.classtime.service.model.ClassTimeChild;
 import com.classtime.service.utils.DateUtils;
 import com.classtime.service.utils.JsonTools;
@@ -16,12 +14,6 @@ import java.util.List;
  */
 
 public class TaskWork {
-
-    @Autowired
-    private StudentManager studentManager;
-
-    @Autowired
-    private ClassTimeMainManager classTimeMainManager;
 
     @Autowired
     private ClassTimeChildManager classTimeChildManager;

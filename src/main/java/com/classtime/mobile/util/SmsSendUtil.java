@@ -89,7 +89,7 @@ public class SmsSendUtil {
             req.setSmsType("normal");
             req.setSmsFreeSignName("课时笔记");//签名
             //String sms = "{\"time\":\"" + dateStr + "\",\"name\":\"" + name + "\",\"code\":\"" + product + "\"}";
-            String smsParamString = "{\"name\":\"" + name + "\",\"time\":\"" + time + "\",\"address\":\"" + address + "\",\"classname\":\"" + classname + "\"}";
+            String smsParamString = "{\"name\":\"" + name + "\",\"time\":\"" + time + "\",\"addr\":\"" + address + "\",\"cname\":\"" + classname + "\"}";
 
 
             //您好，${name}小朋友明天${time}在${addr}有${cname}课，请您提前做好准备。
@@ -111,8 +111,8 @@ public class SmsSendUtil {
 
     public static void main(String sr[]) {
         String mobile = "13146485726";
-       // SmsSendUtil.sendLoginCheck(mobile, "123456");
-        String checkDate= DateUtils.formatDate(new Date(), "yyyy-MM-dd HH");
+        //SmsSendUtil.sendClassSms("10:20", "赵嘉言","巨石大厦","数学","13501065335");
+        String checkDate= DateUtils.formatDate(new Date(), "hh:mm");
         System.out.print("checkDate===="+checkDate);
     }
 }
