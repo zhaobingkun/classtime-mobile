@@ -12,7 +12,7 @@
     //rootUrl 和usename 必须引入include.jsp使用
     var rootUrl = '${rootUrl}';
     var imgUrl = '${imgUrl}';
-    alert("rootUrl="+rootUrl);
+    //alert("rootUrl="+rootUrl);
     function createCookie(name, value, days, domain, path) {
         var expires = '';
         if (days) {
