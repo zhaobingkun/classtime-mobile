@@ -1,4 +1,13 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?c0ce563c8f92fe23f6c80cb030b87266";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 <script type="text/javascript">
     //rootUrl 和usename 必须引入include.jsp使用
     var rootUrl = '${rootUrl}';
