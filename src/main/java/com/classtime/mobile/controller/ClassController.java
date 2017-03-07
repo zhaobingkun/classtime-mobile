@@ -67,32 +67,31 @@ public class ClassController  extends  MyBaseController  implements Serializable
                 System.out.println("student.getId()="+student.getSno());
                 for (int j = 0; j < studentList.get(i).getClassTimeMainList().size(); j++) {
                     ClassTimeMain cmain = studentList.get(i).getClassTimeMainList().get(j);
-                    List<ClassTimeChild> childList = classTimeChildManager.selectStatusByChild(cmain.getId());
+                    List<ClassTimeChild> child = classTimeChildManager.selectStatusByChild(cmain.getId());
 
-                    System.out.print("childList===="+toJsonResult(childList));
+                    System.out.print("childList===="+toJsonResult(child));
 
-                    for(int h = 0;h<childList.size();h++){
-                        ClassTimeChild child = childList.get(h);
-                       /* if(child.getStatus()==0){
-                            cmain.setNum(child.getClassnum());
-                        }*/
-                        if(child.getStatus()==1){
-                            cmain.setNum(child.getClassnum());
+                    for(int h=0;h<child.size();h++) {
+                        if(child.get(h).getStatus()==0) {
+                            cmain.setNum(child.get(h).getClassnum());
                         }
-                        else if(child.getStatus()==2){
-                            cmain.setLeavenum(child.getClassnum());
+                        if(child.get(h).getStatus()==1) {
+                            cmain.setExtendednum(child.get(h).getClassnum());
                         }
-                        else if(child.getStatus()==3){
-                            cmain.setChangenum(child.getClassnum());
+                        else if(child.get(h).getStatus()==2) {
+                            cmain.setLeavenum(child.get(h).getClassnum());
                         }
-                        else if(child.getStatus()==4){
-                            cmain.setMakeupnum(child.getClassnum());
+                        else if(child.get(h).getStatus()==3) {
+                            cmain.setChangenum(child.get(h).getClassnum());
                         }
-                        else if(child.getStatus()==5){
-                            cmain.setMakeupnum(child.getClassnum());
+                        else if(child.get(h).getStatus()==4) {
+                            cmain.setMakeupnum(child.get(h).getClassnum());
+                        }
+                        else if(child.get(h).getStatus()==5) {
+                            cmain.setExtendednum(child.get(h).getClassnum());
                         }
                         else{
-                            cmain.setNum(child.getClassnum());
+                            cmain.setNum(child.get(h).getClassnum());
                         }
                     }
 
