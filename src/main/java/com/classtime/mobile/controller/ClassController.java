@@ -63,17 +63,47 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
 
             for (int i = 0; i < studentList.size(); i++) {
-
-               Student student =  studentList.get(i);
+                Student student =  studentList.get(i);
                 System.out.println("student.getId()="+student.getSno());
                 for (int j = 0; j < studentList.get(i).getClassTimeMainList().size(); j++) {
                     ClassTimeMain cmain = studentList.get(i).getClassTimeMainList().get(j);
+                    List<ClassTimeChild> childList = classTimeChildManager.selectStatusByChild(cmain.getId());
+
+                    System.out.print("childList===="+toJsonResult(childList));
+
+                    for(int h = 0;h<childList.size();h++){
+                        ClassTimeChild child = childList.get(h);
+                       /* if(child.getStatus()==0){
+                            cmain.setNum(child.getClassnum());
+                        }*/
+                        if(child.getStatus()==1){
+                            cmain.setNum(child.getClassnum());
+                        }
+                        else if(child.getStatus()==2){
+                            cmain.setLeavenum(child.getClassnum());
+                        }
+                        else if(child.getStatus()==3){
+                            cmain.setChangenum(child.getClassnum());
+                        }
+                        else if(child.getStatus()==4){
+                            cmain.setMakeupnum(child.getClassnum());
+                        }
+                        else if(child.getStatus()==5){
+                            cmain.setMakeupnum(child.getClassnum());
+                        }
+                        else{
+                            cmain.setNum(child.getClassnum());
+                        }
+                    }
+
+
+
                     System.out.println("cmain.getId()="+cmain.getId());
 
                 }
             }
 
-
+            System.out.print("studentList===="+toJsonResult(studentList));
             model.addAttribute("studentList", studentList);
             System.out.println("studentList.size()="+studentList.size());
             return "classlist";
@@ -213,6 +243,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
             System.out.println("mid==="+mid);
             System.out.println(toJsonResult(classTimeMainList));
+
         ViewModel viewModel = new ViewModel();
           List viewList = new ArrayList();
         for(int i=0;i<classTimeMainList.size();i++){
@@ -251,7 +282,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
             ,@RequestParam("checkDate") String checkDate
     ) {
         List<ClassTimeChild> classTimeMainList = classTimeChildManager.selectByMainIdByMonth(Integer.parseInt(sid),checkDate);
-        System.out.println(toJsonResult(classTimeMainList));
+       // System.out.println(toJsonResult(classTimeMainList));
 
     return toJsonResult(classTimeMainList);
     }
@@ -273,7 +304,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
         //List<ClassTimeChild> childList = classTimeChildManager.selectByMainIdByDay(Integer.parseInt(sid),checkDate);
 
         List<ClassTimeMain> mainList =  classTimeMainManager.selectClassMainForSid(Integer.parseInt(sid));
-        System.out.println(toJsonResult(mainList));
+        //System.out.println(toJsonResult(mainList));
 /*
         Map<String,Object> classList = new HashMap<String,Object>();
         classList.put("child",childList);
@@ -288,9 +319,9 @@ public class ClassController  extends  MyBaseController  implements Serializable
     @RequestMapping(value = "addClass.json", method = RequestMethod.POST)
     public String addClass(HttpServletRequest request,@RequestParam("classNameId") String classNameId,@RequestParam("classTime") String classTime,@RequestParam("classDate") String classDate
     ) {
-        System.out.print("addClass.json");
+       // System.out.print("addClass.json");
         ClassTimeChild  child = new ClassTimeChild();
-        System.out.println(DateUtils.parseDate(classDate +" "+classTime+":00","yyyy-MM-dd HH:mm:ss"));
+        //System.out.println(DateUtils.parseDate(classDate +" "+classTime+":00","yyyy-MM-dd HH:mm:ss"));
         child.setMid(Integer.parseInt(classNameId));
         child.setClassdatetime(DateUtils.parseDate(classDate +" "+classTime+":00","yyyy-MM-dd HH:mm:ss"));
         child.setEndtime(DateUtils.parseDate(classDate +" "+classTime+":00","yyyy-MM-dd HH:mm:ss"));
@@ -301,6 +332,12 @@ public class ClassController  extends  MyBaseController  implements Serializable
     }
 
 
+    /**
+     * 删除某一节课程
+     * @param request
+     * @param childid
+     * @return
+     */
 
     @ResponseBody
     @RequestMapping(value = "delClass.json", method = RequestMethod.POST)
@@ -314,6 +351,22 @@ public class ClassController  extends  MyBaseController  implements Serializable
         return toJsonResult(result,"","");
     }
 
+
+    /**
+     * 删除某一门课程
+     * @param request
+     * @param mid
+     * @return
+     */
+
+    @ResponseBody
+    @RequestMapping(value = "delMainClass.json", method = RequestMethod.POST)
+    public String delMainClass(HttpServletRequest request,@RequestParam("mid") String mid) {
+        int result = 0;
+        result = classTimeMainManager.deleteByPrimaryKey(Long.parseLong(mid));
+        result = classTimeChildManager.deleteByMainId(Integer.parseInt(mid));
+        return toJsonResult(result,"","");
+    }
 
 /*
     public void updateClassMainNum() {

@@ -79,11 +79,14 @@ public class IndexController extends MyBaseController {
             if(studentList.size()>0) {
                 for(int i=0;i<studentList.size();i++){
                     List<ClassTimeMain> classTimeMains = classTimeMainManager.selectClassMainForSid(studentList.get(i).getId());
-                    for(int j=0;j>classTimeMains.size();j++){
+                    for(int j=0;j<classTimeMains.size();j++){
                        List<ClassTimeChild> child  = classTimeChildManager.selectStatusByChild(classTimeMains.get(j).getId());
+
+                        System.out.print("child===="+toJsonResult(child));
+
                         for(int h=0;h<child.size();h++) {
                             if(child.get(h).getStatus()==1) {
-                                classTimeMains.get(j).setNum(child.get(h).getClassnum());
+                                classTimeMains.get(j).setNum(classTimeMains.get(j).getSumnum()-child.get(h).getClassnum());
                             }
                             else if(child.get(h).getStatus()==2) {
                                 classTimeMains.get(j).setLeavenum(child.get(h).getClassnum());
@@ -105,6 +108,8 @@ public class IndexController extends MyBaseController {
                     }
                     studentList.get(i).setClassTimeMainList(classTimeMains);
                 }
+
+                System.out.print(toJsonResult(studentList));
                 model.addAttribute("studentList",studentList);
                 return "classlist";
             }
