@@ -53,10 +53,11 @@
                     <%--<em class="green">2017</em>年<em class="green">1</em>月<em class="green">1</em>日--%></li>
                 </ul>
                 <ul class="changes">
+                    <li class="little-changes"><i class="bigger">已上：</i><em><span class="green">${classInfo.extendednum}</span>次</em></li>
                     <li class="little-changes"><i>请假：</i><em><span class="green">${classInfo.leavenum}</span>次</em></li>
                     <li class="little-changes"><i class="bigger">调课：</i><em><span class="green">${classInfo.changenum}</span>次</em></li>
                     <li class="little-changes"><i>补课：</i><em><span class="green">${classInfo.makeupnum}</span>次</em></li>
-                    <li class="little-changes"><i class="bigger">假期顺延：</i><em><span class="green">${classInfo.extendednum}</span>次</em></li>
+
                 </ul>
             </li>
         </ul>
