@@ -2,6 +2,7 @@ package com.classtime.mobile.controller;
 
 import com.classtime.mobile.util.CookieUtil;
 import com.classtime.mobile.util.SessionUtil;
+import com.classtime.mobile.util.SmsSendUtil;
 import com.classtime.service.beans.UserModel;
 import com.classtime.service.manager.CpsuserManager;
 import com.classtime.service.model.Cpsuser;
@@ -72,8 +73,8 @@ public class UserController extends MyBaseController {
 
 
 
-       String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
-       // String res = SmsSendUtil.sendLoginCheck(phone, randomCode);//发送验证码
+       //String res = "0";// SmsSendUtil.sendLoginCheck(phone, randomCode);
+        String res = SmsSendUtil.sendLoginCheck(phone, randomCode);//发送验证码
 
         if (res != null && res.equals("0")) {
             result = toJsonResult(1, "", "");
