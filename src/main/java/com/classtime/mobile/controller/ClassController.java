@@ -296,6 +296,9 @@ public class ClassController  extends  MyBaseController  implements Serializable
     }
 
 
+
+
+
     @ResponseBody
     @RequestMapping(value = "listClassByAdd.json", method = RequestMethod.POST)
     public String listByAdd(HttpServletRequest request,@RequestParam("sid") String sid
@@ -365,6 +368,17 @@ public class ClassController  extends  MyBaseController  implements Serializable
         result = classTimeMainManager.deleteByPrimaryKey(Long.parseLong(mid));
         result = classTimeChildManager.deleteByMainId(Integer.parseInt(mid));
         return toJsonResult(result,"","");
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping(value = "listClassByStatus.json", method = RequestMethod.POST)
+    public String listByStatus(HttpServletRequest request,@RequestParam("mid") String mid
+            ,@RequestParam("status") String status
+    ) {
+        List<ClassTimeChild> classTimeChild = classTimeChildManager.selectByStatus(Integer.parseInt(mid),Integer.parseInt(status));
+        return toJsonResult(classTimeChild);
     }
 
 /*
