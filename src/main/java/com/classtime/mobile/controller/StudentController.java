@@ -37,9 +37,6 @@ public class StudentController extends MyBaseController{
     @RequestMapping(value = "addStudentBefore.html")
     public String addBefore(HttpServletRequest request, Model model) {
         //Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
-
-        System.out.println("11111111111111");
-
         return "addStudent";
     }
 
@@ -55,9 +52,6 @@ public class StudentController extends MyBaseController{
 
     @RequestMapping(value = "add.html", method = RequestMethod.POST)
     public String addAction(HttpServletRequest request, @ModelAttribute Student pageModel) {
-
-        //System.out.print("22222222222222222");
-
         Cpsuser cpsuser = CookieUtil.getUserFromCookie(request);
 
         //System.out.print("cpsuser.getId()="+cpsuser.getId());
