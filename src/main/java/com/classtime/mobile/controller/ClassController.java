@@ -145,37 +145,54 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
         //pageModel.setSid();
         pageModel.setBegintime(DateUtils.parseDate(pageModel.getBegintimeStr(),"yyyy-MM-dd"));
-        pageModel.setSumnum(pageModel.getNum());
+        //有结束日期，将结束日期转成日期类型写到对象里
+        if(!"".equals(pageModel.getEndtimeStr()) && pageModel.getEndtimeStr()!=null) {
+            pageModel.setEndtime(DateUtils.parseDate(pageModel.getEndtimeStr(), "yyyy-MM-dd"));
+        }
+
+
+        //课程数和结束日期都为空，则默认写20次课
+        if("".equals(pageModel.getEndtimeStr()) && pageModel.getNum()==null){
+            pageModel.setNum(20);
+        }
 
 
 
+        //获取上课星期列表
         WeekDayUtil weekDayUtil = new WeekDayUtil();
         String[] weekDayArr = pageModel.getWeekday().split(",");
-
         List<Integer> daysOfOneWeek = new ArrayList();
         for(int i=0;i<weekDayArr.length;i++) {
             daysOfOneWeek.add(Integer.parseInt(weekDayArr[i]));  //周六
         }
-//DateUtils.formatDate(pageModel.getEndtime(), "yyyy-MM-dd")
-        List daysNeedBookList = weekDayUtil.getDates(pageModel.getBegintimeStr(),"", daysOfOneWeek, pageModel.getNum());
 
-        String endDateStr = "";
-        if(daysNeedBookList.size()>0){
-            endDateStr =  (String)daysNeedBookList.get(daysNeedBookList.size()-1);
+        List daysNeedBookList = new ArrayList();
+
+        //有结束日期，就不用写总课程数，通过开始结束日期计算出总课程数。
+        if(!"".equals(pageModel.getEndtimeStr()) && pageModel.getEndtimeStr()!=null) {
+            daysNeedBookList = weekDayUtil.getDates(pageModel.getBegintimeStr(),pageModel.getEndtimeStr(), daysOfOneWeek);
+            pageModel.setNum(daysNeedBookList.size());
         }
-        pageModel.setEndtime(DateUtils.parseDate(endDateStr,"yyyy-MM-dd"));
+        //没有结束日期，有课程数，计算出结束日期。
+        else {
+            String endDateStr = "";
+            daysNeedBookList = weekDayUtil.getDates(pageModel.getBegintimeStr(), "", daysOfOneWeek, pageModel.getNum());
+            if(daysNeedBookList.size()>0){
+                endDateStr =  (String)daysNeedBookList.get(daysNeedBookList.size()-1);
+            }
+            pageModel.setEndtime(DateUtils.parseDate(endDateStr,"yyyy-MM-dd"));
+        }
+
+        pageModel.setSumnum(pageModel.getNum());  //记录上课总数
+
         classTimeMainManager.insertSelective(pageModel);
 
         List<ClassTimeChild> childList = new ArrayList();
         for(int i=0;i<daysNeedBookList.size();i++){
             ClassTimeChild classTimeChild = new ClassTimeChild();
             classTimeChild.setMid(pageModel.getId());
-
-
             System.out.println("str="+daysNeedBookList.get(i).toString() +" "+pageModel.getClasstime()+":00");
-
             System.out.println("datetime = " + DateUtils.parseDate(daysNeedBookList.get(i).toString() +" "+pageModel.getClasstime()+":00","yyyy-MM-dd HH:mm:ss"));
-
             classTimeChild.setClassdatetime(DateUtils.parseDate(daysNeedBookList.get(i).toString() +" "+pageModel.getClasstime()+":00","yyyy-MM-dd HH:mm:ss"));
             childList.add(classTimeChild);
         }
@@ -327,6 +344,7 @@ public class ClassController  extends  MyBaseController  implements Serializable
         child.setMid(Integer.parseInt(classNameId));
         child.setClassdatetime(DateUtils.parseDate(classDate +" "+classTime+":00","yyyy-MM-dd HH:mm:ss"));
         child.setEndtime(DateUtils.parseDate(classDate +" "+classTime+":00","yyyy-MM-dd HH:mm:ss"));
+
         int result = classTimeChildManager.insertSelective(child);
 
         return toJsonResult(result,"","");

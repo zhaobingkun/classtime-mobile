@@ -46,10 +46,10 @@ $(document).ready(function() {
 			<label class="tit">课程开始日期：</label>
             <input type="text" name="begintimeStr" id="begintimeStr" class="i-txt i-txt-calendar">
 		</li>
-	<%--	<li class="one-item">
+	    <li class="one-item">
 			<label class="tit">课程结束日期：</label>
-			<input type="text" name="endtimeStr" id="endtimeStr" class="i-txt i-txt-calendar">
-		</li>--%>
+			<input type="text" name="endtimeStr" id="endtimeStr" class="i-txt i-txt-calendar" onchange="setNums();">
+		</li>
 		<li class="one-item one-item-week">
 			<label class="day-of-week" for="Monday">
 				<input type="checkbox" value="1" id="Monday" name="weekday" class="checkbox-week">
@@ -89,12 +89,13 @@ $(document).ready(function() {
                 <label class="tit">上课时间：</label>
                 <input type="text" name="classtime"  id="classtime" class="i-txt">
             </li>-->
-			
+            <li class="btm-btn">
+                课时：（几次课）<input type="text" id="num" name="num" class="i-txt" onchange="setEndTimes();">
 		<li class="one-item">
 			<label class="tit">上课地点：</label>
 			<input type="text" name="classaddress" class="i-txt">
 		</li>
-		<li class="one-item">
+		<%--<li class="one-item">
 			<label class="tit">课程代表色：</label>
 			<div class="color-select-wrap select">
 				<select class="select-a-color select" id="color" name="color">
@@ -107,9 +108,8 @@ $(document).ready(function() {
 					<option class="rose-red" value="rose-red">枚红色</option>
 				</select>
 			</div>
-		</li>
-		<li class="btm-btn">
-            课时：（几次课）<input type="text" name="num" class="i-txt">
+		</li>--%>
+
         <%--<div class="class-amount">共 <b>48</b> 次课</div>--%>
 			<input type="submit" class="btn-submit" value="保存">
 			<input type="cancle" class="btn-submit btn-grey" value="取消">
@@ -134,15 +134,23 @@ $(document).ready(function() {
     $(function () {
         var curr = new Date().getFullYear();
         var opt = {
-
         }
         opt.date = {preset : 'date'};
         opt.time = {preset : 'time'};
         $('#begintimeStr').val('').scroller('destroy').scroller($.extend(opt['date'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
         $('#endtimeStr').val('').scroller('destroy').scroller($.extend(opt['date'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
         $('#classtime').val('').scroller('destroy').scroller($.extend(opt['time'], { theme:'default', mode:'scroller', display:'modal', lang:'zh'}));
-
     });
+
+
+    function setNums(){
+       // alert("nums");
+        $('#num').val('');
+    }
+    function setEndTimes(){
+       // alert("endtime");
+        $('#endtimeStr').val('');
+    }
 </script>
 </body>
 </html>

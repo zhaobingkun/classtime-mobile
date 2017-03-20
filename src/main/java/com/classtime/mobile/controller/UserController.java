@@ -79,8 +79,6 @@ public class UserController extends MyBaseController {
         if (res != null && res.equals("0")) {
             result = toJsonResult(1, "", "");
         }
-
-
         return result;
     }
 

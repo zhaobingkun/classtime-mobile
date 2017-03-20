@@ -34,7 +34,7 @@
         <ul class="subject-wrap">
             <li class="subject">
                 <a href="javascript:void(0)" class="name-settings">
-                    ${classInfo.classname}   展开
+                    ${classInfo.classname}   <a  class="bigger" onclick="delClass(${classInfo.id})">删除</a>
                 </a>
                 <%--<a href="/class/classchildlist/${classInfo.id}">详情</a>--%>
 
@@ -99,5 +99,28 @@
 	})
 }();
 </script>
+<script>
+    function delClass(mid){
+
+
+        $.ajax({
+            type: "post",
+            url: "/class/delMainClass.json",
+            dataType: "json",
+            data: {
+                mid :mid
+            },
+            success: function (data) {
+                location.reload()
+            },
+            error: function () {
+                alert("获取列表失败!");
+            }
+        })
+
+
+
+    }
+    </script>
 </body>
 </html>
