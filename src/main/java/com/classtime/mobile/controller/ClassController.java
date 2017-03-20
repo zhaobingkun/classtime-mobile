@@ -392,11 +392,12 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
     @ResponseBody
     @RequestMapping(value = "listClassByStatus.json", method = RequestMethod.POST)
-    public String listByStatus(HttpServletRequest request,@RequestParam("mid") String mid
+    public String listByStatus(HttpServletRequest request, Model model,@RequestParam("mid") String mid
             ,@RequestParam("status") String status
     ) {
-        List<ClassTimeChild> classTimeChild = classTimeChildManager.selectByStatus(Integer.parseInt(mid),Integer.parseInt(status));
-        return toJsonResult(classTimeChild);
+        List<ClassTimeChild> list = classTimeChildManager.selectByStatus(Integer.parseInt(mid),Integer.parseInt(status));
+        model.addAttribute("list",list);
+        return "classlistbystatus";
     }
 
 /*
