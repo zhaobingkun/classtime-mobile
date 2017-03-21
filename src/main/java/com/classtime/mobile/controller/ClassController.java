@@ -390,8 +390,8 @@ public class ClassController  extends  MyBaseController  implements Serializable
 
 
 
-    @ResponseBody
-    @RequestMapping(value = "listClassByStatus.json", method = RequestMethod.POST)
+  /*  @ResponseBody*/
+    @RequestMapping(value = "listClassByStatus.json", method = RequestMethod.GET)
     public String listByStatus(HttpServletRequest request, Model model,@RequestParam("mid") String mid
             ,@RequestParam("status") String status
     ) {

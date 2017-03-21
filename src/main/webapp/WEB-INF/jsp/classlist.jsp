@@ -53,10 +53,10 @@
                     <%--<em class="green">2017</em>年<em class="green">1</em>月<em class="green">1</em>日--%></li>
                 </ul>
                 <ul class="changes">
-                    <li class="little-changes"><i class="bigger"><a href="listClassByStatus.json?mid=${classInfo.mid}&status=1">已上：</a></i><em><span class="green">${classInfo.extendednum}</span>次</em></li>
-                    <li class="little-changes"><i><a href="listClassByStatus.json?mid=${classInfo.mid}&status=2">请假：</a></i><em><span class="green">${classInfo.leavenum}</span>次</em></li>
-                    <li class="little-changes"><i class="bigger"><a href="listClassByStatus.json?mid=${classInfo.mid}&status=3">调课：</a></i><em><span class="green">${classInfo.changenum}</span>次</em></li>
-                    <li class="little-changes"><i><a href="listClassByStatus.json?mid=${classInfo.mid}&status=5">补课：</a></i><em><span class="green">${classInfo.makeupnum}</span>次</em></li>
+                    <li class="little-changes"><i class="bigger"><a href="listClassByStatus.json?mid=${classInfo.id}&status=1">已上：</a></i><em><span class="green">${classInfo.extendednum}</span>次</em></li>
+                    <li class="little-changes"><i><a href="listClassByStatus.json?mid=${classInfo.id}&status=2">请假：</a></i><em><span class="green">${classInfo.leavenum}</span>次</em></li>
+                    <li class="little-changes"><i class="bigger"><a href="listClassByStatus.json?mid=${classInfo.id}&status=3">调课：</a></i><em><span class="green">${classInfo.changenum}</span>次</em></li>
+                    <li class="little-changes"><i><a href="listClassByStatus.json?mid=${classInfo.id}&status=5">补课：</a></i><em><span class="green">${classInfo.makeupnum}</span>次</em></li>
 
                 </ul>
             </li>
